@@ -1559,14 +1559,14 @@
     </div>
   </dialog>
 
+  <script src="/donate/qrcode.js"></script>
   <script>
     /* =========================
-       CONFIG (EDIT THIS ONLY)
+       CONFIG (LOADED FROM config.json)
        ========================= */
-    const CFG = {
+    const DEFAULT_CFG = {
       pageTitle: "Donate • 0xElectron + 0xLEANux",
       hubCanonical: "https://0xElectron.github.io/donate/",
-      
       recipients: {
         dev: {
           id: "dev",
@@ -1574,10 +1574,8 @@
           kind: "Developer",
           profile: "https://github.com/0xElectron",
           sponsors: "https://github.com/sponsors/0xElectron",
-
           card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
           paypal: "YOUR_PAYPAL_LINK_DEV",
-
           openCollective: "",
           koFi: "",
           buyMeACoffee: "",
@@ -1588,24 +1586,19 @@
           issueHunt: "",
           tidelift: "",
           communityBridge: "",
-
           wise: "",
           revolut: "",
           bankTransfer: "",
-
           crypto: { btc: "YOUR_BTC_ADDRESS_DEV", eth: "YOUR_ETH_ADDRESS_DEV" }
         },
-
         org: {
           id: "org",
           label: "@0xLEANux",
           kind: "Organization",
           profile: "https://github.com/0xLEANux",
           sponsors: "https://github.com/sponsors/0xLEANux",
-
           card: "YOUR_STRIPE_PAYMENT_LINK_ORG",
           paypal: "YOUR_PAYPAL_LINK_ORG",
-
           openCollective: "",
           koFi: "",
           buyMeACoffee: "",
@@ -1616,21 +1609,19 @@
           issueHunt: "",
           tidelift: "",
           communityBridge: "",
-
           wise: "",
           revolut: "",
           bankTransfer: "",
-
           crypto: { btc: "YOUR_BTC_ADDRESS_ORG", eth: "YOUR_ETH_ADDRESS_ORG" }
         }
       },
-
       offerings: [
         { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","paypal","sponsors"] },
         { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","paypal","sponsors","kofi","buymeacoffee"] },
         { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","card","paypal","opencollective","patreon","polar"] }
       ]
     };
+    let CFG = DEFAULT_CFG;
 
     /* =========================
        ARCH FUN CONTENT
@@ -1683,6 +1674,39 @@
       return typeof v === "string" && v.trim() && !v.includes("YOUR_");
     }
 
+    function mergeConfig(base, incoming){
+      return {
+        ...base,
+        ...incoming,
+        recipients: {
+          dev: {
+            ...base.recipients.dev,
+            ...(incoming.recipients?.dev || {}),
+            crypto: { ...base.recipients.dev.crypto, ...(incoming.recipients?.dev?.crypto || {}) }
+          },
+          org: {
+            ...base.recipients.org,
+            ...(incoming.recipients?.org || {}),
+            crypto: { ...base.recipients.org.crypto, ...(incoming.recipients?.org?.crypto || {}) }
+          }
+        },
+        offerings: Array.isArray(incoming.offerings) && incoming.offerings.length ? incoming.offerings : base.offerings
+      };
+    }
+
+    async function loadConfig(){
+      try{
+        const res = await fetch("/donate/config.json", { cache: "no-cache" });
+        if(!res.ok) throw new Error("config fetch failed");
+        const data = await res.json();
+        return mergeConfig(DEFAULT_CFG, data);
+      }catch(err){
+        console.warn("Using default config (could not load /donate/config.json)", err);
+        showToast("Using default config (could not load config.json).");
+        return DEFAULT_CFG;
+      }
+    }
+
     async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
@@ -1719,6 +1743,20 @@
       const t = v.trim();
       if(t.length <= 14) return t;
       return `${t.slice(0, 6)}…${t.slice(-6)}`;
+    }
+
+    function generateQRDataUrl(data, size=260){
+      if(typeof qrcode !== "function") return null;
+      try{
+        const qr = qrcode(0, "M");
+        qr.addData(data);
+        qr.make();
+        // second arg is cell size (4px). size is handled by createDataURL internally.
+        return qr.createDataURL(8, 0);
+      }catch(err){
+        console.warn("QR generation failed", err);
+        return null;
+      }
     }
 
     function setLink(el, url){
@@ -2070,11 +2108,17 @@
       }
 
       const scheme = (sym === "btc") ? `bitcoin:${addr}` : `ethereum:${addr}`;
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(scheme)}`;
+      const qrUrl = generateQRDataUrl(scheme);
 
       qrTitle.textContent = `QR • ${sym.toUpperCase()} • ${r.label}`;
       qrData.textContent = scheme;
-      qrImg.src = qrUrl;
+      if(qrUrl){
+        qrImg.src = qrUrl;
+        qrImg.alt = `QR code for ${sym.toUpperCase()} ${r.label}`;
+      }else{
+        qrImg.removeAttribute("src");
+        qrImg.alt = "QR unavailable; copy the address instead.";
+      }
 
       qrCopy.onclick = async () => showToast((await copyText(scheme)) ? "Copied QR data." : "Copy failed.");
       qrCopyAddr.onclick = async () => showToast((await copyText(addr)) ? "Copied address." : "Copy failed.");
@@ -2220,10 +2264,14 @@
     /* =========================
        INIT
        ========================= */
-    renderOffers();
-    renderCmds();
-    pickTip();
-    applyRecipient();
+    async function init(){
+      CFG = await loadConfig();
+      renderOffers();
+      renderCmds();
+      pickTip();
+      applyRecipient();
+    }
+    init();
   </script>
   <script>
     if ("serviceWorker" in navigator) {

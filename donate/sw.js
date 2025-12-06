@@ -2,14 +2,16 @@
    Scope: /donate/
 */
 const CACHE_PREFIX = "donate-hub-";
-const CACHE_NAME = "donate-hub-v2025-12-06";
+const CACHE_NAME = "donate-hub-v2025-12-07";
 const CORE = [
   "/donate/",
   "/donate/index.html",
   "/donate/offline.html",
   "/donate/manifest.webmanifest",
   "/donate/favicon.svg",
-  "/donate/sw.js"
+  "/donate/sw.js",
+  "/donate/config.json",
+  "/donate/qrcode.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -55,6 +57,22 @@ self.addEventListener("fetch", (event) => {
       } catch (_) {
         const cached = await caches.match(request);
         return cached || caches.match("/donate/offline.html");
+      }
+    })());
+    return;
+  }
+
+  // Config: network-first so updates are not sticky
+  if (url.pathname === "/donate/config.json") {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(request, { cache: "no-cache" });
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(request, fresh.clone());
+        return fresh;
+      } catch (_) {
+        const cached = await caches.match(request);
+        return cached || new Response("{}", { headers: { "Content-Type": "application/json" } });
       }
     })());
     return;

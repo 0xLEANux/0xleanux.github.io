@@ -100,6 +100,9 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 │   ├── manifest.webmanifest
 │   ├── sw.js
 │   ├── offline.html
+│   ├── config.json
+│   ├── config.example.json
+│   ├── qrcode.js
 │   └── favicon.svg
 └── .github
     ├── FUNDING.yml
@@ -132,11 +135,13 @@ You can deploy from the `main` branch directly, but GitHub Actions is typically 
 
 ## Configure payment methods
 
-Edit:
+Edit (same structure as `config.example.json`):
 
-- `donate/index.html`
+- `donate/config.json`
 
-Find the config object (`CFG`) and set payment URLs for each recipient.
+For safety, keep a template:
+
+- `donate/config.example.json` (checked into git; no secrets)
 
 ### Minimal “live” configuration
 Make sure these are set for **DEV** *and optionally* **ORG**:
@@ -184,6 +189,8 @@ This repo includes:
 - `donate/sw.js` — caches the hub and serves an offline fallback
 - `donate/offline.html` — shown when offline
 - `donate/manifest.webmanifest` — adds installability as a web app
+- `donate/config.json` — runtime config; cached with the service worker (bump `CACHE_NAME` when you change it)
+- `donate/qrcode.js` — local QR generator (no third-party API)
 
 In `donate/index.html` ensure you have:
 
@@ -265,7 +272,7 @@ Bump the cache version in:
 
 Example:
 ```js
-const CACHE_NAME = "donate-hub-v2025-12-06";
+const CACHE_NAME = "donate-hub-v2025-12-07";
 ```
 
 This forces clients to refresh cached files.
