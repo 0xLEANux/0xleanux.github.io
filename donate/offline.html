@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#070814" />
+  <title>Offline • Donate</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;color:rgba(245,245,255,.92);}
+    body::before{
+      content:"";position:fixed;inset:0;z-index:-1;
+      background:
+        radial-gradient(1200px 580px at 14% 10%, rgba(183,107,255,.20), transparent 60%),
+        radial-gradient(1000px 560px at 90% 0%, rgba(0,229,255,.12), transparent 60%),
+        linear-gradient(180deg, #0a0b22, #050614);
+    }
+    .card{
+      max-width:720px;margin:10vh auto;padding:18px;border-radius:18px;
+      background:rgba(6,7,22,.72);border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 20px 70px rgba(0,0,0,.55);
+    }
+    a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
+    p{color:rgba(245,245,255,.72);line-height:1.6;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Offline mode</h1>
+    <p>The donate hub is cached, but you are currently offline. When you’re back online, payment links will work normally.</p>
+    <p>Try: <a href="/donate/?to=dev">Developer tab</a> or <a href="/donate/?to=org">Organization tab</a>.</p>
+  </div>
+</body>
+</html>
