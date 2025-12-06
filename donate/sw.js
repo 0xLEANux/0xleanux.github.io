@@ -1,6 +1,7 @@
 /* Donate Hub Service Worker (GitHub Pages)
    Scope: /donate/
 */
+const CACHE_PREFIX = "donate-hub-";
 const CACHE_NAME = "donate-hub-v2025-12-06";
 const CORE = [
   "/donate/",
@@ -22,7 +23,10 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.map((k) => (k === CACHE_NAME ? null : caches.delete(k))));
+    await Promise.all(keys.map((k) => {
+      if (k.startsWith(CACHE_PREFIX) && k !== CACHE_NAME) return caches.delete(k);
+      return null;
+    }));
     await self.clients.claim();
   })());
 });

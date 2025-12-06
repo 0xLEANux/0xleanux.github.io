@@ -1,4 +1,17 @@
 github: [0xElectron, 0xLEANux]
+
+# Native providers (uncomment + fill the ones you actually use)
+# patreon: yourname
+# open_collective: yourproject
+# ko_fi: yourname
+# liberapay: yourname
+# buy_me_a_coffee: yourname
+# polar: yourname
+# thanks_dev: "u/gh/0xElectron"
+# issuehunt: yourproject
+# community_bridge: yourproject
+# tidelift: "npm/your-package"
+
 custom:
   - "https://0xElectron.github.io/donate/?to=dev"
   - "https://0xElectron.github.io/donate/?to=org"

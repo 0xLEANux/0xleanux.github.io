@@ -6,8 +6,8 @@ Unified donation landing page for:
 - Organization: **@0xLEANux** — https://github.com/0xLEANux
 
 **Live (recommended):**
-- DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
-- ORG tab: `https://0xLEANux.github.io/donate/?to=org`
+- DEV tab: `https://0xElectron.github.io/donate/?to=dev`
+- ORG tab: `https://0xElectron.github.io/donate/?to=org`
 
 This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, PayPal, BTC/ETH, etc.) with minimal friction.
 
@@ -21,11 +21,13 @@ This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDI
 - [What this repo is](#what-this-repo-is)
 - [Features](#features)
 - [Live links](#live-links)
+- [Donation flow at a glance](#donation-flow-at-a-glance)
 - [Repository layout](#repository-layout)
 - [Deploy on GitHub Pages](#deploy-on-github-pages)
 - [Configure payment methods](#configure-payment-methods)
 - [Connect GitHub Sponsor button (FUNDING.yml)](#connect-github-sponsor-button-fundingyml)
 - [Service Worker / Offline mode](#service-worker--offline-mode)
+- [Design + theming notes](#design--theming-notes)
 - [Responsiveness rules](#responsiveness-rules)
 - [Security notes](#security-notes)
 - [Maintenance](#maintenance)
@@ -68,9 +70,20 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 
 ## Live links
 
-- DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
-- ORG tab: `https://0xLEANux.github.io/donate/?to=org`
-- Root redirect: `https://0xLEANux.github.io/` → `.../donate/?to=dev`
+- DEV tab: `https://0xElectron.github.io/donate/?to=dev`
+- ORG tab: `https://0xElectron.github.io/donate/?to=org`
+- Root redirect: `https://0xElectron.github.io/` → `.../donate/?to=dev`
+
+---
+
+## Donation flow at a glance
+
+| Audience / intent | Deep link | Emphasis in UI | Notes |
+| --- | --- | --- | --- |
+| Individuals backing the dev | `https://0xElectron.github.io/donate/?to=dev` | Sponsors → Card/PayPal → Crypto | Treat as the canonical link (good for personal repos and social profiles). |
+| Org-focused supporters | `https://0xElectron.github.io/donate/?to=org` | Org Sponsors → Card/PayPal → Crypto | Use when the org is the brand you want people to support. |
+| GitHub Sponsor button | `.github/FUNDING.yml` custom URLs | Opens the right tab directly | Works for both repo-level and org-level funding files. |
+| Offline fallback | `/donate/offline.html` | Cached copy of the hub | Payment providers still need network; fallback keeps the hub usable. |
 
 ---
 
@@ -81,6 +94,7 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 ├── index.html
 ├── 404.html
 ├── robots.txt
+├── LICENSE
 ├── donate
 │   ├── index.html
 │   ├── manifest.webmanifest
@@ -88,6 +102,7 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 │   ├── offline.html
 │   └── favicon.svg
 └── .github
+    ├── FUNDING.yml
     └── workflows
         └── pages.yml
 ```
@@ -147,8 +162,8 @@ Add this file to any repo you want to show GitHub’s funding links:
 ```yml
 github: [0xElectron, 0xLEANux]
 custom:
-  - "https://0xLEANux.github.io/donate/?to=dev"
-  - "https://0xLEANux.github.io/donate/?to=org"
+  - "https://0xElectron.github.io/donate/?to=dev"
+  - "https://0xElectron.github.io/donate/?to=org"
 ```
 
 ✅ Result: your project repos will display a **Sponsor** button that links to these.
@@ -177,6 +192,38 @@ In `donate/index.html` ensure you have:
 
 > [!NOTE]
 > Payment links still require network access. Offline mode is mainly to keep the hub itself available.
+
+---
+
+## Design + theming notes
+
+### Palette (defaults)
+
+| Token | Hex | Usage |
+| --- | --- | --- |
+| `--c1` | `#b76bff` | Neon purple accents, logo, primary gradients. |
+| `--c2` | `#00e5ff` | Cyan glow, borders, highlights on focus. |
+| `--c3` | `#7CFF9E` | Mint success state, “Configured” badges. |
+| `--c4` | `#FF6BD6` | Pink warmth for callouts and warnings. |
+
+### UI accents & effects
+
+| Element | Effect | Tweak it in |
+| --- | --- | --- |
+| RGB panels | Soft hue-rotating glow on panel edges. | `.rgb::before` hue animation and blur radius. |
+| Offerings | Per-card gradients matching the palette, lifted shadows. | `--offer-a/b` + `--offer-outline` in `.offer[data-tone=...]`. |
+| DEV/ORG mini cards | Subtle tint split (purple for DEV, cyan for ORG). | `.miniDev` / `.miniOrg` background + tag borders. |
+| Methods table/cards | Configured rows glow mint; unconfigured rows are dashed/pink-tinted. | `tr[data-configured]` + `.methodCard[data-configured]` styles. |
+| Buttons | Glassy highlight with hover glow. | `.btn` + `.btnPrimary` gradients and `--dur` timing. |
+| Toast/modal | Blurred glass with strong contrast. | `.toast`, `dialog` styling. |
+
+### Coloring tips
+
+- Keep the accent duo (purple + cyan) as anchors; pair mint for success and pink for highlights to stay on theme.
+- If you rebrand, update `--c1..--c4` plus `--bg*` for the background and the offer/method custom properties above.
+- For lower-contrast themes, bump `border` opacities on `.offer`, `.methodCard`, and `.btn` so glass edges stay readable.
+- Respect accessibility: text sits on dark glass; avoid lowering `rgba` values on `--text` / `--muted`.
+- Animations honor `prefers-reduced-motion`; you can further slow things by raising `--dur`/`--dur2`.
 
 ---
 
@@ -234,10 +281,4 @@ This forces clients to refresh cached files.
 
 ## License
 
-Choose a license for this repo if you want others to reuse the donation hub template.
-
-Common options:
-- MIT
-- Apache-2.0
-
-Add a `LICENSE` file when you decide.
+Licensed under **AGPL-3.0-or-later** (see `LICENSE`). If you run a modified version publicly, the AGPL requires you to provide the corresponding source to users.

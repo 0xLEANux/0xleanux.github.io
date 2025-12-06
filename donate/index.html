@@ -497,63 +497,89 @@
       .offerGrid{ grid-template-columns: 1fr; }
     }
     .offer{
+      --offer-a: rgba(183,107,255,.24);
+      --offer-b: rgba(0,229,255,.18);
+      --offer-outline: rgba(255,255,255,.12);
       position: relative;
+      z-index: 0;
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
+      border: 1px solid var(--offer-outline);
+      background:
+        radial-gradient(140% 120% at 12% 18%, var(--offer-a), transparent 55%),
+        radial-gradient(120% 140% at 86% 16%, var(--offer-b), transparent 55%),
+        linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
       padding: 14px;
       overflow:hidden;
-      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), filter var(--dur2) var(--ease);
+      box-shadow: 0 14px 46px rgba(0,0,0,.36);
+    }
+    .offer[data-tone="cyan"]{
+      --offer-a: rgba(0,229,255,.22);
+      --offer-b: rgba(124,255,158,.18);
+      --offer-outline: rgba(0,229,255,.16);
+    }
+    .offer[data-tone="mint"]{
+      --offer-a: rgba(124,255,158,.20);
+      --offer-b: rgba(255,107,214,.14);
+      --offer-outline: rgba(124,255,158,.16);
     }
     .offer::before{
       content:"";
       position:absolute;
       inset:-2px;
-      opacity: 0;
-      background: linear-gradient(120deg,
-        rgba(183,107,255,.20),
-        rgba(0,229,255,.12),
-        rgba(255,107,214,.10),
-        rgba(124,255,158,.08)
-      );
-      transform: scale(1.02);
+      opacity: .55;
+      background: linear-gradient(120deg, var(--offer-a), var(--offer-b));
+      filter: blur(12px);
       transition: opacity var(--dur2) var(--ease);
+      pointer-events:none;
+      z-index:-1;
+    }
+    .offer::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.01));
+      opacity: .25;
       pointer-events:none;
     }
     .offer:hover{
       transform: translateY(-2px);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 24px 70px rgba(0,0,0,.38);
+      border-color: rgba(255,255,255,.20);
+      box-shadow: 0 24px 70px rgba(0,0,0,.42);
+      filter: saturate(1.05);
     }
-    .offer:hover::before{ opacity:1; }
+    .offer:hover::before{ opacity:.85; }
     .offer > *{ position:relative; }
 
     .offerHead{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
-      gap: 10px;
+      gap: 12px;
     }
     .offer h3{
       margin:0;
       font-size: var(--t2);
       font-weight: 950;
       letter-spacing: .01em;
+      color: rgba(245,245,255,.96);
     }
     .price{
       font-family: var(--mono);
       font-size: var(--t2);
-      color: rgba(245,245,255,.92);
-      padding: 4px 8px;
+      color: rgba(6,7,19,.92);
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.22);
+      background: linear-gradient(140deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+      box-shadow: 0 12px 32px rgba(0,0,0,.32);
       white-space: nowrap;
     }
     .offer .desc{
       margin-top: 10px;
       font-size: var(--t1);
-      color: rgba(245,245,255,.64);
+      color: rgba(245,245,255,.72);
       line-height: 1.48;
     }
 
@@ -568,11 +594,18 @@
     }
 
     .miniCard{
+      --mini-a: rgba(255,255,255,.05);
+      --mini-b: rgba(255,255,255,.02);
       border-radius: var(--r3);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(145deg, var(--mini-a), var(--mini-b)),
+        rgba(0,0,0,.20);
       padding: 10px;
+      box-shadow: 0 12px 36px rgba(0,0,0,.28);
     }
+    .miniDev{ --mini-a: rgba(183,107,255,.14); --mini-b: rgba(0,0,0,.12); }
+    .miniOrg{ --mini-a: rgba(0,229,255,.12); --mini-b: rgba(0,0,0,.12); }
     .miniHead{
       display:flex;
       align-items:center;
@@ -588,12 +621,14 @@
     .miniHead .tag{
       font-family: var(--mono);
       font-size: 11.5px;
-      color: rgba(245,245,255,.65);
-      padding: 2px 7px;
+      color: rgba(245,245,255,.78);
+      padding: 3px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
     }
+    .miniDev .tag{ border-color: rgba(183,107,255,.32); background: rgba(183,107,255,.12); }
+    .miniOrg .tag{ border-color: rgba(0,229,255,.30); background: rgba(0,229,255,.10); }
     .miniBtns{
       display:flex;
       flex-wrap:wrap;
@@ -616,10 +651,12 @@
       padding: 10px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
+      background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,0,0,.18));
       min-width: 320px;
       flex: 1 1 360px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
     }
+    .search:focus-within{ border-color: rgba(0,229,255,.28); box-shadow: 0 14px 40px rgba(0,0,0,.32); }
     .search input{
       border:0;
       outline:0;
@@ -635,7 +672,7 @@
       padding: 10px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
+      background: linear-gradient(135deg, rgba(255,255,255,.03), rgba(0,0,0,.20));
       color: rgba(245,245,255,.82);
       font-size: var(--t1);
       user-select:none;
@@ -649,6 +686,7 @@
       border-radius: var(--r2);
       border: 1px solid var(--stroke2);
       background: rgba(0,0,0,.18);
+      box-shadow: 0 18px 48px rgba(0,0,0,.32);
     }
     table{
       width:100%;
@@ -677,18 +715,33 @@
       vertical-align: top;
       color: rgba(245,245,255,.86);
     }
-    tbody tr:hover td{ background: rgba(255,255,255,.03); }
+    tbody tr:hover td{ background: rgba(255,255,255,.04); }
+    tbody tr[data-configured="1"] td{ background-image: linear-gradient(90deg, rgba(124,255,158,.05), transparent); }
+    tbody tr[data-configured="0"] td{ background-image: linear-gradient(90deg, rgba(255,107,214,.05), transparent); color: rgba(245,245,255,.74); }
 
     .status{
       display:inline-flex;
       align-items:center;
       gap:8px;
       font-size: var(--t0);
-      color: rgba(245,245,255,.78);
+      color: rgba(245,245,255,.85);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
     }
     .dot{ width:8px; height:8px; border-radius:50%; background: rgba(255,255,255,.35); }
     .dot.on{ background: rgba(124,255,158,.90); }
     .dot.off{ background: rgba(255,120,170,.90); }
+    tr[data-configured="1"] .status, .methodCard[data-configured="1"] .status{
+      border-color: rgba(124,255,158,.28);
+      background: rgba(124,255,158,.10);
+    }
+    tr[data-configured="0"] .status, .methodCard[data-configured="0"] .status{
+      border-color: rgba(255,120,170,.30);
+      background: rgba(255,120,170,.08);
+    }
 
     .methodCards{
       display:none;
@@ -697,13 +750,24 @@
       grid-template-columns: 1fr;
     }
     .methodCard{
+      --method-a: rgba(183,107,255,.14);
+      --method-b: rgba(0,229,255,.10);
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(120% 120% at 12% 12%, var(--method-a), transparent 55%),
+        linear-gradient(150deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       padding: 12px;
       transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      box-shadow: 0 14px 38px rgba(0,0,0,.32);
     }
     .methodCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .methodCard[data-configured="0"]{
+      --method-a: rgba(255,107,214,.12);
+      --method-b: rgba(0,0,0,.08);
+      border-style: dashed;
+      opacity: .94;
+    }
     .methodTop{ display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; }
     .methodName{ font-weight: 950; font-size: var(--t2); }
     .methodMeta{
@@ -734,9 +798,10 @@
     .addrBox{
       margin-top: 12px;
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(145deg, rgba(255,255,255,.03), rgba(0,0,0,.20));
       padding: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.28);
     }
     .addrLabel{
       font-size: var(--t0);
@@ -1622,9 +1687,11 @@
       const dev = CFG.recipients.dev;
       const org = CFG.recipients.org;
 
-      for(const o of CFG.offerings){
+      CFG.offerings.forEach((o, idx) => {
         const card = document.createElement("div");
         card.className = "offer";
+        const tone = ["plum","cyan","mint"][idx % 3];
+        card.dataset.tone = tone;
 
         const head = document.createElement("div");
         head.className = "offerHead";
@@ -1640,13 +1707,13 @@
         split.className = "splitActions";
 
         const devPane = document.createElement("div");
-        devPane.className = "miniCard";
+        devPane.className = "miniCard miniDev";
         devPane.innerHTML = `<div class="miniHead"><div class="who">@0xElectron</div><div class="tag">DEV</div></div><div class="miniBtns"></div>`;
         const devBtns = devPane.querySelector(".miniBtns");
         for(const a of o.actions) devBtns.appendChild(makeOfferBtn(dev, a));
 
         const orgPane = document.createElement("div");
-        orgPane.className = "miniCard";
+        orgPane.className = "miniCard miniOrg";
         orgPane.innerHTML = `<div class="miniHead"><div class="who">@0xLEANux</div><div class="tag">ORG</div></div><div class="miniBtns"></div>`;
         const orgBtns = orgPane.querySelector(".miniBtns");
         for(const a of o.actions) orgBtns.appendChild(makeOfferBtn(org, a));
@@ -1657,7 +1724,7 @@
         card.appendChild(head);
         card.appendChild(split);
         root.appendChild(card);
-      }
+      });
     }
 
     /* =========================
