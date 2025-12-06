@@ -4,176 +4,195 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <title>Donate • Support My Projects</title>
-
-  <!-- Social preview (optional) -->
-  <meta property="og:title" content="Support My Projects" />
-  <meta property="og:description" content="Donate via GitHub Sponsors, Card, PayPal, or Crypto (BTC/ETH)." />
-  <meta property="og:type" content="website" />
+  <title>Donate • Support My Work</title>
 
   <style>
     :root{
-      --bg: #070812;
+      --bg0:#060713; --bg1:#07081a;
       --panel: rgba(255,255,255,.06);
-      --panel2: rgba(0,0,0,.22);
+      --panel2: rgba(0,0,0,.24);
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.10);
       --text: rgba(245,245,255,.92);
-      --muted: rgba(245,245,255,.72);
+      --muted: rgba(245,245,255,.70);
       --muted2: rgba(245,245,255,.55);
-      --accent: #b76bff;
-      --accent2:#00e5ff;
+      --accent:#b76bff; --accent2:#00e5ff;
       --good: rgba(120,255,190,.22);
       --warn: rgba(255,210,120,.22);
-      --bad:  rgba(255,120,170,.18);
-      --radius: 18px;
-      --radius2: 14px;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --danger: rgba(255,120,170,.18);
+      --radius: 18px; --radius2: 14px;
+      --shadow: 0 18px 60px rgba(0,0,0,.48);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: var(--sans);
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--sans);
       background:
-        radial-gradient(1000px 520px at 18% 12%, rgba(183,107,255,.20), transparent 60%),
-        radial-gradient(900px 520px at 85% 0%, rgba(0,229,255,.14), transparent 60%),
+        radial-gradient(1000px 520px at 16% 10%, rgba(183,107,255,.22), transparent 60%),
+        radial-gradient(900px 520px at 86% 0%, rgba(0,229,255,.14), transparent 60%),
         radial-gradient(900px 620px at 50% 120%, rgba(183,107,255,.12), transparent 60%),
-        var(--bg);
-      color: var(--text);
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      color:var(--text);
     }
 
-    a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 16px 56px; }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:24px 16px 64px; }
 
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px; margin-bottom: 18px;
+    .top{
+      position: sticky; top: 0; z-index: 15;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(6,7,19,.82), rgba(6,7,19,.44));
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .brand{
-      display:flex; align-items:center; gap: 10px; min-width: 0;
+    .topInner{
+      max-width:1100px; margin:0 auto;
+      padding: 14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
+    .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
     .logo{
-      width: 38px; height: 38px; border-radius: 12px;
-      background:
-        linear-gradient(135deg, rgba(183,107,255,.95), rgba(0,229,255,.75));
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      width:40px; height:40px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(183,107,255,.98), rgba(0,229,255,.70));
+      box-shadow: 0 10px 34px rgba(0,0,0,.45);
       border: 1px solid rgba(255,255,255,.18);
+      flex: 0 0 auto;
     }
-    .brand h1{
-      margin:0; font-size: 14px; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--muted);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 60vw;
+    .brandText{ min-width:0; }
+    .brandTitle{
+      margin:0; font-size:14px; letter-spacing:.08em; text-transform: uppercase;
+      color: rgba(245,245,255,.78);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
+    .brandSub{
+      margin:2px 0 0; font-size:12.5px; color: rgba(245,245,255,.55);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .topActions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
     .pill{
-      display:inline-flex; align-items:center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: rgba(245,245,255,.82);
       font-size: 13px;
     }
-    .pill code { font-family: var(--mono); color: var(--text); font-size: 12px; }
+    .pill code{ font-family:var(--mono); font-size:12px; color:var(--text); }
 
     .hero{
+      margin-top: 18px;
       background: var(--panel);
       border: 1px solid var(--stroke);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 22px;
+      overflow:hidden;
+      position: relative;
     }
-    .hero h2{
-      margin: 0 0 6px;
-      font-size: 28px;
-      letter-spacing: -.02em;
+    .hero::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 220px at 20% 0%, rgba(183,107,255,.24), transparent 60%),
+        radial-gradient(520px 220px at 85% 10%, rgba(0,229,255,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
     }
-    .hero p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      max-width: 72ch;
-    }
+    .hero > *{ position:relative; }
+    .hero h1{ margin:0 0 6px; font-size: 30px; letter-spacing:-.02em; }
+    .hero p{ margin:0; max-width: 78ch; color: var(--muted); line-height:1.55; }
 
-    .ctaRow{
-      display:flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 16px;
-    }
+    .row{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px; }
+
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap: 10px;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding: 12px 14px;
       border-radius: 14px;
-      border: 1px solid var(--stroke);
+      border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 14px;
-      transition: transform .08s ease, border-color .08s ease, background .08s ease;
-      user-select: none;
+      transition: transform .08s ease, background .08s ease, border-color .08s ease, opacity .08s ease;
+      user-select:none;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.08); }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); }
     .btnPrimary{
-      background: linear-gradient(135deg, rgba(183,107,255,.92), rgba(0,229,255,.62));
+      color:#060713;
+      background: linear-gradient(135deg, rgba(183,107,255,.96), rgba(0,229,255,.70));
       border-color: rgba(255,255,255,.16);
-      color: #070812;
     }
-    .btnPrimary:hover{ transform: translateY(-1px); background: linear-gradient(135deg, rgba(183,107,255,.98), rgba(0,229,255,.70)); }
-    .btnSmall{
-      padding: 8px 10px; font-size: 13px; border-radius: 12px;
-    }
+    .btnPrimary:hover{ background: linear-gradient(135deg, rgba(183,107,255,.99), rgba(0,229,255,.78)); }
+    .btnGhost{ background: rgba(0,0,0,.22); border-color: rgba(255,255,255,.12); }
+    .btnSm{ padding: 9px 10px; font-size: 13px; border-radius: 12px; }
+    .btn[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; }
+    .btn[aria-disabled="true"]:hover{ transform:none; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14); }
 
-    .grid{
-      display:grid; grid-template-columns: 1.3fr .7fr; gap: 14px;
-      margin-top: 14px;
-    }
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    .grid{ display:grid; grid-template-columns: 1.18fr .82fr; gap: 14px; margin-top: 14px; }
+    @media(max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
 
     .panel{
       background: var(--panel);
       border: 1px solid var(--stroke);
       border-radius: var(--radius);
+      box-shadow: 0 14px 50px rgba(0,0,0,.34);
       padding: 16px;
-      box-shadow: 0 14px 45px rgba(0,0,0,.35);
     }
-    .panel h3{
-      margin: 0 0 8px;
-      font-size: 16px; letter-spacing: .02em;
-      color: rgba(245,245,255,.88);
+    .panel h2{ margin:0 0 8px; font-size: 16px; letter-spacing:.02em; color: rgba(245,245,255,.88); }
+    .muted{ color: var(--muted); line-height:1.55; }
+    .muted2{ color: var(--muted2); line-height:1.45; font-size: 13px; }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size: 12px;
+      color: rgba(245,245,255,.82);
     }
-    .panel p{ margin: 0; color: var(--muted); line-height: 1.55; }
+    .chip.good{ background: var(--good); border-color: rgba(120,255,190,.28); }
+    .chip.warn{ background: var(--warn); border-color: rgba(255,210,120,.26); }
+    .chip.danger{ background: var(--danger); border-color: rgba(255,120,170,.22); }
+
+    .offerGrid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    @media(max-width: 980px){ .offerGrid{ grid-template-columns: 1fr; } }
+    .offer{
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      padding: 14px;
+      position: relative;
+      overflow:hidden;
+    }
+    .offer h3{ margin:0; font-size: 14px; letter-spacing:.02em; }
+    .offer .price{ margin-top: 6px; font-family: var(--mono); color: rgba(245,245,255,.86); }
+    .offer .desc{ margin-top: 8px; font-size: 13px; color: rgba(245,245,255,.66); line-height:1.45; }
+    .offer .actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px; }
 
     .tableWrap{
       overflow:auto;
+      margin-top: 12px;
       border-radius: var(--radius2);
       border: 1px solid var(--stroke2);
       background: rgba(0,0,0,.18);
-      margin-top: 12px;
     }
-    table{
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      min-width: 840px;
-      font-size: 14px;
-    }
+    table{ width:100%; border-collapse:separate; border-spacing:0; min-width: 980px; font-size:14px; }
     thead th{
       text-align:left;
       padding: 12px 12px;
-      color: rgba(245,245,255,.82);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .08em;
-      background: rgba(0,0,0,.28);
+      color: rgba(245,245,255,.78);
+      background: rgba(0,0,0,.30);
       border-bottom: 1px solid var(--stroke2);
-      position: sticky; top: 0;
+      position: sticky; top: 0; z-index: 2;
       backdrop-filter: blur(8px);
-      z-index: 1;
     }
     tbody td{
       padding: 12px 12px;
@@ -182,37 +201,44 @@
       color: rgba(245,245,255,.86);
     }
     tbody tr:hover td{ background: rgba(255,255,255,.03); }
-    .tag{
-      display:inline-flex; align-items:center; gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-size: 12px;
-      color: rgba(245,245,255,.82);
-      white-space: nowrap;
-    }
-    .tag.good{ background: var(--good); border-color: rgba(120,255,190,.28); }
-    .tag.warn{ background: var(--warn); border-color: rgba(255,210,120,.26); }
-    .tag.bad { background: var(--bad);  border-color: rgba(255,120,170,.22); }
 
-    .muted{ color: var(--muted2); font-size: 13px; line-height: 1.45; }
-    .mono{ font-family: var(--mono); font-size: 12.5px; color: rgba(245,245,255,.86); }
-    .addrBox{
+    .mono{ font-family: var(--mono); font-size: 12.5px; color: rgba(245,245,255,.88); }
+    .kbd{ font-family: var(--mono); font-size: 12px; padding:2px 6px; border-radius: 8px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); }
+    .status{ display:inline-flex; align-items:center; gap:8px; font-size: 12px; color: rgba(245,245,255,.78); }
+    .dot{ width:8px; height:8px; border-radius:50%; background: rgba(255,255,255,.35); }
+    .dot.on{ background: rgba(120,255,190,.85); }
+    .dot.off{ background: rgba(255,120,170,.85); }
+
+    .filters{
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center; justify-content:space-between;
       margin-top: 10px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius2);
-      padding: 12px;
     }
-    .addrRow{
-      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
-      margin-top: 10px;
+    .search{
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      min-width: 320px;
     }
-    .addrRow:first-child{ margin-top: 0; }
-    .addrLabel{ font-size: 12px; color: var(--muted2); margin-bottom: 4px; }
-    .addrValue{ word-break: break-all; }
-    .rightActions{ display:flex; gap: 8px; flex-wrap: wrap; }
+    .search input{
+      border:0; outline:0; width:100%;
+      background: transparent;
+      color: rgba(245,245,255,.90);
+      font-size: 14px;
+    }
+    .toggle{
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: rgba(245,245,255,.82);
+      font-size: 13px;
+      user-select:none;
+    }
+    .toggle input{ width: 16px; height: 16px; }
 
     .toast{
       position: fixed;
@@ -229,266 +255,485 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .15s ease, transform .15s ease;
+      z-index: 99;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(-2px);
-    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-2px); }
 
-    footer{
-      margin-top: 14px;
-      color: rgba(245,245,255,.55);
-      font-size: 12.5px;
-      line-height: 1.5;
+    dialog{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(10,10,18,.92);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      width: min(560px, calc(100vw - 24px));
     }
-
-    .kpi{
-      display:flex; flex-wrap: wrap; gap: 8px;
-      margin-top: 12px;
-    }
-
-    .tinyLink{
-      color: rgba(245,245,255,.78);
-      text-decoration: underline;
-      text-decoration-color: rgba(245,245,255,.22);
-      text-underline-offset: 3px;
-    }
+    dialog::backdrop{ background: rgba(0,0,0,.55); backdrop-filter: blur(6px); }
+    .modalHead{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .modalHead h3{ margin:0; font-size: 14px; letter-spacing:.02em; }
+    .modalBody{ margin-top: 10px; }
+    .qrImg{ display:block; width: 220px; height: 220px; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.22); }
+    .modalRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
+  <header class="top">
+    <div class="topInner">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
-        <h1>YOUR_PROJECT_NAME • Donations</h1>
+        <div class="brandText">
+          <p class="brandTitle" id="brandTitle">Donations</p>
+          <p class="brandSub" id="brandSub">One page • all methods</p>
+        </div>
       </div>
-      <div class="pill">
-        GitHub:
-        <code>@YOUR_GITHUB_USERNAME</code>
+
+      <div class="topActions">
+        <span class="pill">GitHub <code id="ghHandle">@YOUR</code></span>
+        <a class="btn btnSm btnGhost" id="btnRepo" target="_blank" rel="noopener">Profile</a>
+        <a class="btn btnSm btnPrimary" id="btnSponsors" target="_blank" rel="noopener">Sponsor</a>
       </div>
     </div>
+  </header>
 
-    <section class="hero" aria-label="Support header">
-      <h2>Support my work</h2>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Support my open-source work</h1>
       <p>
-        If my open-source projects help you, consider donating. Choose the method that is easiest for you:
-        GitHub Sponsors (monthly), card, PayPal, or crypto (BTC/ETH).
+        Pick the method that fits you: monthly (GitHub Sponsors / Patreon / Polar / Liberapay), one-time (Card / PayPal / Ko-fi / Buy Me a Coffee / Open Collective), or Crypto.
+        This page is intended to be linked from the GitHub “Sponsor” button.
       </p>
 
-      <div class="kpi">
-        <span class="tag good">Monthly support</span>
-        <span class="tag warn">One-time donations</span>
-        <span class="tag">Receipts vary by provider</span>
+      <div class="chips">
+        <span class="chip good">Recurring support</span>
+        <span class="chip warn">One-time donations</span>
+        <span class="chip">Crypto (BTC/ETH)</span>
+        <span class="chip">Receipts depend on provider</span>
       </div>
 
-      <div class="ctaRow">
-        <a class="btn btnPrimary" href="https://github.com/sponsors/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
-          GitHub Sponsors
-        </a>
-        <a class="btn" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">
-          Donate by Card (Visa / MasterCard)
-        </a>
-        <a class="btn" href="YOUR_PAYPAL_LINK" target="_blank" rel="noopener">
-          Donate via PayPal
-        </a>
+      <div class="row">
+        <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener">GitHub Sponsors</a>
+        <a class="btn" id="ctaCard" target="_blank" rel="noopener">Donate by Card</a>
+        <a class="btn" id="ctaPayPal" target="_blank" rel="noopener">Donate via PayPal</a>
+        <button class="btn" id="ctaCrypto" type="button">Show Crypto</button>
       </div>
 
-      <footer>
-        Tip: If you came from the “Sponsor” button on a repo, this page is the single place with all donation options.
-      </footer>
+      <p class="muted2" style="margin-top:12px;">
+        Tip: If you want this page to be the single entry point from GitHub, put it in <span class="kbd">custom:</span> inside <span class="kbd">FUNDING.yml</span>.
+      </p>
     </section>
 
     <div class="grid">
-      <section class="panel" aria-label="Offerings table">
-        <h3>Donation offerings (one place, clear options)</h3>
-        <p class="muted">
-          This table is designed for “downloaders” and users who want quick clarity. Edit the suggested amounts to match your actual tiers.
-        </p>
+      <section class="panel">
+        <h2>Offerings (fast pick)</h2>
+        <p class="muted2">These are suggested donation tiers. Buttons auto-disable if you didn’t configure the link in <span class="mono">CFG</span>.</p>
 
-        <div class="tableWrap" role="region" aria-label="Donation offerings table">
+        <div class="offerGrid" id="offers"></div>
+
+        <div style="height:10px;"></div>
+
+        <h2>All methods (matrix)</h2>
+        <div class="filters">
+          <label class="search" aria-label="Search methods">
+            <span class="muted2">Search</span>
+            <input id="search" type="text" placeholder="e.g. sponsors, paypal, kofi, stripe, crypto, open collective..." />
+          </label>
+
+          <label class="toggle">
+            <input id="onlyConfigured" type="checkbox" />
+            Show only configured
+          </label>
+        </div>
+
+        <div class="tableWrap" role="region" aria-label="Donation methods table">
           <table>
             <thead>
               <tr>
-                <th style="width: 18%">Method</th>
-                <th style="width: 14%">Type</th>
-                <th style="width: 20%">Suggested amounts</th>
-                <th style="width: 28%">Notes (what to expect)</th>
-                <th style="width: 20%">Action</th>
+                <th style="width: 16%;">Method</th>
+                <th style="width: 12%;">Type</th>
+                <th style="width: 16%;">Shows in GitHub menu?</th>
+                <th style="width: 32%;">Notes</th>
+                <th style="width: 14%;">Status</th>
+                <th style="width: 10%;">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="tag good">GitHub Sponsors</div>
-                </td>
-                <td>Monthly</td>
-                <td class="mono">$3 / $10 / $25</td>
-                <td class="muted">
-                  Best way to support ongoing maintenance. Public/private sponsorship options can be available depending on your Sponsors setup.
-                </td>
-                <td>
-                  <a class="btn btnSmall" href="https://github.com/sponsors/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
-                    Become a sponsor
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td><div class="tag warn">Card (Stripe)</div></td>
-                <td>One-time</td>
-                <td class="mono">$5 / $15 / $50</td>
-                <td class="muted">
-                  Fast checkout for most users (Visa/MasterCard). Optionally supports Apple Pay / Google Pay depending on region and device.
-                </td>
-                <td>
-                  <a class="btn btnSmall" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">
-                    Donate by card
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td><div class="tag warn">PayPal</div></td>
-                <td>One-time</td>
-                <td class="mono">$5 / $20 / custom</td>
-                <td class="muted">
-                  Good for users who prefer PayPal. Use a PayPal.Me link or a PayPal “Donate” button URL.
-                </td>
-                <td>
-                  <a class="btn btnSmall" href="YOUR_PAYPAL_LINK" target="_blank" rel="noopener">
-                    Donate via PayPal
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td><div class="tag">Crypto (BTC)</div></td>
-                <td>One-time</td>
-                <td class="mono">Any</td>
-                <td class="muted">
-                  For crypto supporters. Always send BTC only to the BTC address (no exchanges/network mixups).
-                </td>
-                <td>
-                  <button class="btn btnSmall" type="button" data-copy="btc">
-                    Copy BTC address
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td><div class="tag">Crypto (ETH)</div></td>
-                <td>One-time</td>
-                <td class="mono">Any</td>
-                <td class="muted">
-                  Send ETH only to the ETH address. If you publish an ENS name, you can add it here too.
-                </td>
-                <td>
-                  <button class="btn btnSmall" type="button" data-copy="eth">
-                    Copy ETH address
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="methodsBody"></tbody>
           </table>
         </div>
 
-        <footer>
-          Want this page to look like your project theme? Update <span class="mono">--accent</span> and <span class="mono">--accent2</span> in <span class="mono">:root</span>.
-        </footer>
+        <p class="muted2" style="margin-top:12px;">
+          “Shows in GitHub menu” means it can appear directly in the GitHub Sponsor dropdown via <span class="kbd">FUNDING.yml</span>. GitHub supports listed platforms + up to <span class="kbd">4</span> custom URLs. :contentReference[oaicite:1]{index=1}
+        </p>
       </section>
 
-      <aside class="panel" aria-label="Crypto addresses">
-        <h3>Crypto addresses</h3>
-        <p class="muted">
-          These are public receiving addresses. Use the copy buttons to avoid mistakes.
-        </p>
+      <aside class="panel">
+        <h2>Crypto (BTC / ETH)</h2>
+        <p class="muted2">Copy addresses to avoid errors. Only send assets on the correct network.</p>
 
-        <div class="addrBox">
-          <div class="addrRow">
-            <div style="min-width: 0;">
-              <div class="addrLabel">BTC</div>
-              <div id="btcAddr" class="mono addrValue">YOUR_BTC_ADDRESS</div>
-            </div>
-            <div class="rightActions">
-              <button class="btn btnSmall" type="button" data-copy="btc">Copy</button>
-            </div>
+        <div style="margin-top:10px; padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.22);">
+          <div class="muted2">BTC</div>
+          <div class="mono" id="btcAddr">—</div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn btnSm" type="button" data-copy="btc">Copy</button>
+            <button class="btn btnSm" type="button" data-qr="btc">QR</button>
           </div>
 
-          <div class="addrRow">
-            <div style="min-width: 0;">
-              <div class="addrLabel">ETH</div>
-              <div id="ethAddr" class="mono addrValue">YOUR_ETH_ADDRESS</div>
-            </div>
-            <div class="rightActions">
-              <button class="btn btnSmall" type="button" data-copy="eth">Copy</button>
-            </div>
+          <div style="height:10px;"></div>
+
+          <div class="muted2">ETH</div>
+          <div class="mono" id="ethAddr">—</div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn btnSm" type="button" data-copy="eth">Copy</button>
+            <button class="btn btnSm" type="button" data-qr="eth">QR</button>
           </div>
         </div>
 
-        <div style="height: 12px;"></div>
+        <div style="height:14px;"></div>
 
-        <h3>Where the money goes</h3>
-        <p class="muted">
-          Maintenance, bug fixes, packaging, documentation, and keeping projects actively developed.
-          If you want your name listed as a supporter, sponsor publicly on GitHub Sponsors.
-        </p>
+        <h2>FAQ</h2>
+        <details style="margin-top:10px;">
+          <summary class="muted" style="cursor:pointer;">Which method is best?</summary>
+          <p class="muted2" style="margin-top:8px;">
+            Recurring: GitHub Sponsors / Patreon / Polar / Liberapay. One-time: Card (Stripe) or PayPal. Crypto is fine if you prefer it.
+          </p>
+        </details>
+        <details style="margin-top:10px;">
+          <summary class="muted" style="cursor:pointer;">Will I get a receipt?</summary>
+          <p class="muted2" style="margin-top:8px;">
+            Receipts depend on the provider (GitHub, PayPal, Stripe, etc.). If you need invoices, mention it in your donation notes (when the provider supports notes).
+          </p>
+        </details>
 
-        <div style="height: 12px;"></div>
-
-        <p class="muted">
-          If you prefer, you can also open a PR or issues:
-          <a class="tinyLink" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub profile</a>.
+        <p class="muted2" style="margin-top:12px;">
+          Note: this page can list more methods than GitHub supports directly; GitHub will only show the methods supported in <span class="kbd">FUNDING.yml</span>. :contentReference[oaicite:2]{index=2}
         </p>
       </aside>
     </div>
-  </div>
+  </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <dialog id="qrModal">
+    <div class="modalHead">
+      <h3 id="qrTitle">QR</h3>
+      <button class="btn btnSm btnGhost" id="qrClose" type="button">Close</button>
+    </div>
+    <div class="modalBody">
+      <div class="modalRow">
+        <img id="qrImg" class="qrImg" alt="QR code" />
+        <div style="flex:1; min-width: 220px;">
+          <div class="muted2">Data</div>
+          <div class="mono" id="qrData" style="word-break:break-all;"></div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn btnSm" id="qrCopy" type="button">Copy</button>
+          </div>
+          <p class="muted2" style="margin-top:10px;">
+            QR image is generated via a public QR image endpoint (no scripts, just an image URL).
+          </p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <script>
-    (function(){
-      const toast = document.getElementById("toast");
-      const btc = document.getElementById("btcAddr").textContent.trim();
-      const eth = document.getElementById("ethAddr").textContent.trim();
+    // ========= CONFIG: replace these only =========
+    const CFG = {
+      projectName: "YOUR_PROJECT_NAME",
+      githubUser: "YOUR_GITHUB_USERNAME",
+      githubProfileUrl: "https://github.com/YOUR_GITHUB_USERNAME",
 
-      function showToast(msg){
-        toast.textContent = msg;
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 1400);
+      // Main CTAs (recommended)
+      links: {
+        githubSponsors: "https://github.com/sponsors/YOUR_GITHUB_USERNAME",
+
+        // One-time (best coverage)
+        stripeDonate: "YOUR_STRIPE_PAYMENT_LINK", // card/visa: set to a Stripe Payment Link
+        paypal: "YOUR_PAYPAL_LINK",               // PayPal.Me or PayPal donate link
+
+        // Extra popular methods (optional)
+        openCollective: "",
+        koFi: "",
+        buyMeACoffee: "",
+        patreon: "",
+        liberapay: "",
+        polar: "",
+        thanksDev: "",
+        issueHunt: "",
+        tidelift: "",
+        lfxCommunityBridge: "",
+
+        // Optional: add your “other” links
+        website: ""
+      },
+
+      // Suggested tiers (set amounts/labels as you want)
+      offerings: [
+        { name: "Coffee", price: "$5",  note: "Quick thank-you for a useful project or release.",    actions: ["stripe", "paypal", "sponsors"] },
+        { name: "Supporter", price: "$15", note: "Helps with maintenance, docs, and packaging.",     actions: ["stripe", "paypal", "sponsors"] },
+        { name: "Sponsor", price: "$50", note: "Back ongoing roadmap work and bigger refactors.",   actions: ["stripe", "paypal", "sponsors", "opencollective"] }
+      ],
+
+      crypto: {
+        btc: { address: "YOUR_BTC_ADDRESS" },
+        eth: { address: "YOUR_ETH_ADDRESS" }
       }
+    };
+    // ============================================
 
-      async function copyText(text){
-        try{
-          await navigator.clipboard.writeText(text);
-          return true;
-        }catch(e){
-          // Fallback for older browsers
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.setAttribute("readonly", "");
-          ta.style.position = "fixed";
-          ta.style.top = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          let ok = false;
-          try { ok = document.execCommand("copy"); } catch(_) { ok = false; }
-          document.body.removeChild(ta);
-          return ok;
+    const toast = document.getElementById("toast");
+    const qrModal = document.getElementById("qrModal");
+    const qrImg = document.getElementById("qrImg");
+    const qrTitle = document.getElementById("qrTitle");
+    const qrData = document.getElementById("qrData");
+    const qrCopy = document.getElementById("qrCopy");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+
+    function isConfigured(v){
+      return typeof v === "string" && v.trim() && !v.includes("YOUR_");
+    }
+
+    async function copyText(text){
+      try{ await navigator.clipboard.writeText(text); return true; }
+      catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly","");
+        ta.style.position="fixed"; ta.style.top="-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        let ok=false; try{ ok=document.execCommand("copy"); }catch(_){ ok=false; }
+        document.body.removeChild(ta);
+        return ok;
+      }
+    }
+
+    function setButton(el, url){
+      if(!isConfigured(url)){
+        el.setAttribute("aria-disabled","true");
+        el.removeAttribute("href");
+        return;
+      }
+      el.setAttribute("aria-disabled","false");
+      el.setAttribute("href", url);
+    }
+
+    function buildMethods(){
+      // GitHub-supported platforms list for FUNDING.yml:
+      // github, patreon, open_collective, ko_fi, liberapay, tidelift, polar, buy_me_a_coffee, thanks_dev, issuehunt, community_bridge, custom
+      // (Stripe/Crypto/PayPal typically go via custom URL → this page)
+      const methods = [
+        { key:"githubSponsors", label:"GitHub Sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; set tiers in your Sponsors profile.", url: CFG.links.githubSponsors },
+        { key:"patreon", label:"Patreon", type:"Recurring", githubMenu:"Yes", note:"Works well for membership-style perks.", url: CFG.links.patreon },
+        { key:"polar", label:"Polar", type:"Recurring", githubMenu:"Yes", note:"Polar membership/donations (if you use Polar).", url: CFG.links.polar },
+        { key:"liberapay", label:"Liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations via Liberapay.", url: CFG.links.liberapay },
+
+        { key:"stripeDonate", label:"Card (Stripe)", type:"One-time", githubMenu:"Via custom URL", note:"Best one-time option for Visa/MasterCard; you control amounts via Stripe.", url: CFG.links.stripeDonate },
+        { key:"paypal", label:"PayPal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url: CFG.links.paypal },
+        { key:"koFi", label:"Ko-fi", type:"One-time", githubMenu:"Yes", note:"Simple one-time support (and memberships if enabled).", url: CFG.links.koFi },
+        { key:"buyMeACoffee", label:"Buy Me a Coffee", type:"One-time", githubMenu:"Yes", note:"Popular quick donations.", url: CFG.links.buyMeACoffee },
+        { key:"openCollective", label:"Open Collective", type:"One-time", githubMenu:"Yes", note:"Great for transparent OSS funding / budgets.", url: CFG.links.openCollective },
+
+        { key:"thanksDev", label:"thanks.dev", type:"Recurring", githubMenu:"Yes", note:"Micro-funding tied to OSS usage.", url: CFG.links.thanksDev },
+        { key:"issueHunt", label:"IssueHunt", type:"Bounties", githubMenu:"Yes", note:"Bounties for issues / features.", url: CFG.links.issueHunt },
+        { key:"tidelift", label:"Tidelift", type:"Subscription", githubMenu:"Yes", note:"Enterprise-style subscription for packages.", url: CFG.links.tidelift },
+        { key:"lfxCommunityBridge", label:"LFX Crowdfunding", type:"Campaign", githubMenu:"Yes", note:"Linux Foundation / LFX crowdfunding projects.", url: CFG.links.lfxCommunityBridge },
+
+        { key:"btc", label:"Crypto (BTC)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
+        { key:"eth", label:"Crypto (ETH)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" }
+      ];
+      return methods;
+    }
+
+    function renderOffers(){
+      const root = document.getElementById("offers");
+      root.innerHTML = "";
+
+      const actionMap = {
+        sponsors: { label:"Sponsor", url: CFG.links.githubSponsors },
+        stripe:   { label:"Card",    url: CFG.links.stripeDonate },
+        paypal:   { label:"PayPal",  url: CFG.links.paypal },
+        opencollective: { label:"OpenCollective", url: CFG.links.openCollective }
+      };
+
+      for(const o of CFG.offerings){
+        const card = document.createElement("div");
+        card.className = "offer";
+        card.innerHTML = `
+          <h3>${o.name}</h3>
+          <div class="price">${o.price}</div>
+          <div class="desc">${o.note}</div>
+          <div class="actions"></div>
+        `;
+        const actions = card.querySelector(".actions");
+
+        for(const a of o.actions){
+          const spec = actionMap[a];
+          if(!spec) continue;
+          const btn = document.createElement("a");
+          btn.className = "btn btnSm";
+          btn.target = "_blank";
+          btn.rel = "noopener";
+          btn.textContent = spec.label;
+          setButton(btn, spec.url);
+          actions.appendChild(btn);
         }
+        root.appendChild(card);
+      }
+    }
+
+    function renderMethods(){
+      const body = document.getElementById("methodsBody");
+      body.innerHTML = "";
+      const methods = buildMethods();
+
+      for(const m of methods){
+        const configured = m.crypto
+          ? isConfigured(CFG.crypto[m.crypto]?.address || "")
+          : isConfigured(m.url || "");
+
+        const tr = document.createElement("tr");
+        tr.dataset.label = (m.label + " " + m.type + " " + m.note).toLowerCase();
+        tr.dataset.configured = configured ? "1" : "0";
+
+        const statusHtml = configured
+          ? `<span class="status"><span class="dot on"></span>Configured</span>`
+          : `<span class="status"><span class="dot off"></span>Not set</span>`;
+
+        const actionCell = document.createElement("td");
+        if(m.crypto){
+          const b1 = document.createElement("button");
+          b1.className = "btn btnSm";
+          b1.type = "button";
+          b1.textContent = "Copy";
+          b1.dataset.copy = m.crypto;
+
+          const b2 = document.createElement("button");
+          b2.className = "btn btnSm";
+          b2.type = "button";
+          b2.textContent = "QR";
+          b2.dataset.qr = m.crypto;
+
+          const wrap = document.createElement("div");
+          wrap.style.display = "flex";
+          wrap.style.gap = "8px";
+          wrap.appendChild(b1);
+          wrap.appendChild(b2);
+
+          actionCell.appendChild(wrap);
+        } else {
+          const a = document.createElement("a");
+          a.className = "btn btnSm";
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = "Open";
+          setButton(a, m.url);
+          actionCell.appendChild(a);
+        }
+
+        tr.innerHTML = `
+          <td>${m.label}</td>
+          <td>${m.type}</td>
+          <td>${m.githubMenu}</td>
+          <td class="muted2">${m.note}</td>
+          <td>${statusHtml}</td>
+        `;
+        tr.appendChild(actionCell);
+        body.appendChild(tr);
+      }
+    }
+
+    function applyFilters(){
+      const q = document.getElementById("search").value.trim().toLowerCase();
+      const only = document.getElementById("onlyConfigured").checked;
+      const rows = Array.from(document.querySelectorAll("#methodsBody tr"));
+
+      for(const r of rows){
+        const match = !q || r.dataset.label.includes(q);
+        const ok = !only || r.dataset.configured === "1";
+        r.style.display = (match && ok) ? "" : "none";
+      }
+    }
+
+    function openQR(kind){
+      const addr = (CFG.crypto[kind]?.address || "").trim();
+      if(!isConfigured(addr)){
+        showToast("Address not configured.");
+        return;
+      }
+      const data = (kind === "btc") ? `bitcoin:${addr}` : `ethereum:${addr}`;
+
+      // Public QR image endpoint (image only):
+      // (You can replace this with your own QR PNGs later if you prefer.)
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(data)}`;
+
+      qrTitle.textContent = `QR • ${kind.toUpperCase()}`;
+      qrData.textContent = data;
+      qrImg.src = qrUrl;
+
+      qrCopy.onclick = async () => {
+        const ok = await copyText(data);
+        showToast(ok ? "Copied." : "Copy failed.");
+      };
+
+      qrModal.showModal();
+    }
+
+    // Initialize UI
+    document.getElementById("brandTitle").textContent = `${CFG.projectName} • Donations`;
+    document.getElementById("brandSub").textContent = "One page • recurring, one-time, crypto";
+    document.getElementById("ghHandle").textContent = `@${CFG.githubUser}`;
+
+    setButton(document.getElementById("btnRepo"), CFG.githubProfileUrl);
+    setButton(document.getElementById("btnSponsors"), CFG.links.githubSponsors);
+
+    setButton(document.getElementById("ctaSponsors"), CFG.links.githubSponsors);
+    setButton(document.getElementById("ctaCard"), CFG.links.stripeDonate);
+    setButton(document.getElementById("ctaPayPal"), CFG.links.paypal);
+
+    document.getElementById("btcAddr").textContent = isConfigured(CFG.crypto.btc.address) ? CFG.crypto.btc.address : "Not configured";
+    document.getElementById("ethAddr").textContent = isConfigured(CFG.crypto.eth.address) ? CFG.crypto.eth.address : "Not configured";
+
+    document.getElementById("ctaCrypto").addEventListener("click", () => {
+      const addr = (CFG.crypto.btc.address || "").trim();
+      if(isConfigured(addr)) openQR("btc");
+      else openQR("eth");
+    });
+
+    renderOffers();
+    renderMethods();
+    applyFilters();
+
+    document.getElementById("search").addEventListener("input", applyFilters);
+    document.getElementById("onlyConfigured").addEventListener("change", applyFilters);
+
+    document.addEventListener("click", async (e) => {
+      const copyBtn = e.target.closest("[data-copy]");
+      if(copyBtn){
+        const k = copyBtn.getAttribute("data-copy");
+        const addr = (CFG.crypto[k]?.address || "").trim();
+        if(!isConfigured(addr)){ showToast("Address not configured."); return; }
+        const ok = await copyText(addr);
+        showToast(ok ? `${k.toUpperCase()} copied.` : "Copy failed.");
+        return;
       }
 
-      document.addEventListener("click", async (e) => {
-        const btn = e.target.closest("[data-copy]");
-        if(!btn) return;
+      const qrBtn = e.target.closest("[data-qr]");
+      if(qrBtn){
+        openQR(qrBtn.getAttribute("data-qr"));
+        return;
+      }
+    });
 
-        const which = btn.getAttribute("data-copy");
-        const val = which === "btc" ? btc : eth;
-        const ok = await copyText(val);
-
-        showToast(ok ? (which.toUpperCase() + " address copied.") : "Copy failed (select and copy manually).");
-      });
-    })();
+    document.getElementById("qrClose").addEventListener("click", () => qrModal.close());
+    qrModal.addEventListener("click", (e) => {
+      const r = qrModal.getBoundingClientRect();
+      const inDialog = (r.top <= e.clientY && e.clientY <= r.bottom && r.left <= e.clientX && e.clientX <= r.right);
+      if(!inDialog) qrModal.close();
+    });
   </script>
 </body>
 </html>
