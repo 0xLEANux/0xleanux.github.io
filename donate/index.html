@@ -2,67 +2,493 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Donate</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Donate • Support My Projects</title>
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="Support My Projects" />
+  <meta property="og:description" content="Donate via GitHub Sponsors, Card, PayPal, or Crypto (BTC/ETH)." />
+  <meta property="og:type" content="website" />
+
   <style>
-    :root { color-scheme: dark; }
-    body { margin:0; font-family: system-ui, sans-serif; background:#0b0b14; color:#e9e9ff; }
-    .wrap { max-width: 760px; margin: 48px auto; padding: 0 16px; }
-    .card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
+    :root{
+      --bg: #070812;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(0,0,0,.22);
+      --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.10);
+      --text: rgba(245,245,255,.92);
+      --muted: rgba(245,245,255,.72);
+      --muted2: rgba(245,245,255,.55);
+      --accent: #b76bff;
+      --accent2:#00e5ff;
+      --good: rgba(120,255,190,.22);
+      --warn: rgba(255,210,120,.22);
+      --bad:  rgba(255,120,170,.18);
+      --radius: 18px;
+      --radius2: 14px;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(1000px 520px at 18% 12%, rgba(183,107,255,.20), transparent 60%),
+        radial-gradient(900px 520px at 85% 0%, rgba(0,229,255,.14), transparent 60%),
+        radial-gradient(900px 620px at 50% 120%, rgba(183,107,255,.12), transparent 60%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 16px 56px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; margin-bottom: 18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 10px; min-width: 0;
+    }
+    .logo{
+      width: 38px; height: 38px; border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(183,107,255,.95), rgba(0,229,255,.75));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .brand h1{
+      margin:0; font-size: 14px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 60vw;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill code { font-family: var(--mono); color: var(--text); font-size: 12px; }
+
+    .hero{
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding: 22px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
     }
-    h1 { margin: 0 0 8px; font-size: 28px; }
-    p { margin: 0 0 16px; line-height: 1.5; color: rgba(233,233,255,0.85); }
-    .grid { display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
-    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
-    a.btn {
-      display:flex; align-items:center; justify-content:center;
-      text-decoration:none; color:#0b0b14; font-weight: 700;
-      padding: 14px 14px; border-radius: 14px;
-      background: #e9e9ff;
+    .hero h2{
+      margin: 0 0 6px;
+      font-size: 28px;
+      letter-spacing: -.02em;
     }
-    .muted { font-size: 13px; opacity: 0.9; }
-    .addr { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; word-break: break-all; }
-    .row { display: grid; gap: 10px; }
-    .subcard {
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.10);
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 72ch;
+    }
+
+    .ctaRow{
+      display:flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap: 10px;
+      padding: 12px 14px;
       border-radius: 14px;
-      padding: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .08s ease, border-color .08s ease, background .08s ease;
+      user-select: none;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.08); }
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(183,107,255,.92), rgba(0,229,255,.62));
+      border-color: rgba(255,255,255,.16);
+      color: #070812;
+    }
+    .btnPrimary:hover{ transform: translateY(-1px); background: linear-gradient(135deg, rgba(183,107,255,.98), rgba(0,229,255,.70)); }
+    .btnSmall{
+      padding: 8px 10px; font-size: 13px; border-radius: 12px;
+    }
+
+    .grid{
+      display:grid; grid-template-columns: 1.3fr .7fr; gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 14px 45px rgba(0,0,0,.35);
+    }
+    .panel h3{
+      margin: 0 0 8px;
+      font-size: 16px; letter-spacing: .02em;
+      color: rgba(245,245,255,.88);
+    }
+    .panel p{ margin: 0; color: var(--muted); line-height: 1.55; }
+
+    .tableWrap{
+      overflow:auto;
+      border-radius: var(--radius2);
+      border: 1px solid var(--stroke2);
+      background: rgba(0,0,0,.18);
+      margin-top: 12px;
+    }
+    table{
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 840px;
+      font-size: 14px;
+    }
+    thead th{
+      text-align:left;
+      padding: 12px 12px;
+      color: rgba(245,245,255,.82);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: rgba(0,0,0,.28);
+      border-bottom: 1px solid var(--stroke2);
+      position: sticky; top: 0;
+      backdrop-filter: blur(8px);
+      z-index: 1;
+    }
+    tbody td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      vertical-align: top;
+      color: rgba(245,245,255,.86);
+    }
+    tbody tr:hover td{ background: rgba(255,255,255,.03); }
+    .tag{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size: 12px;
+      color: rgba(245,245,255,.82);
+      white-space: nowrap;
+    }
+    .tag.good{ background: var(--good); border-color: rgba(120,255,190,.28); }
+    .tag.warn{ background: var(--warn); border-color: rgba(255,210,120,.26); }
+    .tag.bad { background: var(--bad);  border-color: rgba(255,120,170,.22); }
+
+    .muted{ color: var(--muted2); font-size: 13px; line-height: 1.45; }
+    .mono{ font-family: var(--mono); font-size: 12.5px; color: rgba(245,245,255,.86); }
+    .addrBox{
+      margin-top: 10px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      padding: 12px;
+    }
+    .addrRow{
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
+      margin-top: 10px;
+    }
+    .addrRow:first-child{ margin-top: 0; }
+    .addrLabel{ font-size: 12px; color: var(--muted2); margin-bottom: 4px; }
+    .addrValue{ word-break: break-all; }
+    .rightActions{ display:flex; gap: 8px; flex-wrap: wrap; }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(10,10,18,.86);
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
+      color: rgba(245,245,255,.92);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    footer{
+      margin-top: 14px;
+      color: rgba(245,245,255,.55);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .kpi{
+      display:flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tinyLink{
+      color: rgba(245,245,255,.78);
+      text-decoration: underline;
+      text-decoration-color: rgba(245,245,255,.22);
+      text-underline-offset: 3px;
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="card">
-      <h1>Support my work</h1>
-      <p>If my projects help you, you can donate via PayPal, card, or crypto. Thank you.</p>
-
-      <div class="grid">
-        <a class="btn" href="YOUR_PAYPAL_ME_LINK" target="_blank" rel="noopener">Donate with PayPal</a>
-        <a class="btn" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">Donate with Card (Visa / MasterCard)</a>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>YOUR_PROJECT_NAME • Donations</h1>
       </div>
-
-      <div style="height:12px"></div>
-
-      <div class="row">
-        <div class="subcard">
-          <div class="muted">BTC address</div>
-          <div class="addr">YOUR_BTC_ADDRESS</div>
-        </div>
-        <div class="subcard">
-          <div class="muted">ETH address</div>
-          <div class="addr">YOUR_ETH_ADDRESS</div>
-        </div>
-        <div class="muted">
-          Only send BTC to the BTC address and ETH to the ETH address.
-        </div>
+      <div class="pill">
+        GitHub:
+        <code>@YOUR_GITHUB_USERNAME</code>
       </div>
     </div>
+
+    <section class="hero" aria-label="Support header">
+      <h2>Support my work</h2>
+      <p>
+        If my open-source projects help you, consider donating. Choose the method that is easiest for you:
+        GitHub Sponsors (monthly), card, PayPal, or crypto (BTC/ETH).
+      </p>
+
+      <div class="kpi">
+        <span class="tag good">Monthly support</span>
+        <span class="tag warn">One-time donations</span>
+        <span class="tag">Receipts vary by provider</span>
+      </div>
+
+      <div class="ctaRow">
+        <a class="btn btnPrimary" href="https://github.com/sponsors/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
+          GitHub Sponsors
+        </a>
+        <a class="btn" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">
+          Donate by Card (Visa / MasterCard)
+        </a>
+        <a class="btn" href="YOUR_PAYPAL_LINK" target="_blank" rel="noopener">
+          Donate via PayPal
+        </a>
+      </div>
+
+      <footer>
+        Tip: If you came from the “Sponsor” button on a repo, this page is the single place with all donation options.
+      </footer>
+    </section>
+
+    <div class="grid">
+      <section class="panel" aria-label="Offerings table">
+        <h3>Donation offerings (one place, clear options)</h3>
+        <p class="muted">
+          This table is designed for “downloaders” and users who want quick clarity. Edit the suggested amounts to match your actual tiers.
+        </p>
+
+        <div class="tableWrap" role="region" aria-label="Donation offerings table">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 18%">Method</th>
+                <th style="width: 14%">Type</th>
+                <th style="width: 20%">Suggested amounts</th>
+                <th style="width: 28%">Notes (what to expect)</th>
+                <th style="width: 20%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="tag good">GitHub Sponsors</div>
+                </td>
+                <td>Monthly</td>
+                <td class="mono">$3 / $10 / $25</td>
+                <td class="muted">
+                  Best way to support ongoing maintenance. Public/private sponsorship options can be available depending on your Sponsors setup.
+                </td>
+                <td>
+                  <a class="btn btnSmall" href="https://github.com/sponsors/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
+                    Become a sponsor
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td><div class="tag warn">Card (Stripe)</div></td>
+                <td>One-time</td>
+                <td class="mono">$5 / $15 / $50</td>
+                <td class="muted">
+                  Fast checkout for most users (Visa/MasterCard). Optionally supports Apple Pay / Google Pay depending on region and device.
+                </td>
+                <td>
+                  <a class="btn btnSmall" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">
+                    Donate by card
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td><div class="tag warn">PayPal</div></td>
+                <td>One-time</td>
+                <td class="mono">$5 / $20 / custom</td>
+                <td class="muted">
+                  Good for users who prefer PayPal. Use a PayPal.Me link or a PayPal “Donate” button URL.
+                </td>
+                <td>
+                  <a class="btn btnSmall" href="YOUR_PAYPAL_LINK" target="_blank" rel="noopener">
+                    Donate via PayPal
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td><div class="tag">Crypto (BTC)</div></td>
+                <td>One-time</td>
+                <td class="mono">Any</td>
+                <td class="muted">
+                  For crypto supporters. Always send BTC only to the BTC address (no exchanges/network mixups).
+                </td>
+                <td>
+                  <button class="btn btnSmall" type="button" data-copy="btc">
+                    Copy BTC address
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td><div class="tag">Crypto (ETH)</div></td>
+                <td>One-time</td>
+                <td class="mono">Any</td>
+                <td class="muted">
+                  Send ETH only to the ETH address. If you publish an ENS name, you can add it here too.
+                </td>
+                <td>
+                  <button class="btn btnSmall" type="button" data-copy="eth">
+                    Copy ETH address
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <footer>
+          Want this page to look like your project theme? Update <span class="mono">--accent</span> and <span class="mono">--accent2</span> in <span class="mono">:root</span>.
+        </footer>
+      </section>
+
+      <aside class="panel" aria-label="Crypto addresses">
+        <h3>Crypto addresses</h3>
+        <p class="muted">
+          These are public receiving addresses. Use the copy buttons to avoid mistakes.
+        </p>
+
+        <div class="addrBox">
+          <div class="addrRow">
+            <div style="min-width: 0;">
+              <div class="addrLabel">BTC</div>
+              <div id="btcAddr" class="mono addrValue">YOUR_BTC_ADDRESS</div>
+            </div>
+            <div class="rightActions">
+              <button class="btn btnSmall" type="button" data-copy="btc">Copy</button>
+            </div>
+          </div>
+
+          <div class="addrRow">
+            <div style="min-width: 0;">
+              <div class="addrLabel">ETH</div>
+              <div id="ethAddr" class="mono addrValue">YOUR_ETH_ADDRESS</div>
+            </div>
+            <div class="rightActions">
+              <button class="btn btnSmall" type="button" data-copy="eth">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 12px;"></div>
+
+        <h3>Where the money goes</h3>
+        <p class="muted">
+          Maintenance, bug fixes, packaging, documentation, and keeping projects actively developed.
+          If you want your name listed as a supporter, sponsor publicly on GitHub Sponsors.
+        </p>
+
+        <div style="height: 12px;"></div>
+
+        <p class="muted">
+          If you prefer, you can also open a PR or issues:
+          <a class="tinyLink" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub profile</a>.
+        </p>
+      </aside>
+    </div>
   </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const toast = document.getElementById("toast");
+      const btc = document.getElementById("btcAddr").textContent.trim();
+      const eth = document.getElementById("ethAddr").textContent.trim();
+
+      function showToast(msg){
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+
+      async function copyText(text){
+        try{
+          await navigator.clipboard.writeText(text);
+          return true;
+        }catch(e){
+          // Fallback for older browsers
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.top = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          let ok = false;
+          try { ok = document.execCommand("copy"); } catch(_) { ok = false; }
+          document.body.removeChild(ta);
+          return ok;
+        }
+      }
+
+      document.addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-copy]");
+        if(!btn) return;
+
+        const which = btn.getAttribute("data-copy");
+        const val = which === "btc" ? btc : eth;
+        const ok = await copyText(val);
+
+        showToast(ok ? (which.toUpperCase() + " address copied.") : "Copy failed (select and copy manually).");
+      });
+    })();
+  </script>
 </body>
 </html>
