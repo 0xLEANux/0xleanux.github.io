@@ -9,10 +9,10 @@
       "profile": "https://github.com/0xElectron",
       "sponsors": "https://github.com/sponsors/0xElectron",
       "card": "YOUR_STRIPE_PAYMENT_LINK_DEV",
-      "paypal": "YOUR_PAYPAL_LINK_DEV",
+      "paypal": "https://www.paypal.me/0xElectron",
       "openCollective": "",
-      "koFi": "",
-      "buyMeACoffee": "",
+      "koFi": "https://ko-fi.com/0xElectron",
+      "buyMeACoffee": "https://www.buymeacoffee.com/0xElectron",
       "patreon": "",
       "liberapay": "",
       "polar": "",
@@ -35,10 +35,10 @@
       "profile": "https://github.com/0xLEANux",
       "sponsors": "https://github.com/sponsors/0xLEANux",
       "card": "YOUR_STRIPE_PAYMENT_LINK_ORG",
-      "paypal": "YOUR_PAYPAL_LINK_ORG",
+      "paypal": "https://www.paypal.me/0xLEANux",
       "openCollective": "",
-      "koFi": "",
-      "buyMeACoffee": "",
+      "koFi": "https://ko-fi.com/0xLEANux",
+      "buyMeACoffee": "https://www.buymeacoffee.com/0xLEANux",
       "patreon": "",
       "liberapay": "",
       "polar": "",
@@ -56,23 +56,8 @@
     }
   },
   "offerings": [
-    {
-      "name": "Coffee",
-      "price": "$5",
-      "note": "Quick thank-you for a useful project, release, or fix.",
-      "actions": ["card", "paypal", "sponsors"]
-    },
-    {
-      "name": "Supporter",
-      "price": "$15",
-      "note": "Helps with maintenance, docs, packaging, CI, and small improvements.",
-      "actions": ["card", "paypal", "sponsors", "kofi", "buymeacoffee"]
-    },
-    {
-      "name": "Sponsor",
-      "price": "$50",
-      "note": "Back roadmap features, refactors, and long-term support work.",
-      "actions": ["sponsors", "card", "paypal", "opencollective", "patreon", "polar"]
-    }
+    { "name": "Coffee", "price": "$5", "note": "Quick thank-you for a useful project", "actions": ["card", "paypal", "sponsors", "koFi"] },
+    { "name": "Supporter", "price": "$15", "note": "Helps with maintenance, docs, packaging, CI", "actions": ["card", "paypal", "sponsors", "buyMeACoffee"] },
+    { "name": "Sponsor", "price": "$50", "note": "Back roadmap features, refactors, and long-term support work.", "actions": ["sponsors", "card", "paypal"] }
   ]
 }
