@@ -8,22 +8,19 @@
   <title>Donate • 0xElectron + 0xLEANux</title>
 
   <!--
-    NOTES:
-    - Background gradient is FIXED using body::before (constant on page; content scrolls above it).
-    - Fully responsive: desktop table + mobile cards, fluid type, adaptive grids, reduced-motion support.
-    - Supports both recipients (developer + organization) with a selector + deep-link (?to=dev or ?to=org).
+    - Background gradient is fixed (body::before). Only the content scrolls.
+    - Responsive: desktop table + mobile cards + fluid typography.
+    - Dual recipients: @0xElectron (DEV) and @0xLEANux (ORG) with deep-link (?to=dev / ?to=org).
+    - Includes an “Arch Corner” with tips/cheatsheet + playful extras.
   -->
 
   <style>
-    /* =========================
-       DESIGN TOKENS
-       ========================= */
     :root{
       --bg0:#050614;
       --bg1:#07081a;
       --bg2:#0a0b22;
 
-      --panel: rgba(255,255,255,.075);
+      --panel: rgba(255,255,255,.078);
       --panel2: rgba(0,0,0,.28);
 
       --stroke: rgba(255,255,255,.12);
@@ -33,7 +30,7 @@
       --muted: rgba(245,245,255,.70);
       --muted2: rgba(245,245,255,.54);
 
-      /* Modern RGB palette */
+      /* RGB palette */
       --c1:#b76bff; /* neon purple */
       --c2:#00e5ff; /* cyan */
       --c3:#7CFF9E; /* mint */
@@ -52,6 +49,7 @@
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+
       --lh: 1.58;
 
       /* Fluid typography */
@@ -62,11 +60,9 @@
       --t4: clamp(22px, 2.4vw, 30px);
       --t5: clamp(28px, 3.6vw, 44px);
 
-      /* Layout */
       --max: 1240px;
       --pad: 16px;
 
-      /* Motion */
       --ease: cubic-bezier(.2,.8,.2,1);
       --dur: 130ms;
       --dur2: 220ms;
@@ -78,11 +74,11 @@
       margin:0;
       font-family: var(--sans);
       color: var(--text);
-      background: var(--bg0); /* fallback only; gradient is in ::before */
-      overflow-x: hidden;
+      background: var(--bg0);
+      overflow-x:hidden;
     }
 
-    /* FIXED BACKGROUND GRADIENT (constant on scroll) */
+    /* Fixed background gradient (constant) */
     body::before{
       content:"";
       position: fixed;
@@ -97,20 +93,20 @@
       transform: translateZ(0);
     }
 
-    /* Subtle noise layer to prevent banding */
+    /* Noise layer to avoid banding */
     body::after{
       content:"";
       position: fixed;
       inset: 0;
       z-index: -1;
-      pointer-events: none;
+      pointer-events:none;
       opacity: .07;
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       background-size: 120px 120px;
     }
 
-    a{ color: inherit; text-decoration:none; }
+    a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
 
     .wrap{
@@ -119,26 +115,21 @@
       padding: 18px var(--pad) 72px;
     }
 
-    /* =========================
-       ACCESSIBILITY & MOTION
-       ========================= */
     .srOnly{
       position:absolute; width:1px; height:1px; padding:0; margin:-1px;
       overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
     }
 
     @media (prefers-reduced-motion: reduce){
-      *{ animation: none !important; transition: none !important; scroll-behavior:auto !important; }
+      *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
     }
 
-    /* =========================
-       RGB BORDER + GLASS PANELS
-       ========================= */
+    /* RGB border / glass */
     .rgb{
       position: relative;
       border-radius: var(--r);
       isolation: isolate;
-      overflow: hidden;
+      overflow:hidden;
     }
     .rgb::before{
       content:"";
@@ -171,11 +162,7 @@
       100%{ filter: blur(12px) hue-rotate(360deg); }
     }
 
-    .panel{
-      padding: 18px;
-      box-shadow: var(--shadow2);
-    }
-
+    .panel{ padding: 18px; box-shadow: var(--shadow2); }
     .subPanel{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.10);
@@ -183,18 +170,15 @@
       padding: 14px;
     }
 
-    /* =========================
-       TOP NAV (sticky)
-       ========================= */
+    /* Sticky top bar */
     header{
       position: sticky;
-      top: 0;
+      top:0;
       z-index: 60;
       backdrop-filter: blur(12px);
       background: linear-gradient(180deg, rgba(6,7,22,.80), rgba(6,7,22,.36));
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-
     .top{
       max-width: var(--max);
       margin: 0 auto;
@@ -213,17 +197,15 @@
       min-width: 260px;
       flex: 1 1 360px;
     }
-
     .logo{
-      width: 42px;
-      height: 42px;
+      width: 42px; height: 42px;
       border-radius: 16px;
       background: linear-gradient(135deg, rgba(183,107,255,.95), rgba(0,229,255,.75));
       border: 1px solid rgba(255,255,255,.18);
       box-shadow: 0 16px 46px rgba(0,0,0,.48);
       flex: 0 0 auto;
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
     }
     .logo::after{
       content:"";
@@ -232,7 +214,6 @@
       transform: rotate(18deg);
       opacity:.35;
     }
-
     .brandText{ min-width:0; }
     .brandTitle{
       margin:0;
@@ -279,7 +260,6 @@
       color: rgba(245,245,255,.92);
     }
 
-    /* Recipient segmented control */
     .seg{
       display:inline-flex;
       border-radius: 999px;
@@ -294,14 +274,11 @@
       padding: 9px 12px;
       cursor:pointer;
       font-size: var(--t1);
-      font-weight: 900;
-      letter-spacing: .01em;
+      font-weight: 950;
       transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
       display:flex;
       align-items:center;
       gap: 8px;
-      position: relative;
-      outline: none;
     }
     .seg button:hover{
       background: rgba(255,255,255,.06);
@@ -311,7 +288,6 @@
       background: linear-gradient(135deg, rgba(183,107,255,.28), rgba(0,229,255,.18));
       color: rgba(245,245,255,.95);
     }
-
     .badge{
       font-family: var(--mono);
       font-size: 11.5px;
@@ -321,9 +297,6 @@
       background: rgba(255,255,255,.05);
     }
 
-    /* =========================
-       BUTTONS (with hover polish)
-       ========================= */
     .btn{
       display:inline-flex;
       align-items:center;
@@ -336,7 +309,6 @@
       color: var(--text);
       font-weight: 950;
       font-size: var(--t2);
-      letter-spacing: .01em;
       cursor:pointer;
       user-select:none;
       transition:
@@ -347,7 +319,7 @@
         filter var(--dur2) var(--ease);
       will-change: transform;
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
     }
     .btn::after{
       content:"";
@@ -378,16 +350,9 @@
       background: linear-gradient(135deg, rgba(183,107,255,.99), rgba(0,229,255,.82));
       box-shadow: 0 22px 70px rgba(0,0,0,.38);
     }
-    .btnGhost{
-      background: rgba(0,0,0,.26);
-      border-color: rgba(255,255,255,.12);
-    }
-    .btnSm{
-      padding: 9px 10px;
-      font-size: var(--t1);
-      border-radius: 12px;
-      font-weight: 900;
-    }
+    .btnGhost{ background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.12); }
+    .btnSm{ padding: 9px 10px; font-size: var(--t1); border-radius: 12px; font-weight: 900; }
+
     .btn[aria-disabled="true"]{
       opacity: .48;
       cursor:not-allowed;
@@ -396,13 +361,8 @@
       filter:none !important;
     }
 
-    /* =========================
-       HERO
-       ========================= */
-    .hero{
-      margin-top: 16px;
-      padding: 22px;
-    }
+    /* Hero */
+    .hero{ margin-top: 16px; padding: 22px; }
     .hero h1{
       margin: 0 0 8px;
       font-size: var(--t5);
@@ -415,24 +375,6 @@
       color: var(--muted);
       line-height: var(--lh);
       max-width: 90ch;
-    }
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
-      margin-top: 16px;
-    }
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-    }
-
-    .ctaRow{
-      display:flex;
-      flex-wrap: wrap;
-      gap:10px;
-      align-items:center;
-      margin-top: 14px;
     }
 
     .chips{
@@ -456,6 +398,24 @@
     .chip.warn{ background: var(--warn); border-color: rgba(255,210,120,.22); }
     .chip.danger{ background: var(--danger); border-color: rgba(255,120,170,.18); }
 
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap:10px;
+      align-items:center;
+      margin-top: 14px;
+    }
+
     .kpiGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -472,10 +432,7 @@
       padding: 12px;
       transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
     }
-    .kpi:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.18);
-    }
+    .kpi:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
     .kpi .label{
       font-size: var(--t0);
       color: rgba(245,245,255,.60);
@@ -495,19 +452,6 @@
       line-height: 1.45;
     }
 
-    /* =========================
-       MAIN GRID
-       ========================= */
-    .mainGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    @media (max-width: 980px){
-      .mainGrid{ grid-template-columns: 1fr; }
-    }
-
     .h2{
       margin: 0 0 8px;
       font-size: var(--t3);
@@ -520,10 +464,27 @@
       font-size: var(--t1);
       line-height: var(--lh);
     }
+    .mono{ font-family: var(--mono); }
 
-    /* =========================
-       OFFERINGS (3 tiers + dual recipients)
-       ========================= */
+    .fineprint{
+      margin-top: 12px;
+      color: rgba(245,245,255,.55);
+      font-size: var(--t0);
+      line-height: 1.45;
+    }
+
+    /* Main grid */
+    .mainGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 980px){
+      .mainGrid{ grid-template-columns: 1fr; }
+    }
+
+    /* Offerings */
     .offerGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -533,7 +494,6 @@
     @media (max-width: 980px){
       .offerGrid{ grid-template-columns: 1fr; }
     }
-
     .offer{
       position: relative;
       border-radius: var(--r2);
@@ -541,10 +501,7 @@
       background: rgba(0,0,0,.25);
       padding: 14px;
       overflow:hidden;
-      transition:
-        transform var(--dur) var(--ease),
-        border-color var(--dur) var(--ease),
-        box-shadow var(--dur2) var(--ease);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease);
     }
     .offer::before{
       content:"";
@@ -566,8 +523,8 @@
       border-color: rgba(255,255,255,.18);
       box-shadow: 0 24px 70px rgba(0,0,0,.38);
     }
-    .offer:hover::before{ opacity: 1; }
-    .offer > *{ position: relative; }
+    .offer:hover::before{ opacity:1; }
+    .offer > *{ position:relative; }
 
     .offerHead{
       display:flex;
@@ -641,9 +598,7 @@
       gap: 8px;
     }
 
-    /* =========================
-       METHODS: desktop table + mobile cards
-       ========================= */
+    /* Filters + methods */
     .filters{
       display:flex;
       gap: 10px;
@@ -729,15 +684,10 @@
       font-size: var(--t0);
       color: rgba(245,245,255,.78);
     }
-    .dot{
-      width:8px; height:8px;
-      border-radius:50%;
-      background: rgba(255,255,255,.35);
-    }
+    .dot{ width:8px; height:8px; border-radius:50%; background: rgba(255,255,255,.35); }
     .dot.on{ background: rgba(124,255,158,.90); }
     .dot.off{ background: rgba(255,120,170,.90); }
 
-    /* Mobile cards version of methods */
     .methodCards{
       display:none;
       margin-top: 12px;
@@ -751,20 +701,9 @@
       padding: 12px;
       transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
     }
-    .methodCard:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.18);
-    }
-    .methodTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .methodName{
-      font-weight: 950;
-      font-size: var(--t2);
-    }
+    .methodCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .methodTop{ display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; }
+    .methodName{ font-weight: 950; font-size: var(--t2); }
     .methodMeta{
       margin-top: 6px;
       font-size: var(--t0);
@@ -784,15 +723,12 @@
       flex-wrap:wrap;
       gap: 8px;
     }
-
     @media (max-width: 860px){
       .tableWrap{ display:none; }
       .methodCards{ display:grid; }
     }
 
-    /* =========================
-       RIGHT COLUMN: CRYPTO + FAQ + TRANSPARENCY
-       ========================= */
+    /* Right column blocks */
     .addrBox{
       margin-top: 12px;
       border-radius: var(--r2);
@@ -821,12 +757,7 @@
       margin-top: 12px;
     }
     .addrRow:first-child{ margin-top: 0; }
-    .addrBtns{
-      display:flex;
-      gap:8px;
-      flex-wrap: wrap;
-      flex: 0 0 auto;
-    }
+    .addrBtns{ display:flex; gap:8px; flex-wrap: wrap; flex: 0 0 auto; }
 
     details{
       border-radius: var(--r2);
@@ -836,16 +767,13 @@
       margin-top: 10px;
       transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
     }
-    details:hover{
-      border-color: rgba(255,255,255,.18);
-      transform: translateY(-1px);
-    }
+    details:hover{ border-color: rgba(255,255,255,.18); transform: translateY(-1px); }
     summary{
       cursor: pointer;
-      font-weight: 900;
+      font-weight: 950;
       font-size: var(--t2);
       color: rgba(245,245,255,.86);
-      list-style: none;
+      list-style:none;
     }
     summary::-webkit-details-marker{ display:none; }
     details p{
@@ -855,16 +783,114 @@
       line-height: var(--lh);
     }
 
-    .fineprint{
+    /* Arch Corner */
+    .archGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
       margin-top: 12px;
-      color: rgba(245,245,255,.55);
+    }
+    .archTip{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+      position: relative;
+      overflow:hidden;
+    }
+    .archTip::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: linear-gradient(135deg, rgba(0,229,255,.10), rgba(183,107,255,.12), rgba(124,255,158,.08));
+      opacity: 0;
+      transition: opacity var(--dur2) var(--ease);
+      pointer-events:none;
+    }
+    .archTip:hover::before{ opacity: 1; }
+    .archTip > *{ position:relative; }
+    .archTipTitle{
+      font-weight: 950;
+      font-size: var(--t2);
+      margin: 0 0 6px;
+    }
+    .archTipText{
+      margin: 0;
+      color: rgba(245,245,255,.70);
+      font-size: var(--t1);
+      line-height: 1.5;
+    }
+    .cmdList{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .cmd{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 10px;
+    }
+    .cmdTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .cmdName{
+      font-weight: 950;
+      font-size: var(--t1);
+      margin:0;
+      color: rgba(245,245,255,.86);
+    }
+    .cmdDesc{
+      margin: 6px 0 0;
+      color: rgba(245,245,255,.62);
       font-size: var(--t0);
       line-height: 1.45;
     }
+    .cmdCode{
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(245,245,255,.90);
+      word-break: break-word;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
 
-    /* =========================
-       TOAST + MODALS
-       ========================= */
+    /* Supporter wall */
+    .wall{
+      margin-top: 12px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+    }
+    .wallGrid{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 980px){
+      .wallGrid{ grid-template-columns: 1fr; }
+    }
+    .wallCard{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .wallCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .wallName{ font-weight: 950; }
+    .wallNote{ margin-top: 6px; color: rgba(245,245,255,.62); font-size: var(--t0); line-height: 1.45; }
+
+    /* Toast + modal */
     .toast{
       position: fixed;
       left: 50%;
@@ -882,12 +908,9 @@
       transition: opacity var(--dur2) var(--ease), transform var(--dur2) var(--ease);
       z-index: 99;
       min-width: min(520px, calc(100vw - 24px));
-      text-align: center;
+      text-align:center;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(-2px);
-    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(-2px); }
 
     dialog{
       border: 1px solid rgba(255,255,255,.12);
@@ -895,7 +918,7 @@
       background: rgba(10,10,18,.92);
       box-shadow: var(--shadow);
       color: var(--text);
-      width: min(720px, calc(100vw - 24px));
+      width: min(760px, calc(100vw - 24px));
     }
     dialog::backdrop{
       background: rgba(0,0,0,.58);
@@ -912,7 +935,6 @@
     .modalHead h3{
       margin:0;
       font-size: var(--t3);
-      letter-spacing: .01em;
     }
     .modalBody{ margin-top: 12px; }
     .modalGrid{
@@ -932,7 +954,7 @@
       background: rgba(0,0,0,.22);
     }
     @media (max-width: 720px){
-      .qrImg{ width: 100%; height: auto; aspect-ratio: 1/1; }
+      .qrImg{ width:100%; height:auto; aspect-ratio: 1/1; }
     }
     .modalMono{
       font-family: var(--mono);
@@ -941,9 +963,6 @@
       word-break: break-all;
     }
 
-    /* =========================
-       FOOTER
-       ========================= */
     footer{
       margin-top: 18px;
       color: rgba(245,245,255,.55);
@@ -956,12 +975,26 @@
       gap: 12px;
       margin-top: 12px;
     }
-    @media (max-width: 980px){ .footerGrid{ grid-template-columns: 1fr; } }
+    @media (max-width: 980px){
+      .footerGrid{ grid-template-columns: 1fr; }
+    }
     .link{
       text-decoration: underline;
       text-decoration-color: rgba(245,245,255,.22);
       text-underline-offset: 3px;
     }
+
+    /* Tiny Arch easter-egg banner (hidden by default) */
+    .archBanner{
+      display:none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+    .archBanner.on{ display:block; }
+    .archBanner strong{ font-weight: 950; }
   </style>
 </head>
 
@@ -997,15 +1030,15 @@
     <section class="rgb panel hero" aria-label="Donation hero">
       <h1 id="heroTitle">Support @0xElectron</h1>
       <p id="heroCopy">
-        This is the unified donation hub for the developer profile (@0xElectron) and the organization (0xLEANux).
-        Choose the recipient in the top bar, then pick your preferred method. Background stays fixed; only content scrolls.
+        Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Choose the recipient above, then pick Sponsors/Card/PayPal/Crypto.
+        Background stays fixed. Only the content scrolls.
       </p>
 
       <div class="chips">
         <span class="chip good">Recurring support</span>
         <span class="chip warn">One-time donations</span>
         <span class="chip">Crypto (BTC/ETH)</span>
-        <span class="chip">Mobile-ready</span>
+        <span class="chip">Arch-friendly</span>
       </div>
 
       <div class="heroGrid">
@@ -1021,7 +1054,7 @@
             <div class="kpi">
               <div class="label">Best recurring</div>
               <div class="value">Sponsors</div>
-              <div class="desc">Ongoing maintenance and roadmap work.</div>
+              <div class="desc">Sustains maintenance and roadmap work.</div>
             </div>
             <div class="kpi">
               <div class="label">Best one-time</div>
@@ -1029,50 +1062,44 @@
               <div class="desc">Fast checkout for most supporters.</div>
             </div>
             <div class="kpi">
-              <div class="label">Crypto</div>
-              <div class="value">BTC / ETH</div>
-              <div class="desc">Copy + QR; per-recipient addresses.</div>
+              <div class="label">Arch mode</div>
+              <div class="value">Enabled</div>
+              <div class="desc">Includes pacman/AUR cheatsheet + tips.</div>
             </div>
           </div>
 
+          <div class="archBanner" id="archBanner">
+            <strong>Arch note:</strong> press the <span class="mono">A</span> key again to hide this banner.
+            Also yes, we know. “I use Arch btw.”
+          </div>
+
           <p class="fineprint">
-            Deep links: <span style="font-family:var(--mono)">?to=dev</span> or <span style="font-family:var(--mono)">?to=org</span>.
-            Use this page in GitHub’s <span style="font-family:var(--mono)">FUNDING.yml</span> as a custom URL.
+            Deep links: <span class="mono">?to=dev</span> or <span class="mono">?to=org</span>.
+            Put this page in GitHub <span class="mono">FUNDING.yml</span> as a custom URL for repos.
           </p>
         </div>
 
-        <div class="subPanel" aria-label="Quick compare">
-          <p class="pMuted" style="margin:0;">
-            Want donors to choose explicitly? The “Offerings” section below provides side-by-side buttons for both recipients (DEV + ORG).
-            Your selected recipient controls the top CTA buttons and the right-column crypto display.
+        <div class="subPanel">
+          <p class="pMuted">
+            Quick non-monetary support (still very valuable):
           </p>
-
-          <div style="margin-top:12px; display:grid; gap:10px;">
-            <div class="subPanel" style="padding:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-                <div style="font-weight:950;">Developer</div>
-                <div style="font-family:var(--mono); font-size:12px; color:rgba(245,245,255,.65)">@0xElectron</div>
-              </div>
-              <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
-                <a class="btn btnSm btnGhost" target="_blank" rel="noopener" href="https://github.com/0xElectron">Profile</a>
-                <a class="btn btnSm" target="_blank" rel="noopener" href="https://github.com/sponsors/0xElectron">Sponsors</a>
-              </div>
-            </div>
-
-            <div class="subPanel" style="padding:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-                <div style="font-weight:950;">Organization</div>
-                <div style="font-family:var(--mono); font-size:12px; color:rgba(245,245,255,.65)">@0xLEANux</div>
-              </div>
-              <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
-                <a class="btn btnSm btnGhost" target="_blank" rel="noopener" href="https://github.com/0xLEANux">Profile</a>
-                <a class="btn btnSm" target="_blank" rel="noopener" href="https://github.com/sponsors/0xLEANux">Sponsors</a>
-              </div>
-            </div>
+          <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
+            <button class="btn btnSm btnGhost" type="button" data-action="star">Star repos</button>
+            <button class="btn btnSm btnGhost" type="button" data-action="issue">Report bugs</button>
+            <button class="btn btnSm btnGhost" type="button" data-action="pr">Send a PR</button>
+            <button class="btn btnSm btnGhost" type="button" data-action="share">Share link</button>
+            <button class="btn btnSm btnGhost" type="button" data-action="packaging">Package / AUR help</button>
           </div>
 
+          <div style="height:12px;"></div>
+
+          <p class="pMuted">
+            Arch-based distributions: Arch itself, plus Arch-based setups in the wild (e.g., EndeavourOS / Manjaro / Garuda / ArcoLinux).
+            Regardless of preference, the “real boss” is your maintenance pipeline: updates, reproducible configs, and good docs.
+          </p>
+
           <p class="fineprint">
-            Pro tip: For org repos, put the org link first in <span style="font-family:var(--mono)">custom:</span> or set the default query to <span style="font-family:var(--mono)">?to=org</span>.
+            If you want your config to survive a rolling release: one part pacman; three parts backup; a dash of patience.
           </p>
         </div>
       </div>
@@ -1082,7 +1109,7 @@
       <section class="rgb panel" aria-label="Offerings and methods">
         <h2 class="h2">Suggested offerings (explicit DEV + ORG buttons)</h2>
         <p class="pMuted">
-          Each tier presents donation buttons for both recipients. You can configure different payment links per recipient and per method.
+          Each tier shows buttons for both recipients. Configure different links per recipient/method in CFG.
         </p>
 
         <div class="offerGrid" id="offers"></div>
@@ -1091,13 +1118,13 @@
 
         <h2 class="h2">All donation methods (selected recipient)</h2>
         <p class="pMuted">
-          Search, filter, and show only configured methods. Desktop uses a matrix; mobile uses clean cards.
+          Search, filter, and show only configured methods. Desktop = matrix; mobile = cards.
         </p>
 
         <div class="filters">
           <label class="search" aria-label="Search donation methods">
             <span class="srOnly">Search</span>
-            <input id="search" type="text" placeholder="Search: sponsors, paypal, stripe, kofi, open collective, crypto, tidelift..." />
+            <input id="search" type="text" placeholder="Search: sponsors, paypal, stripe, kofi, open collective, crypto, wise..." />
           </label>
 
           <label class="toggle">
@@ -1106,7 +1133,6 @@
           </label>
         </div>
 
-        <!-- Desktop table -->
         <div class="tableWrap" role="region" aria-label="Donation methods table">
           <table>
             <thead>
@@ -1123,15 +1149,42 @@
           </table>
         </div>
 
-        <!-- Mobile cards -->
         <div class="methodCards" id="methodCards" aria-label="Donation methods (mobile)"></div>
 
+        <div style="height:16px;"></div>
+
+        <h2 class="h2">Supporter wall (manual / placeholder)</h2>
+        <p class="pMuted">
+          GitHub Pages is static, so this is intentionally a “manual wall.” Add names if supporters opt in.
+        </p>
+
+        <div class="wall">
+          <div class="pMuted">
+            Want to be listed? Donate publicly (Sponsors) or add a note “OK to list my name,” then I can add you here.
+          </div>
+
+          <div class="wallGrid" id="wallGrid">
+            <div class="wallCard">
+              <div class="wallName">Supporter Slot</div>
+              <div class="wallNote">Add a name here (optional). Example: “Thanks for keeping the builds green.”</div>
+            </div>
+            <div class="wallCard">
+              <div class="wallName">Supporter Slot</div>
+              <div class="wallNote">Add a name here (optional). Example: “Docs enjoyer; fixes my future self.”</div>
+            </div>
+            <div class="wallCard">
+              <div class="wallName">Supporter Slot</div>
+              <div class="wallNote">Add a name here (optional). Example: “AUR helper; pacman approves.”</div>
+            </div>
+          </div>
+        </div>
+
         <footer class="fineprint">
-          GitHub shows supported platforms plus up to 4 custom URLs. Use custom URLs for Stripe/PayPal/crypto hub flows.
+          GitHub supports specific platforms plus up to 4 custom URLs. Use custom URLs for Stripe/PayPal/crypto hub flows.
         </footer>
       </section>
 
-      <aside class="rgb panel" aria-label="Crypto and FAQ">
+      <aside class="rgb panel" aria-label="Crypto and Arch Corner">
         <h2 class="h2">Crypto for selected recipient</h2>
         <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
 
@@ -1161,46 +1214,65 @@
 
         <div style="height:14px;"></div>
 
-        <h2 class="h2">FAQ</h2>
+        <h2 class="h2">Arch Corner</h2>
+        <p class="pMuted">A small “Arch and Arch-based distro” area: tips, commands, and a little fun.</p>
 
-        <details>
-          <summary>Which method is best?</summary>
-          <p>
-            If you want to support long-term work, GitHub Sponsors is the best default.
-            For one-time support, Card (Stripe) or PayPal is simplest. Crypto is fine if you prefer it.
-          </p>
-        </details>
+        <div class="archGrid">
+          <div class="archTip">
+            <div class="cmdTop">
+              <div>
+                <p class="archTipTitle">Random Arch tip</p>
+                <p class="archTipText" id="archTipText">—</p>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
+                <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
+              </div>
+            </div>
+          </div>
 
-        <details>
-          <summary>Can I donate to both DEV and ORG?</summary>
-          <p>
-            Yes. Use the offerings section (it shows DEV and ORG buttons side by side). You can also switch the recipient in the top bar.
-          </p>
-        </details>
+          <div class="archTip">
+            <p class="archTipTitle">Pacman & AUR cheatsheet (copyable)</p>
+            <p class="archTipText">
+              If your donation funds one thing, let it be: fewer broken upgrades and more calm.
+            </p>
 
-        <details>
-          <summary>Will I get a receipt?</summary>
-          <p>
-            Receipts depend on the provider. Card/PayPal providers typically provide proof of payment. Sponsors provides a record via GitHub.
-          </p>
-        </details>
+            <div class="cmdList" id="cmdList"></div>
+          </div>
 
-        <details>
-          <summary>Why is Stripe/PayPal not directly in GitHub’s Sponsor dropdown?</summary>
-          <p>
-            GitHub’s sponsor button supports specific platforms and custom URLs. For Stripe/PayPal/crypto, a custom URL (this page) is the standard solution.
-          </p>
-        </details>
+          <div class="archTip">
+            <p class="archTipTitle">Arch-based distro reality check</p>
+            <p class="archTipText">
+              Arch itself gives you maximum control and responsibility. Arch-based distros often smooth the edges.
+              Neither is “better”; it’s about how much you enjoy tinkering vs shipping.
+            </p>
+          </div>
+        </div>
 
         <div style="height:14px;"></div>
 
-        <h2 class="h2">Transparency (optional)</h2>
-        <p class="pMuted">
-          Add a short note here about what donations fund: maintenance, releases, packaging, documentation, CI, and time for refactors.
-        </p>
+        <h2 class="h2">FAQ</h2>
+        <details>
+          <summary>Which method is best?</summary>
+          <p>
+            Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
+          </p>
+        </details>
+        <details>
+          <summary>Can I donate to both DEV and ORG?</summary>
+          <p>
+            Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
+          </p>
+        </details>
+        <details>
+          <summary>Why does diffusion of methods matter?</summary>
+          <p>
+            Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
+          </p>
+        </details>
 
         <footer class="fineprint">
-          Security note: never publish private keys. Only publish public receiving addresses.
+          Security: never publish private keys. Only publish receiving addresses. On Arch: backups are not optional; they are the main feature.
         </footer>
       </aside>
     </div>
@@ -1208,13 +1280,12 @@
     <footer class="rgb panel" aria-label="Footer">
       <div class="footerGrid">
         <div class="subPanel">
-          <div style="font-weight:950; font-size:var(--t3);">Connect GitHub to this page</div>
+          <div style="font-weight:950; font-size:var(--t3);">Connect GitHub Sponsor button</div>
           <p class="pMuted" style="margin-top:8px;">
-            Put this donation hub in <span style="font-family:var(--mono)">custom:</span> in each repo’s <span style="font-family:var(--mono)">.github/FUNDING.yml</span>
-            so the Sponsor button routes here.
+            Put this hub in <span class="mono">custom:</span> in <span class="mono">.github/FUNDING.yml</span>.
           </p>
-          <p class="fineprint" style="margin-top:10px;">
-            Recommended: use two custom links so donors land on the right recipient tab immediately.
+          <p class="fineprint">
+            Recommended: use two custom links so donors land on the right tab: <span class="mono">?to=dev</span> and <span class="mono">?to=org</span>.
           </p>
         </div>
 
@@ -1224,8 +1295,8 @@
             Developer: <a class="link" href="https://github.com/0xElectron" target="_blank" rel="noopener">github.com/0xElectron</a><br/>
             Organization: <a class="link" href="https://github.com/0xLEANux" target="_blank" rel="noopener">github.com/0xLEANux</a>
           </p>
-          <p class="fineprint" style="margin-top:10px;">
-            Deep links: <span style="font-family:var(--mono)">/donate/?to=dev</span> or <span style="font-family:var(--mono)">/donate/?to=org</span>.
+          <p class="fineprint">
+            Deep links: <span class="mono">/donate/?to=dev</span> or <span class="mono">/donate/?to=org</span>.
           </p>
         </div>
       </div>
@@ -1250,7 +1321,7 @@
             <button class="btn btnSm btnGhost" id="qrCopyAddr" type="button">Copy address</button>
           </div>
           <p class="fineprint" style="margin-top:12px;">
-            QR is rendered as an image URL (no third-party JavaScript). If you prefer fully offline, replace with your own hosted PNGs.
+            QR renders as an image URL (no third-party JS). For fully offline, host your own PNGs and replace the image source.
           </p>
         </div>
       </div>
@@ -1273,11 +1344,9 @@
           profile: "https://github.com/0xElectron",
           sponsors: "https://github.com/sponsors/0xElectron",
 
-          // One-time
           card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
           paypal: "YOUR_PAYPAL_LINK_DEV",
 
-          // Optional GitHub-supported platforms (if you use them)
           openCollective: "",
           koFi: "",
           buyMeACoffee: "",
@@ -1289,16 +1358,11 @@
           tidelift: "",
           communityBridge: "",
 
-          // Optional extra methods (shown only on this page)
           wise: "",
           revolut: "",
           bankTransfer: "",
-          donateToAddress: "",
 
-          crypto: {
-            btc: "YOUR_BTC_ADDRESS_DEV",
-            eth: "YOUR_ETH_ADDRESS_DEV"
-          }
+          crypto: { btc: "YOUR_BTC_ADDRESS_DEV", eth: "YOUR_ETH_ADDRESS_DEV" }
         },
 
         org: {
@@ -1325,36 +1389,46 @@
           wise: "",
           revolut: "",
           bankTransfer: "",
-          donateToAddress: "",
 
-          crypto: {
-            btc: "YOUR_BTC_ADDRESS_ORG",
-            eth: "YOUR_ETH_ADDRESS_ORG"
-          }
+          crypto: { btc: "YOUR_BTC_ADDRESS_ORG", eth: "YOUR_ETH_ADDRESS_ORG" }
         }
       },
 
       offerings: [
-        {
-          name: "Coffee",
-          price: "$5",
-          note: "Quick thank-you for a useful project, release, or fix.",
-          actions: ["card","paypal","sponsors"]
-        },
-        {
-          name: "Supporter",
-          price: "$15",
-          note: "Helps with maintenance, docs, packaging, CI, and small improvements.",
-          actions: ["card","paypal","sponsors","kofi","buymeacoffee"]
-        },
-        {
-          name: "Sponsor",
-          price: "$50",
-          note: "Back roadmap features, refactors, and long-term support work.",
-          actions: ["sponsors","card","paypal","opencollective","patreon","polar"]
-        }
+        { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","paypal","sponsors"] },
+        { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","paypal","sponsors","kofi","buymeacoffee"] },
+        { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","card","paypal","opencollective","patreon","polar"] }
       ]
     };
+
+    /* =========================
+       ARCH FUN CONTENT
+       ========================= */
+    const ARCH_TIPS = [
+      "If you update daily, you debug daily. If you update monthly, you debug monthly. Choose your poison responsibly.",
+      "The Arch Wiki is not documentation; it is a lifestyle decision.",
+      "A clean pacman cache feels like deleting 200 browser tabs you swore you still needed.",
+      "If your system breaks after an upgrade, you didn’t break it — you just discovered new features.",
+      "In rolling releases, stability is a habit: backups, snapshots, and reading news before -Syu.",
+      "The unofficial Arch motto: minimalism with maximum knobs.",
+      "AUR pro-tip: read PKGBUILDs like you read shell scripts you didn’t write: carefully.",
+      "If your dotfiles survive a reinstall, you have achieved enlightenment (or you use git).",
+      "Remember: pacman is fast. Your decisions are what’s slow.",
+      "It’s not 'I use Arch btw'—it’s 'I maintain Arch btw'."
+    ];
+
+    const PACMAN_CMDS = [
+      { name: "System update", desc: "Sync repos and upgrade everything.", cmd: "sudo pacman -Syu" },
+      { name: "Search packages", desc: "Search repo packages by keyword.", cmd: "pacman -Ss <term>" },
+      { name: "Installed packages", desc: "List explicitly installed packages.", cmd: "pacman -Qe" },
+      { name: "Orphans (safe cleanup)", desc: "List orphaned deps (review before removing).", cmd: "pacman -Qdt" },
+      { name: "Remove orphans", desc: "Remove orphan deps (carefully).", cmd: "sudo pacman -Rns $(pacman -Qdtq)" },
+      { name: "Package info", desc: "Show detailed info about a package.", cmd: "pacman -Qi <pkg>" },
+      { name: "Who depends on X", desc: "View dependency tree for a package.", cmd: "pactree -r <pkg>" },
+      { name: "Fast file ownership", desc: "Find which package owns a file.", cmd: "pacman -Qo /path/to/file" },
+      { name: "AUR helper update (example)", desc: "If you use yay; adapt to your helper.", cmd: "yay -Syu" },
+      { name: "Mirrors refresh (example)", desc: "Use reflector if installed (adjust country).", cmd: "sudo reflector --country NL,DE --latest 20 --sort rate --save /etc/pacman.d/mirrorlist" }
+    ];
 
     /* =========================
        HELPERS
@@ -1434,7 +1508,7 @@
     }
 
     /* =========================
-       RENDER OFFERINGS (dual recipient buttons)
+       OFFERINGS
        ========================= */
     function actionUrl(r, action){
       switch(action){
@@ -1451,8 +1525,6 @@
         case "issuehunt": return r.issueHunt;
         case "tidelift": return r.tidelift;
         case "communitybridge": return r.communityBridge;
-
-        /* Extra methods (hub-only) */
         case "wise": return r.wise;
         case "revolut": return r.revolut;
         case "bank": return r.bankTransfer;
@@ -1488,9 +1560,7 @@
       a.target = "_blank";
       a.rel = "noopener";
       a.textContent = actionLabel(action);
-
-      const url = actionUrl(r, action);
-      setLink(a, url);
+      setLink(a, actionUrl(r, action));
       return a;
     }
 
@@ -1520,19 +1590,13 @@
 
         const devPane = document.createElement("div");
         devPane.className = "miniCard";
-        devPane.innerHTML = `
-          <div class="miniHead"><div class="who">@0xElectron</div><div class="tag">DEV</div></div>
-          <div class="miniBtns"></div>
-        `;
+        devPane.innerHTML = `<div class="miniHead"><div class="who">@0xElectron</div><div class="tag">DEV</div></div><div class="miniBtns"></div>`;
         const devBtns = devPane.querySelector(".miniBtns");
         for(const a of o.actions) devBtns.appendChild(makeOfferBtn(dev, a));
 
         const orgPane = document.createElement("div");
         orgPane.className = "miniCard";
-        orgPane.innerHTML = `
-          <div class="miniHead"><div class="who">@0xLEANux</div><div class="tag">ORG</div></div>
-          <div class="miniBtns"></div>
-        `;
+        orgPane.innerHTML = `<div class="miniHead"><div class="who">@0xLEANux</div><div class="tag">ORG</div></div><div class="miniBtns"></div>`;
         const orgBtns = orgPane.querySelector(".miniBtns");
         for(const a of o.actions) orgBtns.appendChild(makeOfferBtn(org, a));
 
@@ -1546,34 +1610,29 @@
     }
 
     /* =========================
-       METHODS MATRIX (selected recipient)
+       METHODS (selected recipient)
        ========================= */
     function buildMethods(r){
       return [
-        { key:"sponsors", label:"GitHub Sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; configure tiers in Sponsors.", url:r.sponsors },
+        { label:"GitHub Sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; configure tiers in Sponsors.", url:r.sponsors },
 
-        { key:"card", label:"Card (Stripe)", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
-        { key:"paypal", label:"PayPal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
+        { label:"Card (Stripe)", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
+        { label:"PayPal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
 
-        { key:"openCollective", label:"Open Collective", type:"One-time", githubMenu:"Yes", note:"Great for transparent OSS funding (if you use it).", url:r.openCollective },
-        { key:"koFi", label:"Ko-fi", type:"One-time", githubMenu:"Yes", note:"One-time support and memberships (optional).", url:r.koFi },
-        { key:"buyMeACoffee", label:"Buy Me a Coffee", type:"One-time", githubMenu:"Yes", note:"Quick donations; popular frictionless option.", url:r.buyMeACoffee },
+        { label:"Open Collective", type:"One-time", githubMenu:"Yes", note:"Transparent OSS funding (if you use it).", url:r.openCollective },
+        { label:"Ko-fi", type:"One-time", githubMenu:"Yes", note:"One-time + optional memberships.", url:r.koFi },
+        { label:"Buy Me a Coffee", type:"One-time", githubMenu:"Yes", note:"Fast donor flow; common option.", url:r.buyMeACoffee },
 
-        { key:"patreon", label:"Patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style recurring support (if you use it).", url:r.patreon },
-        { key:"liberapay", label:"Liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (if you use it).", url:r.liberapay },
-        { key:"polar", label:"Polar", type:"Recurring", githubMenu:"Yes", note:"Polar memberships/donations (if you use it).", url:r.polar },
+        { label:"Patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style support (optional).", url:r.patreon },
+        { label:"Liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (optional).", url:r.liberapay },
+        { label:"Polar", type:"Recurring", githubMenu:"Yes", note:"Polar memberships/donations (optional).", url:r.polar },
 
-        { key:"thanksDev", label:"thanks.dev", type:"Recurring", githubMenu:"Yes", note:"Micro-funding tied to OSS usage (if you use it).", url:r.thanksDev },
-        { key:"issueHunt", label:"IssueHunt", type:"Bounties", githubMenu:"Yes", note:"Issue bounties (optional).", url:r.issueHunt },
-        { key:"tidelift", label:"Tidelift", type:"Subscription", githubMenu:"Yes", note:"Enterprise-style subscription for packages (optional).", url:r.tidelift },
-        { key:"communityBridge", label:"LFX CommunityBridge", type:"Campaign", githubMenu:"Yes", note:"Linux Foundation crowdfunding (optional).", url:r.communityBridge },
+        { label:"Wise", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.wise },
+        { label:"Revolut", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.revolut },
+        { label:"Bank transfer", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
 
-        { key:"wise", label:"Wise", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.wise },
-        { key:"revolut", label:"Revolut", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.revolut },
-        { key:"bank", label:"Bank transfer", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
-
-        { key:"btc", label:"Crypto (BTC)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
-        { key:"eth", label:"Crypto (ETH)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" },
+        { label:"Crypto (BTC)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
+        { label:"Crypto (ETH)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" }
       ];
     }
 
@@ -1591,15 +1650,14 @@
           ? isConfigured(r.crypto[m.crypto] || "")
           : isConfigured(m.url || "");
 
-        // Desktop row
-        const tr = document.createElement("tr");
-        tr.dataset.label = (m.label + " " + m.type + " " + m.note + " " + m.githubMenu).toLowerCase();
-        tr.dataset.configured = configured ? "1" : "0";
-
         const status = configured
           ? `<span class="status"><span class="dot on"></span>Configured</span>`
           : `<span class="status"><span class="dot off"></span>Not set</span>`;
 
+        // Desktop
+        const tr = document.createElement("tr");
+        tr.dataset.label = (m.label + " " + m.type + " " + m.note + " " + m.githubMenu).toLowerCase();
+        tr.dataset.configured = configured ? "1" : "0";
         tr.innerHTML = `
           <td>${m.label}</td>
           <td>${m.type}</td>
@@ -1648,23 +1706,19 @@
         mc.dataset.label = tr.dataset.label;
         mc.dataset.configured = tr.dataset.configured;
 
-        const top = document.createElement("div");
-        top.className = "methodTop";
-        top.innerHTML = `
-          <div>
-            <div class="methodName">${m.label}</div>
-            <div class="methodMeta">${m.type} • ${m.githubMenu}</div>
+        mc.innerHTML = `
+          <div class="methodTop">
+            <div>
+              <div class="methodName">${m.label}</div>
+              <div class="methodMeta">${m.type} • ${m.githubMenu}</div>
+            </div>
+            <div>${status}</div>
           </div>
-          <div>${status}</div>
+          <div class="methodNote">${m.note}</div>
+          <div class="methodActions"></div>
         `;
 
-        const note = document.createElement("div");
-        note.className = "methodNote";
-        note.textContent = m.note;
-
-        const actions = document.createElement("div");
-        actions.className = "methodActions";
-
+        const actions = mc.querySelector(".methodActions");
         if(m.crypto){
           const b1 = document.createElement("button");
           b1.className = "btn btnSm";
@@ -1690,9 +1744,6 @@
           actions.appendChild(a);
         }
 
-        mc.appendChild(top);
-        mc.appendChild(note);
-        mc.appendChild(actions);
         cards.appendChild(mc);
       }
     }
@@ -1704,18 +1755,18 @@
       const rows = Array.from(document.querySelectorAll("#methodsBody tr"));
       const cards = Array.from(document.querySelectorAll("#methodCards .methodCard"));
 
-      function visible(el){
+      const visible = (el) => {
         const match = !q || (el.dataset.label || "").includes(q);
         const ok = !only || el.dataset.configured === "1";
         return match && ok;
-      }
+      };
 
-      for(const r of rows) r.style.display = visible(r) ? "" : "none";
-      for(const c of cards) c.style.display = visible(c) ? "" : "none";
+      rows.forEach(r => r.style.display = visible(r) ? "" : "none");
+      cards.forEach(c => c.style.display = visible(c) ? "" : "none");
     }
 
     /* =========================
-       RECIPIENT APPLY
+       APPLY RECIPIENT
        ========================= */
     function applyRecipient(){
       const r = rec();
@@ -1724,7 +1775,7 @@
       document.getElementById("selHandle").textContent = r.label;
       document.getElementById("heroTitle").textContent = `Support ${r.label}`;
       document.getElementById("heroCopy").textContent =
-        `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Use the top actions or choose a tier below.`;
+        `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Choose Sponsors/Card/PayPal/Crypto; Arch Corner included.`;
 
       setLink(document.getElementById("btnProfile"), r.profile);
       setLink(document.getElementById("btnSponsor"), r.sponsors);
@@ -1760,17 +1811,72 @@
       qrData.textContent = scheme;
       qrImg.src = qrUrl;
 
-      qrCopy.onclick = async () => {
-        const ok = await copyText(scheme);
-        showToast(ok ? "Copied QR data." : "Copy failed.");
-      };
-
-      qrCopyAddr.onclick = async () => {
-        const ok = await copyText(addr);
-        showToast(ok ? "Copied address." : "Copy failed.");
-      };
+      qrCopy.onclick = async () => showToast((await copyText(scheme)) ? "Copied QR data." : "Copy failed.");
+      qrCopyAddr.onclick = async () => showToast((await copyText(addr)) ? "Copied address." : "Copy failed.");
 
       qrModal.showModal();
+    }
+
+    /* =========================
+       ARCH CORNER RENDER
+       ========================= */
+    function pickTip(){
+      const tip = ARCH_TIPS[Math.floor(Math.random() * ARCH_TIPS.length)];
+      document.getElementById("archTipText").textContent = tip;
+    }
+
+    function renderCmds(){
+      const root = document.getElementById("cmdList");
+      root.innerHTML = "";
+
+      PACMAN_CMDS.forEach((c) => {
+        const el = document.createElement("div");
+        el.className = "cmd";
+
+        el.innerHTML = `
+          <div class="cmdTop">
+            <div>
+              <p class="cmdName">${c.name}</p>
+              <p class="cmdDesc">${c.desc}</p>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn btnSm" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
+            </div>
+          </div>
+          <div class="cmdCode">${c.cmd.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
+        `;
+        root.appendChild(el);
+      });
+    }
+
+    /* =========================
+       NON-MONEY ACTIONS
+       ========================= */
+    function handleNonMoney(action){
+      const r = rec();
+      switch(action){
+        case "star":
+          showToast("Stars help discoverability. Open your project repos and star the ones you use.");
+          window.open(r.profile, "_blank", "noopener");
+          break;
+        case "issue":
+          showToast("Bug reports help. Include logs, repro steps, and versions.");
+          window.open(r.profile, "_blank", "noopener");
+          break;
+        case "pr":
+          showToast("PRs welcome. Small doc fixes are high ROI.");
+          window.open(r.profile, "_blank", "noopener");
+          break;
+        case "share":
+          showToast("Shared. If you have a project page, paste this hub link there too.");
+          copyText(CFG.hubCanonical.includes("YOUR_") ? window.location.href : CFG.hubCanonical).then(()=>{});
+          break;
+        case "packaging":
+          showToast("Packaging help: PKGBUILD review, AUR maintenance, CI scripts, or mirrors. Strong impact.");
+          break;
+        default:
+          showToast("Action saved.");
+      }
     }
 
     /* =========================
@@ -1788,6 +1894,19 @@
       else openQR("eth");
     });
 
+    document.getElementById("btnNewTip").addEventListener("click", pickTip);
+
+    document.getElementById("btnArchMode").addEventListener("click", () => {
+      document.getElementById("archBanner").classList.toggle("on");
+      showToast("Arch banner toggled. This page is now 12% more Arch.");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key && e.key.toLowerCase() === "a"){
+        document.getElementById("archBanner").classList.toggle("on");
+      }
+    });
+
     document.addEventListener("click", async (e) => {
       const copyBtn = e.target.closest("[data-copy]");
       if(copyBtn){
@@ -1795,14 +1914,26 @@
         const r = rec();
         const addr = (r.crypto[sym] || "").trim();
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
-        const ok = await copyText(addr);
-        showToast(ok ? `${sym.toUpperCase()} copied.` : "Copy failed.");
+        showToast((await copyText(addr)) ? `${sym.toUpperCase()} copied.` : "Copy failed.");
         return;
       }
 
       const qrBtn = e.target.closest("[data-qr]");
       if(qrBtn){
         openQR(qrBtn.getAttribute("data-qr"));
+        return;
+      }
+
+      const cmdBtn = e.target.closest("[data-copycmd]");
+      if(cmdBtn){
+        const cmd = decodeURIComponent(cmdBtn.getAttribute("data-copycmd") || "");
+        showToast((await copyText(cmd)) ? "Command copied." : "Copy failed.");
+        return;
+      }
+
+      const actionBtn = e.target.closest("[data-action]");
+      if(actionBtn){
+        handleNonMoney(actionBtn.getAttribute("data-action"));
         return;
       }
     });
@@ -1818,11 +1949,9 @@
        INIT
        ========================= */
     renderOffers();
+    renderCmds();
+    pickTip();
     applyRecipient();
-
-    // Deep link overrides are handled by initial selected state already,
-    // but keep URL clean if you want after a click (optional).
-    // (Not altering history here to remain simple.)
   </script>
 </body>
 </html>
