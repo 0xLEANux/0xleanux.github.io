@@ -479,6 +479,33 @@
       color: rgba(245,245,255,.68);
       line-height: 1.45;
     }
+    .impactStrip{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .impactCard{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,0,0,.14));
+      padding: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .impactCard:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.18); }
+    .impactTitle{
+      margin:0;
+      font-size: var(--t2);
+      font-weight: 950;
+      letter-spacing: .01em;
+    }
+    .impactText{
+      margin:6px 0 0;
+      font-size: var(--t1);
+      color: rgba(245,245,255,.70);
+      line-height: 1.5;
+    }
     .kpiGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1406,6 +1433,21 @@
               <div class="metaLabel">Deep link</div>
               <div class="metaValue" id="metaDeep">?to=dev</div>
               <div class="metaNote">Share directly to this tab.</div>
+            </div>
+          </div>
+
+          <div class="impactStrip" aria-label="Why your donation matters">
+            <div class="impactCard">
+              <p class="impactTitle">Ship more fixes</p>
+              <p class="impactText">Each recurring gift buys maintainer time for triage, security patches, and roadmap work.</p>
+            </div>
+            <div class="impactCard">
+              <p class="impactTitle">Keep things reliable</p>
+              <p class="impactText">Funds CI minutes, bandwidth, and backups so releases stay stable for everyone.</p>
+            </div>
+            <div class="impactCard">
+              <p class="impactTitle">Trust the source</p>
+              <p class="impactText">Addresses are verified on-page and in git history; no third-party forms are required.</p>
             </div>
           </div>
 
