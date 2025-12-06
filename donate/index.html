@@ -1872,11 +1872,22 @@
 
     const CURRENCY_RATES = { usd: 1, eur: 0.92, gbp: 0.79 };
     const CURRENCY_SYMBOL = { usd: "$", eur: "€", gbp: "£" };
+    const FEE_TABLE = {
+      usd: { pct: 0.029, fixed: 0.30 }, // Stripe/PayPal US ballpark
+      eur: { pct: 0.014, fixed: 0.25 }, // lower EU card fees
+      gbp: { pct: 0.014, fixed: 0.20 }  // UK card fees
+    };
 
     function formatCurrency(amount, cur){
       const sym = CURRENCY_SYMBOL[cur] || "$";
       const val = amount >= 10 ? amount.toFixed(0) : amount.toFixed(2);
       return `${sym}${val}`;
+    }
+
+    function grossForNet(target, cur){
+      const fee = FEE_TABLE[cur] || FEE_TABLE.usd;
+      const gross = (target + fee.fixed) / (1 - fee.pct);
+      return gross;
     }
 
     async function loadConfig(){
@@ -2055,8 +2066,19 @@
         card.dataset.tone = tone;
 
         const base = parseFloat((o.price || "").replace(/[^0-9.]/g, "")) || 0;
-        const main = formatCurrency(base * (CURRENCY_RATES[selectedCurrency] || 1), selectedCurrency);
-        const other = Object.keys(CURRENCY_RATES).filter(c => c !== selectedCurrency).map(c => formatCurrency(base * CURRENCY_RATES[c], c)).join(" • ");
+        const rate = CURRENCY_RATES[selectedCurrency] || 1;
+        const targetNet = base * rate;
+        const gross = grossForNet(targetNet, selectedCurrency);
+        const main = formatCurrency(gross, selectedCurrency);
+        const netText = formatCurrency(targetNet, selectedCurrency);
+        const other = Object.keys(CURRENCY_RATES)
+          .filter(c => c !== selectedCurrency)
+          .map(c => {
+            const t = base * (CURRENCY_RATES[c] || 1);
+            const g = grossForNet(t, c);
+            return formatCurrency(g, c);
+          })
+          .join(" • ");
 
         const head = document.createElement("div");
         head.className = "offerHead";
@@ -2064,7 +2086,7 @@
           <div>
             <h3>${o.name}</h3>
             <div class="desc">${o.note}</div>
-            <div class="fineprint" style="margin-top:8px;">≈ ${main} <span class="pMuted">(${other})</span></div>
+            <div class="fineprint" style="margin-top:8px;">≈ ${main} <span class="pMuted">(nets about ${netText} after local fees; other: ${other})</span></div>
           </div>
           <div class="price">${main}</div>
         `;
