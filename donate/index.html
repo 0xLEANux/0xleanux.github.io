@@ -4,118 +4,240 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <title>Donate • Support 0xElectron + 0xLEANux</title>
+  <meta name="theme-color" content="#070814" />
+  <title>Donate • 0xElectron + 0xLEANux</title>
+
+  <!--
+    NOTES:
+    - Background gradient is FIXED using body::before (constant on page; content scrolls above it).
+    - Fully responsive: desktop table + mobile cards, fluid type, adaptive grids, reduced-motion support.
+    - Supports both recipients (developer + organization) with a selector + deep-link (?to=dev or ?to=org).
+  -->
 
   <style>
+    /* =========================
+       DESIGN TOKENS
+       ========================= */
     :root{
-      --bg0:#050614; --bg1:#07081a;
-      --panel: rgba(255,255,255,.06);
+      --bg0:#050614;
+      --bg1:#07081a;
+      --bg2:#0a0b22;
+
+      --panel: rgba(255,255,255,.075);
       --panel2: rgba(0,0,0,.28);
+
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.09);
 
       --text: rgba(245,245,255,.92);
       --muted: rgba(245,245,255,.70);
-      --muted2: rgba(245,245,255,.55);
+      --muted2: rgba(245,245,255,.54);
 
-      /* Modern RGB / “neon” accents */
-      --c1:#b76bff;
-      --c2:#00e5ff;
-      --c3:#7CFF9E;
-      --c4:#FF6BD6;
+      /* Modern RGB palette */
+      --c1:#b76bff; /* neon purple */
+      --c2:#00e5ff; /* cyan */
+      --c3:#7CFF9E; /* mint */
+      --c4:#FF6BD6; /* pink */
 
-      --good: rgba(120,255,190,.18);
-      --warn: rgba(255,210,120,.18);
+      --good: rgba(124,255,158,.16);
+      --warn: rgba(255,210,120,.16);
       --danger: rgba(255,120,170,.14);
 
-      --r: 18px;
+      --r: 20px;
       --r2: 14px;
-      --shadow: 0 18px 60px rgba(0,0,0,.50);
+      --r3: 12px;
+
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --shadow2: 0 14px 48px rgba(0,0,0,.42);
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+      --lh: 1.58;
+
+      /* Fluid typography */
+      --t0: clamp(12px, 0.9vw, 13px);
+      --t1: clamp(13px, 1.0vw, 14px);
+      --t2: clamp(14px, 1.15vw, 15.5px);
+      --t3: clamp(16px, 1.4vw, 18px);
+      --t4: clamp(22px, 2.4vw, 30px);
+      --t5: clamp(28px, 3.6vw, 44px);
+
+      /* Layout */
+      --max: 1240px;
+      --pad: 16px;
+
+      /* Motion */
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --dur: 130ms;
+      --dur2: 220ms;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family:var(--sans);
-      background:
-        radial-gradient(1100px 520px at 15% 10%, rgba(183,107,255,.22), transparent 60%),
-        radial-gradient(980px 520px at 88% 0%, rgba(0,229,255,.14), transparent 60%),
-        radial-gradient(980px 600px at 45% 120%, rgba(255,107,214,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
-      color:var(--text);
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg0); /* fallback only; gradient is in ::before */
       overflow-x: hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width: 1160px; margin:0 auto; padding: 18px 16px 64px; }
+    /* FIXED BACKGROUND GRADIENT (constant on scroll) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(1200px 580px at 14% 10%, rgba(183,107,255,.24), transparent 60%),
+        radial-gradient(1000px 560px at 90% 0%, rgba(0,229,255,.15), transparent 60%),
+        radial-gradient(980px 560px at 40% 120%, rgba(255,107,214,.10), transparent 60%),
+        radial-gradient(780px 520px at 78% 120%, rgba(124,255,158,.08), transparent 62%),
+        linear-gradient(180deg, var(--bg2), var(--bg0));
+      transform: translateZ(0);
+    }
 
-    /* Animated RGB border utility */
-    .rgbBorder{
+    /* Subtle noise layer to prevent banding */
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .07;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-size: 120px 120px;
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px var(--pad) 72px;
+    }
+
+    /* =========================
+       ACCESSIBILITY & MOTION
+       ========================= */
+    .srOnly{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; scroll-behavior:auto !important; }
+    }
+
+    /* =========================
+       RGB BORDER + GLASS PANELS
+       ========================= */
+    .rgb{
       position: relative;
       border-radius: var(--r);
       isolation: isolate;
+      overflow: hidden;
     }
-    .rgbBorder::before{
+    .rgb::before{
       content:"";
       position:absolute;
-      inset:-1px;
+      inset:-2px;
       border-radius: inherit;
-      background: linear-gradient(120deg, rgba(183,107,255,.65), rgba(0,229,255,.55), rgba(124,255,158,.35), rgba(255,107,214,.35));
-      filter: blur(10px);
-      opacity: .55;
+      background: linear-gradient(120deg,
+        rgba(183,107,255,.70),
+        rgba(0,229,255,.55),
+        rgba(124,255,158,.35),
+        rgba(255,107,214,.35)
+      );
+      filter: blur(12px);
+      opacity: .52;
       z-index: -2;
-      animation: hueShift 7.5s linear infinite;
+      animation: hue 8.5s linear infinite;
     }
-    .rgbBorder::after{
+    .rgb::after{
       content:"";
       position:absolute;
       inset:0;
       border-radius: inherit;
-      background: rgba(6,7,20,.72);
-      z-index: -1;
+      background: rgba(6,7,22,.68);
       border: 1px solid rgba(255,255,255,.10);
       backdrop-filter: blur(10px);
+      z-index: -1;
     }
-    @keyframes hueShift{
-      0%{ filter: blur(10px) hue-rotate(0deg); }
-      100%{ filter: blur(10px) hue-rotate(360deg); }
+    @keyframes hue{
+      0%{ filter: blur(12px) hue-rotate(0deg); }
+      100%{ filter: blur(12px) hue-rotate(360deg); }
     }
 
-    /* Top bar */
+    .panel{
+      padding: 18px;
+      box-shadow: var(--shadow2);
+    }
+
+    .subPanel{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      padding: 14px;
+    }
+
+    /* =========================
+       TOP NAV (sticky)
+       ========================= */
     header{
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 60;
       backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(6,7,20,.78), rgba(6,7,20,.38));
-      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: linear-gradient(180deg, rgba(6,7,22,.80), rgba(6,7,22,.36));
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
+
     .top{
-      max-width: 1160px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 12px 16px;
+      padding: 12px var(--pad);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 12px;
+      flex-wrap: wrap;
     }
-    .brand{ display:flex; align-items:center; gap: 10px; min-width:0; }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 260px;
+      flex: 1 1 360px;
+    }
+
     .logo{
-      width: 40px; height: 40px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(183,107,255,.98), rgba(0,229,255,.75));
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(183,107,255,.95), rgba(0,229,255,.75));
       border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+      box-shadow: 0 16px 46px rgba(0,0,0,.48);
       flex: 0 0 auto;
+      position: relative;
+      overflow: hidden;
     }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+      transform: rotate(18deg);
+      opacity:.35;
+    }
+
     .brandText{ min-width:0; }
     .brandTitle{
       margin:0;
-      font-size: 14px;
-      letter-spacing: .09em;
+      font-size: var(--t2);
+      letter-spacing: .10em;
       text-transform: uppercase;
       color: rgba(245,245,255,.82);
       white-space:nowrap;
@@ -124,32 +246,45 @@
     }
     .brandSub{
       margin:2px 0 0;
-      font-size: 12.5px;
+      font-size: var(--t0);
       color: rgba(245,245,255,.55);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
 
-    .actions{ display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-end; align-items:center; }
+    .topRight{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex: 1 1 520px;
+      flex-wrap: wrap;
+    }
 
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.05);
+      font-size: var(--t1);
       color: rgba(245,245,255,.82);
-      font-size: 13px;
     }
-    .pill code{ font-family: var(--mono); font-size: 12px; color: var(--text); }
+    .pill code{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(245,245,255,.92);
+    }
 
-    /* Segmented control */
+    /* Recipient segmented control */
     .seg{
       display:inline-flex;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
+      background: rgba(0,0,0,.24);
       overflow:hidden;
     }
     .seg button{
@@ -158,125 +293,237 @@
       color: rgba(245,245,255,.72);
       padding: 9px 12px;
       cursor:pointer;
-      font-size: 13px;
-      font-weight: 800;
+      font-size: var(--t1);
+      font-weight: 900;
       letter-spacing: .01em;
-      transition: background .12s ease, color .12s ease;
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
       display:flex;
       align-items:center;
       gap: 8px;
+      position: relative;
+      outline: none;
     }
-    .seg button:hover{ background: rgba(255,255,255,.06); color: rgba(245,245,255,.90); }
-    .seg button.active{
-      background: linear-gradient(135deg, rgba(183,107,255,.30), rgba(0,229,255,.18));
+    .seg button:hover{
+      background: rgba(255,255,255,.06);
       color: rgba(245,245,255,.92);
     }
+    .seg button.active{
+      background: linear-gradient(135deg, rgba(183,107,255,.28), rgba(0,229,255,.18));
+      color: rgba(245,245,255,.95);
+    }
+
     .badge{
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11.5px;
       padding: 2px 7px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
     }
 
-    /* Buttons */
+    /* =========================
+       BUTTONS (with hover polish)
+       ========================= */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      font-weight: 900;
-      font-size: 14px;
+      font-weight: 950;
+      font-size: var(--t2);
       letter-spacing: .01em;
-      user-select:none;
       cursor:pointer;
-      transition: transform .10s ease, border-color .10s ease, background .10s ease, box-shadow .10s ease;
+      user-select:none;
+      transition:
+        transform var(--dur) var(--ease),
+        border-color var(--dur) var(--ease),
+        background var(--dur) var(--ease),
+        box-shadow var(--dur2) var(--ease),
+        filter var(--dur2) var(--ease);
       will-change: transform;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.22), transparent 55%);
+      transform: rotate(12deg);
+      opacity: 0;
+      transition: opacity var(--dur2) var(--ease);
+      pointer-events:none;
     }
     .btn:hover{
       transform: translateY(-1px);
       border-color: rgba(255,255,255,.24);
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 16px 44px rgba(0,0,0,.32);
+      background: rgba(255,255,255,.085);
+      box-shadow: 0 18px 60px rgba(0,0,0,.34);
+      filter: saturate(1.05);
     }
+    .btn:hover::after{ opacity: .9; }
     .btn:active{ transform: translateY(0px) scale(.99); }
+
     .btnPrimary{
       color:#060713;
       border-color: rgba(255,255,255,.16);
-      background: linear-gradient(135deg, rgba(183,107,255,.96), rgba(0,229,255,.70));
+      background: linear-gradient(135deg, rgba(183,107,255,.98), rgba(0,229,255,.72));
     }
     .btnPrimary:hover{
-      background: linear-gradient(135deg, rgba(183,107,255,.99), rgba(0,229,255,.80));
-      box-shadow: 0 18px 58px rgba(0,0,0,.36);
+      background: linear-gradient(135deg, rgba(183,107,255,.99), rgba(0,229,255,.82));
+      box-shadow: 0 22px 70px rgba(0,0,0,.38);
     }
-    .btnGhost{ background: rgba(0,0,0,.22); border-color: rgba(255,255,255,.12); }
-    .btnSm{ padding: 9px 10px; font-size: 13px; border-radius: 12px; }
+    .btnGhost{
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.12);
+    }
+    .btnSm{
+      padding: 9px 10px;
+      font-size: var(--t1);
+      border-radius: 12px;
+      font-weight: 900;
+    }
     .btn[aria-disabled="true"]{
-      opacity: .45;
+      opacity: .48;
       cursor:not-allowed;
       transform:none !important;
       box-shadow:none !important;
+      filter:none !important;
     }
 
-    /* Main cards */
+    /* =========================
+       HERO
+       ========================= */
     .hero{
       margin-top: 16px;
       padding: 22px;
     }
     .hero h1{
-      margin:0 0 6px;
-      font-size: 30px;
-      letter-spacing: -.02em;
+      margin: 0 0 8px;
+      font-size: var(--t5);
+      letter-spacing: -.03em;
+      line-height: 1.06;
     }
     .hero p{
-      margin:0;
+      margin: 0;
+      font-size: var(--t2);
       color: var(--muted);
-      line-height: 1.58;
-      max-width: 85ch;
+      line-height: var(--lh);
+      max-width: 90ch;
     }
-    .row{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px; }
 
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px; }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap:10px;
+      align-items:center;
+      margin-top: 14px;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 12px;
+    }
     .chip{
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
-      font-size: 12px;
+      font-size: var(--t0);
       color: rgba(245,245,255,.82);
     }
-    .chip.good{ background: var(--good); border-color: rgba(120,255,190,.22); }
+    .chip.good{ background: var(--good); border-color: rgba(124,255,158,.22); }
     .chip.warn{ background: var(--warn); border-color: rgba(255,210,120,.22); }
     .chip.danger{ background: var(--danger); border-color: rgba(255,120,170,.18); }
 
-    .grid{
+    .kpiGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px){
+      .kpiGrid{ grid-template-columns: 1fr; }
+    }
+    .kpi{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      padding: 12px;
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .kpi:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+    }
+    .kpi .label{
+      font-size: var(--t0);
+      color: rgba(245,245,255,.60);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .kpi .value{
+      margin-top: 6px;
+      font-size: var(--t3);
+      font-weight: 950;
+      letter-spacing: -.01em;
+    }
+    .kpi .desc{
+      margin-top: 4px;
+      font-size: var(--t0);
+      color: rgba(245,245,255,.55);
+      line-height: 1.45;
+    }
+
+    /* =========================
+       MAIN GRID
+       ========================= */
+    .mainGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap: 14px;
       margin-top: 14px;
     }
     @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .actions{ justify-content:flex-start; }
+      .mainGrid{ grid-template-columns: 1fr; }
     }
 
-    .panel{
-      padding: 16px;
+    .h2{
+      margin: 0 0 8px;
+      font-size: var(--t3);
+      letter-spacing: .01em;
+      color: rgba(245,245,255,.92);
     }
-    .panel h2{
-      margin:0 0 8px;
-      font-size: 16px;
-      letter-spacing: .02em;
-      color: rgba(245,245,255,.90);
+    .pMuted{
+      margin: 0;
+      color: var(--muted2);
+      font-size: var(--t1);
+      line-height: var(--lh);
     }
-    .muted2{ color: var(--muted2); font-size: 13px; line-height: 1.5; }
-    .mono{ font-family: var(--mono); font-size: 12.5px; color: rgba(245,245,255,.88); }
 
-    /* Offerings */
+    /* =========================
+       OFFERINGS (3 tiers + dual recipients)
+       ========================= */
     .offerGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -286,91 +533,156 @@
     @media (max-width: 980px){
       .offerGrid{ grid-template-columns: 1fr; }
     }
+
     .offer{
       position: relative;
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.24);
+      background: rgba(0,0,0,.25);
       padding: 14px;
       overflow:hidden;
-      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+      transition:
+        transform var(--dur) var(--ease),
+        border-color var(--dur) var(--ease),
+        box-shadow var(--dur2) var(--ease);
     }
     .offer::before{
       content:"";
       position:absolute;
       inset:-2px;
-      background: linear-gradient(120deg, rgba(183,107,255,.20), rgba(0,229,255,.12), rgba(255,107,214,.10));
       opacity: 0;
+      background: linear-gradient(120deg,
+        rgba(183,107,255,.20),
+        rgba(0,229,255,.12),
+        rgba(255,107,214,.10),
+        rgba(124,255,158,.08)
+      );
       transform: scale(1.02);
-      transition: opacity .12s ease;
+      transition: opacity var(--dur2) var(--ease);
       pointer-events:none;
     }
     .offer:hover{
       transform: translateY(-2px);
       border-color: rgba(255,255,255,.18);
-      box-shadow: 0 20px 60px rgba(0,0,0,.38);
+      box-shadow: 0 24px 70px rgba(0,0,0,.38);
     }
     .offer:hover::before{ opacity: 1; }
+    .offer > *{ position: relative; }
 
-    .offer > *{ position:relative; }
-    .offer h3{ margin:0; font-size: 14px; letter-spacing:.02em; }
-    .price{ margin-top: 6px; font-family: var(--mono); color: rgba(245,245,255,.90); }
-    .desc{ margin-top: 8px; font-size: 13px; color: rgba(245,245,255,.64); line-height: 1.45; }
+    .offerHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .offer h3{
+      margin:0;
+      font-size: var(--t2);
+      font-weight: 950;
+      letter-spacing: .01em;
+    }
+    .price{
+      font-family: var(--mono);
+      font-size: var(--t2);
+      color: rgba(245,245,255,.92);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      white-space: nowrap;
+    }
+    .offer .desc{
+      margin-top: 10px;
+      font-size: var(--t1);
+      color: rgba(245,245,255,.64);
+      line-height: 1.48;
+    }
 
     .splitActions{
+      margin-top: 12px;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 12px;
     }
-    @media (max-width: 520px){
+    @media (max-width: 560px){
       .splitActions{ grid-template-columns: 1fr; }
     }
+
     .miniCard{
-      border-radius: 12px;
+      border-radius: var(--r3);
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
       padding: 10px;
     }
     .miniHead{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
       margin-bottom: 8px;
     }
-    .miniHead .who{ font-weight: 900; font-size: 12.5px; color: rgba(245,245,255,.86); }
-    .miniHead .tag{ font-family: var(--mono); font-size: 11.5px; color: rgba(245,245,255,.65); }
+    .miniHead .who{
+      font-weight: 950;
+      font-size: var(--t1);
+      color: rgba(245,245,255,.86);
+    }
+    .miniHead .tag{
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: rgba(245,245,255,.65);
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .miniBtns{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+    }
 
-    /* Filters + Table */
+    /* =========================
+       METHODS: desktop table + mobile cards
+       ========================= */
     .filters{
       display:flex;
       gap: 10px;
       align-items:center;
       justify-content:space-between;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .search{
-      display:flex; gap:10px; align-items:center;
+      display:flex;
+      gap:10px;
+      align-items:center;
       padding: 10px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
       min-width: 320px;
+      flex: 1 1 360px;
     }
     .search input{
-      border:0; outline:0; width:100%;
+      border:0;
+      outline:0;
+      width:100%;
       background: transparent;
-      color: rgba(245,245,255,.90);
-      font-size: 14px;
+      color: rgba(245,245,255,.92);
+      font-size: var(--t2);
     }
     .toggle{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding: 10px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
       color: rgba(245,245,255,.82);
-      font-size: 13px;
+      font-size: var(--t1);
       user-select:none;
+      flex: 0 0 auto;
     }
     .toggle input{ width:16px; height:16px; }
 
@@ -385,16 +697,16 @@
       width:100%;
       border-collapse: separate;
       border-spacing: 0;
-      min-width: 980px;
-      font-size: 14px;
+      min-width: 1040px;
+      font-size: var(--t2);
     }
     thead th{
       text-align:left;
       padding: 12px;
-      font-size: 12px;
+      font-size: var(--t0);
       text-transform: uppercase;
-      letter-spacing: .08em;
-      color: rgba(245,245,255,.78);
+      letter-spacing: .10em;
+      color: rgba(245,245,255,.74);
       background: rgba(0,0,0,.30);
       border-bottom: 1px solid var(--stroke2);
       position: sticky;
@@ -411,15 +723,148 @@
     tbody tr:hover td{ background: rgba(255,255,255,.03); }
 
     .status{
-      display:inline-flex; align-items:center; gap:8px;
-      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: var(--t0);
       color: rgba(245,245,255,.78);
     }
-    .dot{ width:8px; height: 8px; border-radius:50%; background: rgba(255,255,255,.35); }
-    .dot.on{ background: rgba(120,255,190,.85); }
-    .dot.off{ background: rgba(255,120,170,.85); }
+    .dot{
+      width:8px; height:8px;
+      border-radius:50%;
+      background: rgba(255,255,255,.35);
+    }
+    .dot.on{ background: rgba(124,255,158,.90); }
+    .dot.off{ background: rgba(255,120,170,.90); }
 
-    /* Toast + modal */
+    /* Mobile cards version of methods */
+    .methodCards{
+      display:none;
+      margin-top: 12px;
+      gap: 10px;
+      grid-template-columns: 1fr;
+    }
+    .methodCard{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .methodCard:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+    }
+    .methodTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .methodName{
+      font-weight: 950;
+      font-size: var(--t2);
+    }
+    .methodMeta{
+      margin-top: 6px;
+      font-size: var(--t0);
+      color: rgba(245,245,255,.60);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .methodNote{
+      margin-top: 10px;
+      font-size: var(--t1);
+      color: rgba(245,245,255,.64);
+      line-height: 1.48;
+    }
+    .methodActions{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 860px){
+      .tableWrap{ display:none; }
+      .methodCards{ display:grid; }
+    }
+
+    /* =========================
+       RIGHT COLUMN: CRYPTO + FAQ + TRANSPARENCY
+       ========================= */
+    .addrBox{
+      margin-top: 12px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+    }
+    .addrLabel{
+      font-size: var(--t0);
+      color: rgba(245,245,255,.60);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .addrVal{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(245,245,255,.90);
+      word-break: break-all;
+    }
+    .addrRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .addrRow:first-child{ margin-top: 0; }
+    .addrBtns{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      flex: 0 0 auto;
+    }
+
+    details{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      padding: 12px;
+      margin-top: 10px;
+      transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+    details:hover{
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+    }
+    summary{
+      cursor: pointer;
+      font-weight: 900;
+      font-size: var(--t2);
+      color: rgba(245,245,255,.86);
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{
+      margin: 10px 0 0;
+      color: rgba(245,245,255,.64);
+      font-size: var(--t1);
+      line-height: var(--lh);
+    }
+
+    .fineprint{
+      margin-top: 12px;
+      color: rgba(245,245,255,.55);
+      font-size: var(--t0);
+      line-height: 1.45;
+    }
+
+    /* =========================
+       TOAST + MODALS
+       ========================= */
     .toast{
       position: fixed;
       left: 50%;
@@ -431,13 +876,18 @@
       background: rgba(10,10,18,.86);
       box-shadow: 0 18px 55px rgba(0,0,0,.55);
       color: rgba(245,245,255,.92);
-      font-size: 13px;
+      font-size: var(--t1);
       opacity: 0;
-      pointer-events: none;
-      transition: opacity .15s ease, transform .15s ease;
+      pointer-events:none;
+      transition: opacity var(--dur2) var(--ease), transform var(--dur2) var(--ease);
       z-index: 99;
+      min-width: min(520px, calc(100vw - 24px));
+      text-align: center;
     }
-    .toast.show{ opacity:1; transform: translateX(-50%) translateY(-2px); }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
 
     dialog{
       border: 1px solid rgba(255,255,255,.12);
@@ -445,20 +895,73 @@
       background: rgba(10,10,18,.92);
       box-shadow: var(--shadow);
       color: var(--text);
-      width: min(600px, calc(100vw - 24px));
+      width: min(720px, calc(100vw - 24px));
     }
-    dialog::backdrop{ background: rgba(0,0,0,.55); backdrop-filter: blur(6px); }
-    .modalHead{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    .modalHead h3{ margin:0; font-size: 14px; letter-spacing:.02em; }
-    .modalBody{ margin-top: 10px; }
+    dialog::backdrop{
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(6px);
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .modalHead h3{
+      margin:0;
+      font-size: var(--t3);
+      letter-spacing: .01em;
+    }
+    .modalBody{ margin-top: 12px; }
+    .modalGrid{
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    @media (max-width: 720px){
+      .modalGrid{ grid-template-columns: 1fr; }
+    }
     .qrImg{
-      display:block;
-      width: 220px; height: 220px;
+      width: 260px;
+      height: 260px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
     }
-    .modalRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; }
+    @media (max-width: 720px){
+      .qrImg{ width: 100%; height: auto; aspect-ratio: 1/1; }
+    }
+    .modalMono{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(245,245,255,.90);
+      word-break: break-all;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+    footer{
+      margin-top: 18px;
+      color: rgba(245,245,255,.55);
+      font-size: var(--t0);
+      line-height: 1.5;
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){ .footerGrid{ grid-template-columns: 1fr; } }
+    .link{
+      text-decoration: underline;
+      text-decoration-color: rgba(245,245,255,.22);
+      text-underline-offset: 3px;
+    }
   </style>
 </head>
 
@@ -468,17 +971,17 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div class="brandText">
-          <p class="brandTitle" id="brandTitle">Donations</p>
-          <p class="brandSub" id="brandSub">Two recipients • one page</p>
+          <p class="brandTitle" id="brandTitle">Donate • 0xElectron + 0xLEANux</p>
+          <p class="brandSub" id="brandSub">One hub • two recipients • fixed RGB background</p>
         </div>
       </div>
 
-      <div class="actions">
+      <div class="topRight">
         <div class="seg" role="tablist" aria-label="Select recipient">
-          <button id="tabDev" class="active" role="tab" aria-selected="true">
+          <button id="tabDev" class="active" role="tab" aria-selected="true" type="button">
             @0xElectron <span class="badge">DEV</span>
           </button>
-          <button id="tabOrg" role="tab" aria-selected="false">
+          <button id="tabOrg" role="tab" aria-selected="false" type="button">
             @0xLEANux <span class="badge">ORG</span>
           </button>
         </div>
@@ -491,47 +994,110 @@
   </header>
 
   <main class="wrap">
-    <section class="rgbBorder hero">
+    <section class="rgb panel hero" aria-label="Donation hero">
       <h1 id="heroTitle">Support @0xElectron</h1>
       <p id="heroCopy">
-        This is the single donation hub for both my developer profile and the 0xLEANux organization. Select the recipient above, then choose your preferred method.
+        This is the unified donation hub for the developer profile (@0xElectron) and the organization (0xLEANux).
+        Choose the recipient in the top bar, then pick your preferred method. Background stays fixed; only content scrolls.
       </p>
 
       <div class="chips">
-        <span class="chip good">Recurring (Sponsors)</span>
-        <span class="chip warn">One-time (Card / PayPal)</span>
+        <span class="chip good">Recurring support</span>
+        <span class="chip warn">One-time donations</span>
         <span class="chip">Crypto (BTC/ETH)</span>
-        <span class="chip">Fast “Offerings” below</span>
+        <span class="chip">Mobile-ready</span>
       </div>
 
-      <div class="row">
-        <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener">GitHub Sponsors</a>
-        <a class="btn" id="ctaCard" target="_blank" rel="noopener">Donate by Card</a>
-        <a class="btn" id="ctaPayPal" target="_blank" rel="noopener">Donate via PayPal</a>
-        <button class="btn" id="ctaCrypto" type="button">Show Crypto</button>
-      </div>
+      <div class="heroGrid">
+        <div class="subPanel">
+          <div class="ctaRow">
+            <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener">GitHub Sponsors</a>
+            <a class="btn" id="ctaCard" target="_blank" rel="noopener">Donate by Card</a>
+            <a class="btn" id="ctaPayPal" target="_blank" rel="noopener">Donate via PayPal</a>
+            <button class="btn" id="ctaCrypto" type="button">Show Crypto (QR)</button>
+          </div>
 
-      <p class="muted2" style="margin-top:12px;">
-        Tip: Add this page to <span class="mono">custom:</span> in <span class="mono">FUNDING.yml</span> so GitHub’s Sponsor button routes here.
-      </p>
+          <div class="kpiGrid" aria-label="Donation summary">
+            <div class="kpi">
+              <div class="label">Best recurring</div>
+              <div class="value">Sponsors</div>
+              <div class="desc">Ongoing maintenance and roadmap work.</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Best one-time</div>
+              <div class="value">Card / PayPal</div>
+              <div class="desc">Fast checkout for most supporters.</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Crypto</div>
+              <div class="value">BTC / ETH</div>
+              <div class="desc">Copy + QR; per-recipient addresses.</div>
+            </div>
+          </div>
+
+          <p class="fineprint">
+            Deep links: <span style="font-family:var(--mono)">?to=dev</span> or <span style="font-family:var(--mono)">?to=org</span>.
+            Use this page in GitHub’s <span style="font-family:var(--mono)">FUNDING.yml</span> as a custom URL.
+          </p>
+        </div>
+
+        <div class="subPanel" aria-label="Quick compare">
+          <p class="pMuted" style="margin:0;">
+            Want donors to choose explicitly? The “Offerings” section below provides side-by-side buttons for both recipients (DEV + ORG).
+            Your selected recipient controls the top CTA buttons and the right-column crypto display.
+          </p>
+
+          <div style="margin-top:12px; display:grid; gap:10px;">
+            <div class="subPanel" style="padding:12px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <div style="font-weight:950;">Developer</div>
+                <div style="font-family:var(--mono); font-size:12px; color:rgba(245,245,255,.65)">@0xElectron</div>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+                <a class="btn btnSm btnGhost" target="_blank" rel="noopener" href="https://github.com/0xElectron">Profile</a>
+                <a class="btn btnSm" target="_blank" rel="noopener" href="https://github.com/sponsors/0xElectron">Sponsors</a>
+              </div>
+            </div>
+
+            <div class="subPanel" style="padding:12px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <div style="font-weight:950;">Organization</div>
+                <div style="font-family:var(--mono); font-size:12px; color:rgba(245,245,255,.65)">@0xLEANux</div>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+                <a class="btn btnSm btnGhost" target="_blank" rel="noopener" href="https://github.com/0xLEANux">Profile</a>
+                <a class="btn btnSm" target="_blank" rel="noopener" href="https://github.com/sponsors/0xLEANux">Sponsors</a>
+              </div>
+            </div>
+          </div>
+
+          <p class="fineprint">
+            Pro tip: For org repos, put the org link first in <span style="font-family:var(--mono)">custom:</span> or set the default query to <span style="font-family:var(--mono)">?to=org</span>.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <div class="grid">
-      <section class="rgbBorder panel">
-        <h2>Suggested offerings (supports both recipients)</h2>
-        <p class="muted2">
-          Each offering shows buttons for both @0xElectron and @0xLEANux, so donors can pick explicitly.
+    <div class="mainGrid">
+      <section class="rgb panel" aria-label="Offerings and methods">
+        <h2 class="h2">Suggested offerings (explicit DEV + ORG buttons)</h2>
+        <p class="pMuted">
+          Each tier presents donation buttons for both recipients. You can configure different payment links per recipient and per method.
         </p>
 
         <div class="offerGrid" id="offers"></div>
 
-        <div style="height:12px;"></div>
+        <div style="height:16px;"></div>
 
-        <h2>All donation methods (matrix)</h2>
+        <h2 class="h2">All donation methods (selected recipient)</h2>
+        <p class="pMuted">
+          Search, filter, and show only configured methods. Desktop uses a matrix; mobile uses clean cards.
+        </p>
+
         <div class="filters">
-          <label class="search" aria-label="Search methods">
-            <span class="muted2">Search</span>
-            <input id="search" type="text" placeholder="e.g. sponsors, paypal, stripe, crypto, open collective, kofi..." />
+          <label class="search" aria-label="Search donation methods">
+            <span class="srOnly">Search</span>
+            <input id="search" type="text" placeholder="Search: sponsors, paypal, stripe, kofi, open collective, crypto, tidelift..." />
           </label>
 
           <label class="toggle">
@@ -540,14 +1106,15 @@
           </label>
         </div>
 
+        <!-- Desktop table -->
         <div class="tableWrap" role="region" aria-label="Donation methods table">
           <table>
             <thead>
               <tr>
-                <th style="width: 16%;">Method</th>
+                <th style="width: 18%;">Method</th>
                 <th style="width: 12%;">Type</th>
                 <th style="width: 16%;">GitHub Sponsor menu</th>
-                <th style="width: 36%;">Notes</th>
+                <th style="width: 34%;">Notes</th>
                 <th style="width: 12%;">Status</th>
                 <th style="width: 8%;">Action</th>
               </tr>
@@ -555,46 +1122,114 @@
             <tbody id="methodsBody"></tbody>
           </table>
         </div>
+
+        <!-- Mobile cards -->
+        <div class="methodCards" id="methodCards" aria-label="Donation methods (mobile)"></div>
+
+        <footer class="fineprint">
+          GitHub shows supported platforms plus up to 4 custom URLs. Use custom URLs for Stripe/PayPal/crypto hub flows.
+        </footer>
       </section>
 
-      <aside class="rgbBorder panel">
-        <h2>Crypto (per recipient)</h2>
-        <p class="muted2">
-          Crypto addresses are per-recipient. Copy carefully and use the correct network.
-        </p>
+      <aside class="rgb panel" aria-label="Crypto and FAQ">
+        <h2 class="h2">Crypto for selected recipient</h2>
+        <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
 
-        <div style="margin-top:10px; padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.24);">
-          <div class="muted2">BTC</div>
-          <div class="mono" id="btcAddr">Not configured</div>
-          <div class="row" style="margin-top:10px;">
-            <button class="btn btnSm" type="button" data-copy="btc">Copy</button>
-            <button class="btn btnSm" type="button" data-qr="btc">QR</button>
+        <div class="addrBox">
+          <div class="addrRow">
+            <div style="min-width:0;">
+              <div class="addrLabel">BTC</div>
+              <div class="addrVal" id="btcAddr">Not configured</div>
+            </div>
+            <div class="addrBtns">
+              <button class="btn btnSm" type="button" data-copy="btc">Copy</button>
+              <button class="btn btnSm btnGhost" type="button" data-qr="btc">QR</button>
+            </div>
           </div>
 
-          <div style="height:10px;"></div>
-
-          <div class="muted2">ETH</div>
-          <div class="mono" id="ethAddr">Not configured</div>
-          <div class="row" style="margin-top:10px;">
-            <button class="btn btnSm" type="button" data-copy="eth">Copy</button>
-            <button class="btn btnSm" type="button" data-qr="eth">QR</button>
+          <div class="addrRow">
+            <div style="min-width:0;">
+              <div class="addrLabel">ETH</div>
+              <div class="addrVal" id="ethAddr">Not configured</div>
+            </div>
+            <div class="addrBtns">
+              <button class="btn btnSm" type="button" data-copy="eth">Copy</button>
+              <button class="btn btnSm btnGhost" type="button" data-qr="eth">QR</button>
+            </div>
           </div>
         </div>
 
         <div style="height:14px;"></div>
 
-        <h2>Quick notes</h2>
-        <div class="muted2">
-          <p style="margin:0 0 10px;">
-            Best recurring option is GitHub Sponsors. Best one-time option is Card (Stripe) or PayPal.
+        <h2 class="h2">FAQ</h2>
+
+        <details>
+          <summary>Which method is best?</summary>
+          <p>
+            If you want to support long-term work, GitHub Sponsors is the best default.
+            For one-time support, Card (Stripe) or PayPal is simplest. Crypto is fine if you prefer it.
           </p>
-          <p style="margin:0;">
-            You can deep-link to a recipient:
-            <span class="mono">?to=dev</span> or <span class="mono">?to=org</span>.
+        </details>
+
+        <details>
+          <summary>Can I donate to both DEV and ORG?</summary>
+          <p>
+            Yes. Use the offerings section (it shows DEV and ORG buttons side by side). You can also switch the recipient in the top bar.
           </p>
-        </div>
+        </details>
+
+        <details>
+          <summary>Will I get a receipt?</summary>
+          <p>
+            Receipts depend on the provider. Card/PayPal providers typically provide proof of payment. Sponsors provides a record via GitHub.
+          </p>
+        </details>
+
+        <details>
+          <summary>Why is Stripe/PayPal not directly in GitHub’s Sponsor dropdown?</summary>
+          <p>
+            GitHub’s sponsor button supports specific platforms and custom URLs. For Stripe/PayPal/crypto, a custom URL (this page) is the standard solution.
+          </p>
+        </details>
+
+        <div style="height:14px;"></div>
+
+        <h2 class="h2">Transparency (optional)</h2>
+        <p class="pMuted">
+          Add a short note here about what donations fund: maintenance, releases, packaging, documentation, CI, and time for refactors.
+        </p>
+
+        <footer class="fineprint">
+          Security note: never publish private keys. Only publish public receiving addresses.
+        </footer>
       </aside>
     </div>
+
+    <footer class="rgb panel" aria-label="Footer">
+      <div class="footerGrid">
+        <div class="subPanel">
+          <div style="font-weight:950; font-size:var(--t3);">Connect GitHub to this page</div>
+          <p class="pMuted" style="margin-top:8px;">
+            Put this donation hub in <span style="font-family:var(--mono)">custom:</span> in each repo’s <span style="font-family:var(--mono)">.github/FUNDING.yml</span>
+            so the Sponsor button routes here.
+          </p>
+          <p class="fineprint" style="margin-top:10px;">
+            Recommended: use two custom links so donors land on the right recipient tab immediately.
+          </p>
+        </div>
+
+        <div class="subPanel">
+          <div style="font-weight:950; font-size:var(--t3);">Profiles</div>
+          <p class="pMuted" style="margin-top:8px;">
+            Developer: <a class="link" href="https://github.com/0xElectron" target="_blank" rel="noopener">github.com/0xElectron</a><br/>
+            Organization: <a class="link" href="https://github.com/0xLEANux" target="_blank" rel="noopener">github.com/0xLEANux</a>
+          </p>
+          <p class="fineprint" style="margin-top:10px;">
+            Deep links: <span style="font-family:var(--mono)">/donate/?to=dev</span> or <span style="font-family:var(--mono)">/donate/?to=org</span>.
+          </p>
+        </div>
+      </div>
+    </footer>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -605,16 +1240,17 @@
       <button class="btn btnSm btnGhost" id="qrClose" type="button">Close</button>
     </div>
     <div class="modalBody">
-      <div class="modalRow">
+      <div class="modalGrid">
         <img id="qrImg" class="qrImg" alt="QR code" />
-        <div style="flex:1; min-width: 240px;">
-          <div class="muted2">Data</div>
-          <div class="mono" id="qrData" style="word-break:break-all;"></div>
-          <div class="row" style="margin-top:10px;">
-            <button class="btn btnSm" id="qrCopy" type="button">Copy</button>
+        <div>
+          <div class="pMuted" style="margin:0;">Data</div>
+          <div class="modalMono" id="qrData" style="margin-top:8px;"></div>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btnSm" id="qrCopy" type="button">Copy data</button>
+            <button class="btn btnSm btnGhost" id="qrCopyAddr" type="button">Copy address</button>
           </div>
-          <p class="muted2" style="margin-top:10px;">
-            QR is rendered as an image URL (no third-party JS).
+          <p class="fineprint" style="margin-top:12px;">
+            QR is rendered as an image URL (no third-party JavaScript). If you prefer fully offline, replace with your own hosted PNGs.
           </p>
         </div>
       </div>
@@ -622,11 +1258,12 @@
   </dialog>
 
   <script>
-    // =========================
-    // CONFIG (FILLED FOR YOU)
-    // =========================
+    /* =========================
+       CONFIG (EDIT THIS ONLY)
+       ========================= */
     const CFG = {
-      pageTitle: "Donations • 0xElectron + 0xLEANux",
+      pageTitle: "Donate • 0xElectron + 0xLEANux",
+      hubCanonical: "https://YOUR_GH_PAGES_DOMAIN/donate/",
 
       recipients: {
         dev: {
@@ -636,11 +1273,11 @@
           profile: "https://github.com/0xElectron",
           sponsors: "https://github.com/sponsors/0xElectron",
 
-          // Optional: fill these with your real links (Stripe Payment Link / PayPal.Me / etc.)
+          // One-time
           card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
           paypal: "YOUR_PAYPAL_LINK_DEV",
 
-          // Optional 3rd-party funding pages (if you use them)
+          // Optional GitHub-supported platforms (if you use them)
           openCollective: "",
           koFi: "",
           buyMeACoffee: "",
@@ -651,6 +1288,12 @@
           issueHunt: "",
           tidelift: "",
           communityBridge: "",
+
+          // Optional extra methods (shown only on this page)
+          wise: "",
+          revolut: "",
+          bankTransfer: "",
+          donateToAddress: "",
 
           crypto: {
             btc: "YOUR_BTC_ADDRESS_DEV",
@@ -679,6 +1322,11 @@
           tidelift: "",
           communityBridge: "",
 
+          wise: "",
+          revolut: "",
+          bankTransfer: "",
+          donateToAddress: "",
+
           crypto: {
             btc: "YOUR_BTC_ADDRESS_ORG",
             eth: "YOUR_ETH_ADDRESS_ORG"
@@ -686,43 +1334,44 @@
         }
       },
 
-      // Suggested offerings with dual-recipient actions (buttons for both)
       offerings: [
         {
           name: "Coffee",
           price: "$5",
-          note: "Quick thank-you for a useful tool, release, or fix.",
-          actions: ["card", "paypal", "sponsors"]
+          note: "Quick thank-you for a useful project, release, or fix.",
+          actions: ["card","paypal","sponsors"]
         },
         {
           name: "Supporter",
           price: "$15",
-          note: "Helps with maintenance, packaging, docs, and ongoing improvements.",
-          actions: ["card", "paypal", "sponsors"]
+          note: "Helps with maintenance, docs, packaging, CI, and small improvements.",
+          actions: ["card","paypal","sponsors","kofi","buymeacoffee"]
         },
         {
           name: "Sponsor",
           price: "$50",
-          note: "Back bigger refactors, roadmap features, and long-term maintenance.",
-          actions: ["sponsors", "card", "paypal", "openCollective"]
+          note: "Back roadmap features, refactors, and long-term support work.",
+          actions: ["sponsors","card","paypal","opencollective","patreon","polar"]
         }
       ]
     };
 
-    // =========================
-    // Helpers
-    // =========================
+    /* =========================
+       HELPERS
+       ========================= */
     const toast = document.getElementById("toast");
     const qrModal = document.getElementById("qrModal");
     const qrImg = document.getElementById("qrImg");
     const qrTitle = document.getElementById("qrTitle");
     const qrData = document.getElementById("qrData");
     const qrCopy = document.getElementById("qrCopy");
+    const qrCopyAddr = document.getElementById("qrCopyAddr");
 
     function showToast(msg){
       toast.textContent = msg;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1400);
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove("show"), 1500);
     }
 
     function isConfigured(v){
@@ -730,12 +1379,15 @@
     }
 
     async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); return true; }
-      catch(e){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(e){
         const ta = document.createElement("textarea");
         ta.value = text;
         ta.setAttribute("readonly","");
-        ta.style.position="fixed"; ta.style.top="-9999px";
+        ta.style.position="fixed";
+        ta.style.top="-9999px";
         document.body.appendChild(ta);
         ta.select();
         let ok=false;
@@ -760,20 +1412,19 @@
       return (u.searchParams.get(key) || "").trim().toLowerCase();
     }
 
-    // =========================
-    // State: selected recipient
-    // =========================
-    const saved = localStorage.getItem("donate_to");
-    const deep = qs("to");
-    let selected = (deep === "org" || deep === "dev") ? deep : (saved === "org" || saved === "dev") ? saved : "dev";
-
-    function selRec(){ return CFG.recipients[selected]; }
-
-    // =========================
-    // UI binding
-    // =========================
+    /* =========================
+       STATE
+       ========================= */
     const tabDev = document.getElementById("tabDev");
     const tabOrg = document.getElementById("tabOrg");
+
+    const saved = localStorage.getItem("donate_to");
+    const deep = qs("to");
+    let selected = (deep === "org" || deep === "dev")
+      ? deep
+      : ((saved === "org" || saved === "dev") ? saved : "dev");
+
+    function rec(){ return CFG.recipients[selected]; }
 
     function setActiveTab(){
       tabDev.classList.toggle("active", selected === "dev");
@@ -782,58 +1433,63 @@
       tabOrg.setAttribute("aria-selected", selected === "org" ? "true" : "false");
     }
 
-    function applyRecipient(){
-      const r = selRec();
+    /* =========================
+       RENDER OFFERINGS (dual recipient buttons)
+       ========================= */
+    function actionUrl(r, action){
+      switch(action){
+        case "sponsors": return r.sponsors;
+        case "card": return r.card;
+        case "paypal": return r.paypal;
+        case "opencollective": return r.openCollective;
+        case "kofi": return r.koFi;
+        case "buymeacoffee": return r.buyMeACoffee;
+        case "patreon": return r.patreon;
+        case "liberapay": return r.liberapay;
+        case "polar": return r.polar;
+        case "thanksdev": return r.thanksDev;
+        case "issuehunt": return r.issueHunt;
+        case "tidelift": return r.tidelift;
+        case "communitybridge": return r.communityBridge;
 
-      document.title = CFG.pageTitle;
-      document.getElementById("brandTitle").textContent = CFG.pageTitle;
-      document.getElementById("brandSub").textContent = "Two recipients • one page • modern RGB";
-
-      document.getElementById("selHandle").textContent = r.label;
-      document.getElementById("heroTitle").textContent = `Support ${r.label}`;
-      document.getElementById("heroCopy").textContent =
-        `Select a recipient (Developer vs Organization), then donate via Sponsors, Card, PayPal, or Crypto. Current selection: ${r.label}.`;
-
-      setLink(document.getElementById("btnProfile"), r.profile);
-      setLink(document.getElementById("btnSponsor"), r.sponsors);
-
-      setLink(document.getElementById("ctaSponsors"), r.sponsors);
-      setLink(document.getElementById("ctaCard"), r.card);
-      setLink(document.getElementById("ctaPayPal"), r.paypal);
-
-      // Crypto display (per recipient)
-      document.getElementById("btcAddr").textContent = isConfigured(r.crypto.btc) ? r.crypto.btc : "Not configured";
-      document.getElementById("ethAddr").textContent = isConfigured(r.crypto.eth) ? r.crypto.eth : "Not configured";
-
-      renderMethods();
-      applyFilters();
-      localStorage.setItem("donate_to", selected);
-      setActiveTab();
+        /* Extra methods (hub-only) */
+        case "wise": return r.wise;
+        case "revolut": return r.revolut;
+        case "bank": return r.bankTransfer;
+        default: return "";
+      }
     }
 
-    // =========================
-    // Offerings (dual-recipient)
-    // =========================
-    function makeActionButton(rec, action){
+    function actionLabel(action){
+      switch(action){
+        case "sponsors": return "Sponsors";
+        case "card": return "Card";
+        case "paypal": return "PayPal";
+        case "opencollective": return "OpenCollective";
+        case "kofi": return "Ko-fi";
+        case "buymeacoffee": return "BMC";
+        case "patreon": return "Patreon";
+        case "liberapay": return "Liberapay";
+        case "polar": return "Polar";
+        case "thanksdev": return "thanks.dev";
+        case "issuehunt": return "IssueHunt";
+        case "tidelift": return "Tidelift";
+        case "communitybridge": return "LFX";
+        case "wise": return "Wise";
+        case "revolut": return "Revolut";
+        case "bank": return "Bank";
+        default: return action;
+      }
+    }
+
+    function makeOfferBtn(r, action){
       const a = document.createElement("a");
       a.className = "btn btnSm";
       a.target = "_blank";
       a.rel = "noopener";
+      a.textContent = actionLabel(action);
 
-      const label =
-        action === "sponsors" ? "Sponsors" :
-        action === "card"     ? "Card" :
-        action === "paypal"   ? "PayPal" :
-        action === "openCollective" ? "OpenCollective" : action;
-
-      a.textContent = label;
-
-      const url =
-        action === "sponsors" ? rec.sponsors :
-        action === "card"     ? rec.card :
-        action === "paypal"   ? rec.paypal :
-        action === "openCollective" ? rec.openCollective : "";
-
+      const url = actionUrl(r, action);
       setLink(a, url);
       return a;
     }
@@ -842,99 +1498,105 @@
       const root = document.getElementById("offers");
       root.innerHTML = "";
 
-      const recDev = CFG.recipients.dev;
-      const recOrg = CFG.recipients.org;
+      const dev = CFG.recipients.dev;
+      const org = CFG.recipients.org;
 
       for(const o of CFG.offerings){
         const card = document.createElement("div");
         card.className = "offer";
 
-        card.innerHTML = `
-          <h3>${o.name}</h3>
+        const head = document.createElement("div");
+        head.className = "offerHead";
+        head.innerHTML = `
+          <div>
+            <h3>${o.name}</h3>
+            <div class="desc">${o.note}</div>
+          </div>
           <div class="price">${o.price}</div>
-          <div class="desc">${o.note}</div>
-          <div class="splitActions"></div>
         `;
 
-        const split = card.querySelector(".splitActions");
+        const split = document.createElement("div");
+        split.className = "splitActions";
 
-        // Dev pane
         const devPane = document.createElement("div");
         devPane.className = "miniCard";
         devPane.innerHTML = `
-          <div class="miniHead">
-            <div class="who">@0xElectron</div>
-            <div class="tag">DEV</div>
-          </div>
-          <div class="row" style="margin-top:0"></div>
+          <div class="miniHead"><div class="who">@0xElectron</div><div class="tag">DEV</div></div>
+          <div class="miniBtns"></div>
         `;
-        const devRow = devPane.querySelector(".row");
-        for(const a of o.actions) devRow.appendChild(makeActionButton(recDev, a));
+        const devBtns = devPane.querySelector(".miniBtns");
+        for(const a of o.actions) devBtns.appendChild(makeOfferBtn(dev, a));
 
-        // Org pane
         const orgPane = document.createElement("div");
         orgPane.className = "miniCard";
         orgPane.innerHTML = `
-          <div class="miniHead">
-            <div class="who">@0xLEANux</div>
-            <div class="tag">ORG</div>
-          </div>
-          <div class="row" style="margin-top:0"></div>
+          <div class="miniHead"><div class="who">@0xLEANux</div><div class="tag">ORG</div></div>
+          <div class="miniBtns"></div>
         `;
-        const orgRow = orgPane.querySelector(".row");
-        for(const a of o.actions) orgRow.appendChild(makeActionButton(recOrg, a));
+        const orgBtns = orgPane.querySelector(".miniBtns");
+        for(const a of o.actions) orgBtns.appendChild(makeOfferBtn(org, a));
 
         split.appendChild(devPane);
         split.appendChild(orgPane);
 
+        card.appendChild(head);
+        card.appendChild(split);
         root.appendChild(card);
       }
     }
 
-    // =========================
-    // Methods matrix (per selected recipient)
-    // =========================
-    function buildMethods(rec){
+    /* =========================
+       METHODS MATRIX (selected recipient)
+       ========================= */
+    function buildMethods(r){
       return [
-        { label:"GitHub Sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing maintenance; configure tiers in Sponsors.", url: rec.sponsors },
-        { label:"Card (Stripe)", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/MasterCard; link a Stripe Payment Link.", url: rec.card },
-        { label:"PayPal", type:"One-time", githubMenu:"Via custom URL", note:"Use PayPal.Me or a PayPal donate URL.", url: rec.paypal },
+        { key:"sponsors", label:"GitHub Sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; configure tiers in Sponsors.", url:r.sponsors },
 
-        { label:"Open Collective", type:"One-time", githubMenu:"Yes", note:"Good for transparent OSS funding/budgets if you use it.", url: rec.openCollective },
-        { label:"Ko-fi", type:"One-time", githubMenu:"Yes", note:"Common quick donations; can also do memberships.", url: rec.koFi },
-        { label:"Buy Me a Coffee", type:"One-time", githubMenu:"Yes", note:"Common quick donation platform.", url: rec.buyMeACoffee },
+        { key:"card", label:"Card (Stripe)", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
+        { key:"paypal", label:"PayPal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
 
-        { label:"Patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style recurring support (if you use it).", url: rec.patreon },
-        { label:"Liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (if you use it).", url: rec.liberapay },
-        { label:"Polar", type:"Recurring", githubMenu:"Yes", note:"Polar donations/memberships (if you use it).", url: rec.polar },
+        { key:"openCollective", label:"Open Collective", type:"One-time", githubMenu:"Yes", note:"Great for transparent OSS funding (if you use it).", url:r.openCollective },
+        { key:"koFi", label:"Ko-fi", type:"One-time", githubMenu:"Yes", note:"One-time support and memberships (optional).", url:r.koFi },
+        { key:"buyMeACoffee", label:"Buy Me a Coffee", type:"One-time", githubMenu:"Yes", note:"Quick donations; popular frictionless option.", url:r.buyMeACoffee },
 
-        { label:"thanks.dev", type:"Recurring", githubMenu:"Yes", note:"Micro-funding tied to OSS usage (if you use it).", url: rec.thanksDev },
-        { label:"IssueHunt", type:"Bounties", githubMenu:"Yes", note:"Issue bounties (if you use it).", url: rec.issueHunt },
-        { label:"Tidelift", type:"Subscription", githubMenu:"Yes", note:"Enterprise-style subscription for packages (optional).", url: rec.tidelift },
-        { label:"LFX CommunityBridge", type:"Campaign", githubMenu:"Yes", note:"Linux Foundation / LFX crowdfunding (optional).", url: rec.communityBridge },
+        { key:"patreon", label:"Patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style recurring support (if you use it).", url:r.patreon },
+        { key:"liberapay", label:"Liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (if you use it).", url:r.liberapay },
+        { key:"polar", label:"Polar", type:"Recurring", githubMenu:"Yes", note:"Polar memberships/donations (if you use it).", url:r.polar },
 
-        { label:"Crypto (BTC)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
-        { label:"Crypto (ETH)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" }
+        { key:"thanksDev", label:"thanks.dev", type:"Recurring", githubMenu:"Yes", note:"Micro-funding tied to OSS usage (if you use it).", url:r.thanksDev },
+        { key:"issueHunt", label:"IssueHunt", type:"Bounties", githubMenu:"Yes", note:"Issue bounties (optional).", url:r.issueHunt },
+        { key:"tidelift", label:"Tidelift", type:"Subscription", githubMenu:"Yes", note:"Enterprise-style subscription for packages (optional).", url:r.tidelift },
+        { key:"communityBridge", label:"LFX CommunityBridge", type:"Campaign", githubMenu:"Yes", note:"Linux Foundation crowdfunding (optional).", url:r.communityBridge },
+
+        { key:"wise", label:"Wise", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.wise },
+        { key:"revolut", label:"Revolut", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.revolut },
+        { key:"bank", label:"Bank transfer", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
+
+        { key:"btc", label:"Crypto (BTC)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
+        { key:"eth", label:"Crypto (ETH)", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" },
       ];
     }
 
     function renderMethods(){
       const body = document.getElementById("methodsBody");
+      const cards = document.getElementById("methodCards");
       body.innerHTML = "";
+      cards.innerHTML = "";
 
-      const rec = selRec();
-      const methods = buildMethods(rec);
+      const r = rec();
+      const methods = buildMethods(r);
 
       for(const m of methods){
         const configured = m.crypto
-          ? isConfigured(rec.crypto[m.crypto] || "")
+          ? isConfigured(r.crypto[m.crypto] || "")
           : isConfigured(m.url || "");
 
+        // Desktop row
         const tr = document.createElement("tr");
-        tr.dataset.label = (m.label + " " + m.type + " " + m.note).toLowerCase();
+        tr.dataset.label = (m.label + " " + m.type + " " + m.note + " " + m.githubMenu).toLowerCase();
         tr.dataset.configured = configured ? "1" : "0";
 
-        const statusHtml = configured
+        const status = configured
           ? `<span class="status"><span class="dot on"></span>Configured</span>`
           : `<span class="status"><span class="dot off"></span>Not set</span>`;
 
@@ -942,8 +1604,8 @@
           <td>${m.label}</td>
           <td>${m.type}</td>
           <td>${m.githubMenu}</td>
-          <td class="muted2">${m.note}</td>
-          <td>${statusHtml}</td>
+          <td style="color: rgba(245,245,255,.64); font-size: var(--t1); line-height: 1.48;">${m.note}</td>
+          <td>${status}</td>
           <td></td>
         `;
 
@@ -957,7 +1619,7 @@
           b1.dataset.copy = m.crypto;
 
           const b2 = document.createElement("button");
-          b2.className = "btn btnSm";
+          b2.className = "btn btnSm btnGhost";
           b2.type = "button";
           b2.textContent = "QR";
           b2.dataset.qr = m.crypto;
@@ -967,7 +1629,6 @@
           wrap.style.gap = "8px";
           wrap.appendChild(b1);
           wrap.appendChild(b2);
-
           actionTd.appendChild(wrap);
         } else {
           const a = document.createElement("a");
@@ -980,46 +1641,141 @@
         }
 
         body.appendChild(tr);
+
+        // Mobile card
+        const mc = document.createElement("div");
+        mc.className = "methodCard";
+        mc.dataset.label = tr.dataset.label;
+        mc.dataset.configured = tr.dataset.configured;
+
+        const top = document.createElement("div");
+        top.className = "methodTop";
+        top.innerHTML = `
+          <div>
+            <div class="methodName">${m.label}</div>
+            <div class="methodMeta">${m.type} • ${m.githubMenu}</div>
+          </div>
+          <div>${status}</div>
+        `;
+
+        const note = document.createElement("div");
+        note.className = "methodNote";
+        note.textContent = m.note;
+
+        const actions = document.createElement("div");
+        actions.className = "methodActions";
+
+        if(m.crypto){
+          const b1 = document.createElement("button");
+          b1.className = "btn btnSm";
+          b1.type = "button";
+          b1.textContent = "Copy";
+          b1.dataset.copy = m.crypto;
+
+          const b2 = document.createElement("button");
+          b2.className = "btn btnSm btnGhost";
+          b2.type = "button";
+          b2.textContent = "QR";
+          b2.dataset.qr = m.crypto;
+
+          actions.appendChild(b1);
+          actions.appendChild(b2);
+        } else {
+          const a = document.createElement("a");
+          a.className = "btn btnSm";
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = "Open";
+          setLink(a, m.url);
+          actions.appendChild(a);
+        }
+
+        mc.appendChild(top);
+        mc.appendChild(note);
+        mc.appendChild(actions);
+        cards.appendChild(mc);
       }
     }
 
     function applyFilters(){
       const q = document.getElementById("search").value.trim().toLowerCase();
       const only = document.getElementById("onlyConfigured").checked;
-      const rows = Array.from(document.querySelectorAll("#methodsBody tr"));
 
-      for(const r of rows){
-        const match = !q || r.dataset.label.includes(q);
-        const ok = !only || r.dataset.configured === "1";
-        r.style.display = (match && ok) ? "" : "none";
+      const rows = Array.from(document.querySelectorAll("#methodsBody tr"));
+      const cards = Array.from(document.querySelectorAll("#methodCards .methodCard"));
+
+      function visible(el){
+        const match = !q || (el.dataset.label || "").includes(q);
+        const ok = !only || el.dataset.configured === "1";
+        return match && ok;
       }
+
+      for(const r of rows) r.style.display = visible(r) ? "" : "none";
+      for(const c of cards) c.style.display = visible(c) ? "" : "none";
     }
 
+    /* =========================
+       RECIPIENT APPLY
+       ========================= */
+    function applyRecipient(){
+      const r = rec();
+      document.title = CFG.pageTitle;
+
+      document.getElementById("selHandle").textContent = r.label;
+      document.getElementById("heroTitle").textContent = `Support ${r.label}`;
+      document.getElementById("heroCopy").textContent =
+        `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Use the top actions or choose a tier below.`;
+
+      setLink(document.getElementById("btnProfile"), r.profile);
+      setLink(document.getElementById("btnSponsor"), r.sponsors);
+
+      setLink(document.getElementById("ctaSponsors"), r.sponsors);
+      setLink(document.getElementById("ctaCard"), r.card);
+      setLink(document.getElementById("ctaPayPal"), r.paypal);
+
+      document.getElementById("btcAddr").textContent = isConfigured(r.crypto.btc) ? r.crypto.btc : "Not configured";
+      document.getElementById("ethAddr").textContent = isConfigured(r.crypto.eth) ? r.crypto.eth : "Not configured";
+
+      renderMethods();
+      applyFilters();
+      setActiveTab();
+      localStorage.setItem("donate_to", selected);
+    }
+
+    /* =========================
+       QR + COPY
+       ========================= */
     function openQR(sym){
-      const rec = selRec();
-      const addr = (rec.crypto[sym] || "").trim();
+      const r = rec();
+      const addr = (r.crypto[sym] || "").trim();
       if(!isConfigured(addr)){
-        showToast("Address not configured.");
+        showToast("Address not configured for this recipient.");
         return;
       }
-      const data = (sym === "btc") ? `bitcoin:${addr}` : `ethereum:${addr}`;
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(data)}`;
 
-      qrTitle.textContent = `QR • ${sym.toUpperCase()} • ${rec.label}`;
-      qrData.textContent = data;
+      const scheme = (sym === "btc") ? `bitcoin:${addr}` : `ethereum:${addr}`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(scheme)}`;
+
+      qrTitle.textContent = `QR • ${sym.toUpperCase()} • ${r.label}`;
+      qrData.textContent = scheme;
       qrImg.src = qrUrl;
 
       qrCopy.onclick = async () => {
-        const ok = await copyText(data);
-        showToast(ok ? "Copied." : "Copy failed.");
+        const ok = await copyText(scheme);
+        showToast(ok ? "Copied QR data." : "Copy failed.");
+      };
+
+      qrCopyAddr.onclick = async () => {
+        const ok = await copyText(addr);
+        showToast(ok ? "Copied address." : "Copy failed.");
       };
 
       qrModal.showModal();
     }
 
-    // =========================
-    // Events
-    // =========================
+    /* =========================
+       EVENTS
+       ========================= */
     tabDev.addEventListener("click", () => { selected = "dev"; applyRecipient(); });
     tabOrg.addEventListener("click", () => { selected = "org"; applyRecipient(); });
 
@@ -1027,7 +1783,7 @@
     document.getElementById("onlyConfigured").addEventListener("change", applyFilters);
 
     document.getElementById("ctaCrypto").addEventListener("click", () => {
-      const r = selRec();
+      const r = rec();
       if(isConfigured(r.crypto.btc)) openQR("btc");
       else openQR("eth");
     });
@@ -1036,8 +1792,8 @@
       const copyBtn = e.target.closest("[data-copy]");
       if(copyBtn){
         const sym = copyBtn.getAttribute("data-copy");
-        const rec = selRec();
-        const addr = (rec.crypto[sym] || "").trim();
+        const r = rec();
+        const addr = (r.crypto[sym] || "").trim();
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
         const ok = await copyText(addr);
         showToast(ok ? `${sym.toUpperCase()} copied.` : "Copy failed.");
@@ -1058,11 +1814,15 @@
       if(!inDialog) qrModal.close();
     });
 
-    // =========================
-    // Init
-    // =========================
+    /* =========================
+       INIT
+       ========================= */
     renderOffers();
     applyRecipient();
+
+    // Deep link overrides are handled by initial selected state already,
+    // but keep URL clean if you want after a click (optional).
+    // (Not altering history here to remain simple.)
   </script>
 </body>
 </html>
