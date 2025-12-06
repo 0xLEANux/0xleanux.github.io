@@ -439,6 +439,45 @@
       margin-top: 14px;
     }
 
+    .metaStrip{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: var(--r2);
+      border: 1px solid transparent;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.04), rgba(0,0,0,.18)) padding-box,
+        var(--edgeGradient) border-box;
+      background-clip: padding-box, border-box;
+      background-size: 180% 180%;
+      animation: borderFlow 18s linear infinite;
+      box-shadow: 0 10px 28px rgba(0,0,0,.26), 0 0 0 1px rgba(255,255,255,.04), 0 0 18px var(--glowA), 0 0 26px var(--glowB);
+    }
+    .metaItem{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .metaLabel{
+      font-size: var(--t0);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(245,245,255,.60);
+    }
+    .metaValue{
+      font-size: var(--t3);
+      font-weight: 950;
+      color: rgba(245,245,255,.95);
+      letter-spacing: .01em;
+    }
+    .metaNote{
+      font-size: var(--t1);
+      color: rgba(245,245,255,.68);
+      line-height: 1.45;
+    }
     .kpiGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1308,6 +1347,24 @@
             </div>
           </div>
 
+          <div class="metaStrip" aria-label="Recipient quick facts">
+            <div class="metaItem">
+              <div class="metaLabel">Recommended rail</div>
+              <div class="metaValue" id="metaRec">Sponsors</div>
+              <div class="metaNote" id="metaRecNote">Best for recurring support.</div>
+            </div>
+            <div class="metaItem">
+              <div class="metaLabel">Configured methods</div>
+              <div class="metaValue" id="metaConfigured">--</div>
+              <div class="metaNote">Rails live for this recipient.</div>
+            </div>
+            <div class="metaItem">
+              <div class="metaLabel">Deep link</div>
+              <div class="metaValue" id="metaDeep">?to=dev</div>
+              <div class="metaNote">Share directly to this tab.</div>
+            </div>
+          </div>
+
           <div class="archBanner" id="archBanner">
             <strong>Arch note:</strong> press the <span class="mono">A</span> key again to hide this banner.
             Also yes, we know. “I use Arch btw.”
@@ -1742,6 +1799,26 @@
       };
     }
 
+    function recommendedRail(r){
+      if(isConfigured(r.sponsors)) return { label:"Sponsors", note:"Recurring; highest impact over time." };
+      if(isConfigured(r.card)) return { label:"Card", note:"Fast one-time checkout." };
+      if(isConfigured(r.paypal)) return { label:"PayPal", note:"Common one-time option." };
+      if(isConfigured(r.crypto?.btc) || isConfigured(r.crypto?.eth)) return { label:"Crypto", note:"Use QR or copy address." };
+      return { label:"Configure links", note:"Set URLs in config.json" };
+    }
+
+    function methodTotals(r){
+      const methods = buildMethods(r);
+      let configured = 0;
+      for(const m of methods){
+        const ok = m.crypto
+          ? isConfigured(r.crypto[m.crypto] || "")
+          : isConfigured(m.url || "");
+        if(ok) configured++;
+      }
+      return { configured, total: methods.length };
+    }
+
     async function loadConfig(){
       try{
         const res = await fetch("/donate/config.json", { cache: "no-cache" });
@@ -2137,6 +2214,13 @@
       document.getElementById("ethAddr").textContent = isConfigured(r.crypto.eth) ? r.crypto.eth : "Not configured";
       document.getElementById("btcShort").textContent = shortAddr(r.crypto.btc);
       document.getElementById("ethShort").textContent = shortAddr(r.crypto.eth);
+
+      const { configured, total } = methodTotals(r);
+      document.getElementById("metaConfigured").textContent = `${configured}/${total}`;
+      const recRail = recommendedRail(r);
+      document.getElementById("metaRec").textContent = recRail.label;
+      document.getElementById("metaRecNote").textContent = recRail.note;
+      document.getElementById("metaDeep").textContent = `?to=${selected}`;
 
       renderMethods();
       applyFilters();
