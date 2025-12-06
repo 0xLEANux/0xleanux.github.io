@@ -249,6 +249,7 @@ If you need a quick sanity check, test:
 
 - Don’t post private keys or seed phrases (ever).
 - If you accept crypto, use dedicated receiving addresses per recipient.
+- Add a “verify this page” block: show short-form addresses, copy/QR buttons, and remind donors to check the signed git history (optionally publish a PGP-signed `DONATION_ADDRESSES.txt.asc`).
 - Consider adding a short “refunds / reversals” policy:
   - Card/PayPal may be reversible
   - crypto typically is not

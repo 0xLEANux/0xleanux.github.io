@@ -342,6 +342,14 @@
     }
     .btn:hover::after{ opacity: .9; }
     .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn:focus-visible,
+    .seg button:focus-visible,
+    .filterBtn:focus-visible,
+    input:focus-visible{
+      outline: 2px solid rgba(0,229,255,.72);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(0,229,255,.16);
+    }
 
     .btnPrimary{
       color:#060713;
@@ -679,6 +687,28 @@
       flex: 0 0 auto;
     }
     .toggle input{ width:16px; height:16px; }
+    .filterTabs{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .filterBtn{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(245,245,255,.80);
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: var(--t1);
+      cursor: pointer;
+      transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+    .filterBtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .filterBtn.active{
+      border-color: rgba(0,229,255,.30);
+      background: linear-gradient(135deg, rgba(0,229,255,.16), rgba(255,255,255,.05));
+      color: rgba(245,245,255,.95);
+    }
 
     .tableWrap{
       overflow:auto;
@@ -730,6 +760,19 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+    .pillBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,210,120,.18);
+      background: linear-gradient(135deg, rgba(255,210,120,.14), rgba(255,255,255,.05));
+      font-size: var(--t0);
+      letter-spacing: .02em;
+      color: rgba(245,245,255,.90);
+      text-transform: uppercase;
     }
     .dot{ width:8px; height:8px; border-radius:50%; background: rgba(255,255,255,.35); }
     .dot.on{ background: rgba(124,255,158,.90); }
@@ -825,6 +868,39 @@
     }
     .addrRow:first-child{ margin-top: 0; }
     .addrBtns{ display:flex; gap:8px; flex-wrap: wrap; flex: 0 0 auto; }
+
+    .verifyBox{
+      margin-top: 12px;
+      border-radius: var(--r2);
+      border: 1px dashed rgba(124,255,158,.28);
+      background: linear-gradient(135deg, rgba(124,255,158,.10), rgba(0,229,255,.08), rgba(255,255,255,.02));
+      padding: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+    }
+    .verifyTitle{
+      margin: 0 0 6px;
+      font-size: var(--t2);
+      font-weight: 950;
+      color: rgba(245,245,255,.94);
+    }
+    .verifyRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .verifyRow:first-of-type{ border-top: 0; padding-top: 0; }
+    .shortAddr{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(245,245,255,.88);
+      letter-spacing: .02em;
+    }
+    .verifyNote{ margin-top: 8px; color: rgba(245,245,255,.70); font-size: var(--t1); line-height: var(--lh); }
+    .verifyFine{ margin-top: 6px; color: rgba(245,245,255,.60); font-size: var(--t0); line-height: 1.45; }
 
     details{
       border-radius: var(--r2);
@@ -1136,8 +1212,8 @@
         </div>
 
         <span class="pill">Selected <code id="selHandle">@0xElectron</code></span>
-        <a class="btn btnSm btnGhost" id="btnProfile" target="_blank" rel="noopener">Profile</a>
-        <a class="btn btnSm btnPrimary" id="btnSponsor" target="_blank" rel="noopener">Sponsor</a>
+        <a class="btn btnSm btnGhost" id="btnProfile" target="_blank" rel="noopener" data-utm="top-profile">Profile</a>
+        <a class="btn btnSm btnPrimary" id="btnSponsor" target="_blank" rel="noopener" data-utm="top-sponsor">Sponsor</a>
       </div>
     </div>
   </header>
@@ -1160,9 +1236,9 @@
       <div class="heroGrid">
         <div class="subPanel">
           <div class="ctaRow">
-            <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener">GitHub Sponsors</a>
-            <a class="btn" id="ctaCard" target="_blank" rel="noopener">Donate by Card</a>
-            <a class="btn" id="ctaPayPal" target="_blank" rel="noopener">Donate via PayPal</a>
+            <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener" data-utm="cta-sponsors">GitHub Sponsors</a>
+            <a class="btn" id="ctaCard" target="_blank" rel="noopener" data-utm="cta-card">Donate by Card</a>
+            <a class="btn" id="ctaPayPal" target="_blank" rel="noopener" data-utm="cta-paypal">Donate via PayPal</a>
             <button class="btn" id="ctaCrypto" type="button">Show Crypto (QR)</button>
           </div>
 
@@ -1247,7 +1323,15 @@
             <input id="onlyConfigured" type="checkbox" />
             Show only configured
           </label>
+
+          <div class="filterTabs" aria-label="Filter by donation cadence">
+            <button class="filterBtn active" type="button" data-filter-type="all">All</button>
+            <button class="filterBtn" type="button" data-filter-type="recurring">Monthly</button>
+            <button class="filterBtn" type="button" data-filter-type="one-time">One-time</button>
+          </div>
         </div>
+
+        <p class="fineprint" style="margin-top:8px;">Donate anonymously: leave your name blank on Card/PayPal/Sponsors, or use crypto (address-only).</p>
 
         <div class="tableWrap" role="region" aria-label="Donation methods table">
           <table>
@@ -1326,6 +1410,37 @@
               <button class="btn btnSm btnGhost" type="button" data-qr="eth">QR</button>
             </div>
           </div>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <div class="verifyBox" aria-label="Donation verification">
+          <p class="verifyTitle">Verify this page</p>
+          <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
+
+          <div class="verifyRow">
+            <div style="min-width:0;">
+              <div class="addrLabel">BTC (short)</div>
+              <div class="shortAddr" id="btcShort">Not configured</div>
+            </div>
+            <div class="addrBtns">
+              <button class="btn btnSm" type="button" data-copy="btc">Copy full</button>
+              <button class="btn btnSm btnGhost" type="button" data-qr="btc">QR</button>
+            </div>
+          </div>
+
+          <div class="verifyRow">
+            <div style="min-width:0;">
+              <div class="addrLabel">ETH (short)</div>
+              <div class="shortAddr" id="ethShort">Not configured</div>
+            </div>
+            <div class="addrBtns">
+              <button class="btn btnSm" type="button" data-copy="eth">Copy full</button>
+              <button class="btn btnSm btnGhost" type="button" data-qr="eth">QR</button>
+            </div>
+          </div>
+
+          <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
         </div>
 
         <div style="height:14px;"></div>
@@ -1587,6 +1702,25 @@
       }
     }
 
+    function withUTM(url, medium){
+      try{
+        const u = new URL(url);
+        u.searchParams.set("utm_source", "donate-hub");
+        u.searchParams.set("utm_medium", medium || "button");
+        u.searchParams.set("utm_campaign", "github-page");
+        return u.toString();
+      }catch(_){
+        return url;
+      }
+    }
+
+    function shortAddr(v){
+      if(!isConfigured(v)) return "Not configured";
+      const t = v.trim();
+      if(t.length <= 14) return t;
+      return `${t.slice(0, 6)}…${t.slice(-6)}`;
+    }
+
     function setLink(el, url){
       if(!isConfigured(url)){
         el.setAttribute("aria-disabled","true");
@@ -1594,7 +1728,7 @@
         return;
       }
       el.setAttribute("aria-disabled","false");
-      el.setAttribute("href", url);
+      el.setAttribute("href", withUTM(url, el.dataset.utm || "button"));
     }
 
     function qs(key){
@@ -1607,12 +1741,14 @@
        ========================= */
     const tabDev = document.getElementById("tabDev");
     const tabOrg = document.getElementById("tabOrg");
+    const typeButtons = Array.from(document.querySelectorAll("[data-filter-type]"));
 
     const saved = localStorage.getItem("donate_to");
     const deep = qs("to");
     let selected = (deep === "org" || deep === "dev")
       ? deep
       : ((saved === "org" || saved === "dev") ? saved : "dev");
+    let filterType = "all";
 
     function rec(){ return CFG.recipients[selected]; }
 
@@ -1676,6 +1812,7 @@
       a.target = "_blank";
       a.rel = "noopener";
       a.textContent = actionLabel(action);
+      a.dataset.utm = `offer-${action}`;
       setLink(a, actionUrl(r, action));
       return a;
     }
@@ -1771,17 +1908,21 @@
         const status = configured
           ? `<span class="status"><span class="dot on"></span>Configured</span>`
           : `<span class="status"><span class="dot off"></span>Not set</span>`;
+        const popular = configured && (m.label === "Card (Stripe)" || m.label === "PayPal");
+        const popBadge = popular ? `<span class="pillBadge">Most supporters use</span>` : "";
+        const slug = (m.label || "").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
 
         // Desktop
         const tr = document.createElement("tr");
         tr.dataset.label = (m.label + " " + m.type + " " + m.note + " " + m.githubMenu).toLowerCase();
         tr.dataset.configured = configured ? "1" : "0";
+        tr.dataset.type = (m.type || "").toLowerCase();
         tr.innerHTML = `
           <td>${m.label}</td>
           <td>${m.type}</td>
           <td>${m.githubMenu}</td>
           <td style="color: rgba(245,245,255,.64); font-size: var(--t1); line-height: 1.48;">${m.note}</td>
-          <td>${status}</td>
+          <td>${status}${popBadge ? `<div style="margin-top:6px;">${popBadge}</div>` : ""}</td>
           <td></td>
         `;
 
@@ -1812,6 +1953,7 @@
           a.target = "_blank";
           a.rel = "noopener";
           a.textContent = "Open";
+          a.dataset.utm = `method-${slug || "link"}`;
           setLink(a, m.url);
           actionTd.appendChild(a);
         }
@@ -1823,6 +1965,7 @@
         mc.className = "methodCard";
         mc.dataset.label = tr.dataset.label;
         mc.dataset.configured = tr.dataset.configured;
+        mc.dataset.type = tr.dataset.type;
 
         mc.innerHTML = `
           <div class="methodTop">
@@ -1830,7 +1973,7 @@
               <div class="methodName">${m.label}</div>
               <div class="methodMeta">${m.type} • ${m.githubMenu}</div>
             </div>
-            <div>${status}</div>
+            <div>${status}${popBadge ? `<div style="margin-top:6px;">${popBadge}</div>` : ""}</div>
           </div>
           <div class="methodNote">${m.note}</div>
           <div class="methodActions"></div>
@@ -1858,6 +2001,7 @@
           a.target = "_blank";
           a.rel = "noopener";
           a.textContent = "Open";
+          a.dataset.utm = `method-${slug || "link"}`;
           setLink(a, m.url);
           actions.appendChild(a);
         }
@@ -1876,7 +2020,8 @@
       const visible = (el) => {
         const match = !q || (el.dataset.label || "").includes(q);
         const ok = !only || el.dataset.configured === "1";
-        return match && ok;
+        const typeOk = filterType === "all" || (el.dataset.type || "") === filterType;
+        return match && ok && typeOk;
       };
 
       rows.forEach(r => r.style.display = visible(r) ? "" : "none");
@@ -1904,6 +2049,8 @@
 
       document.getElementById("btcAddr").textContent = isConfigured(r.crypto.btc) ? r.crypto.btc : "Not configured";
       document.getElementById("ethAddr").textContent = isConfigured(r.crypto.eth) ? r.crypto.eth : "Not configured";
+      document.getElementById("btcShort").textContent = shortAddr(r.crypto.btc);
+      document.getElementById("ethShort").textContent = shortAddr(r.crypto.eth);
 
       renderMethods();
       applyFilters();
@@ -2005,6 +2152,13 @@
 
     document.getElementById("search").addEventListener("input", applyFilters);
     document.getElementById("onlyConfigured").addEventListener("change", applyFilters);
+    typeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterType = btn.dataset.filterType || "all";
+        typeButtons.forEach((b) => b.classList.toggle("active", b === btn));
+        applyFilters();
+      });
+    });
 
     document.getElementById("ctaCrypto").addEventListener("click", () => {
       const r = rec();
