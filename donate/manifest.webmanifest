@@ -1,0 +1,17 @@
+{
+  "name": "Donate • 0xElectron + 0xLEANux",
+  "short_name": "Donate",
+  "start_url": "/donate/?to=dev",
+  "scope": "/donate/",
+  "display": "standalone",
+  "background_color": "#050614",
+  "theme_color": "#070814",
+  "icons": [
+    {
+      "src": "/donate/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
