@@ -995,6 +995,45 @@
     }
     .archBanner.on{ display:block; }
     .archBanner strong{ font-weight: 950; }
+
+        /* =========================
+       RESPONSIVENESS HOTFIX
+       - Make mainGrid collapse earlier
+       - Make offerings wrap based on available width (auto-fit)
+       - Prevent grid overflow issues (min-width:0)
+       ========================= */
+    
+    .mainGrid{
+      align-items: start;
+      /* Keep right sidebar from growing too wide on mid widths */
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+    }
+    
+    /* Critical: allow grid children to shrink without overflowing */
+    .mainGrid > *{ min-width: 0; }
+    
+    /* Collapse to single column sooner (your 980px breakpoint is too late) */
+    @media (max-width: 1180px){
+      .mainGrid{ grid-template-columns: 1fr; }
+    }
+    
+    /* Offerings should be responsive to column width, not viewport width */
+    .offerGrid{
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    
+    /* Also improve the hero two-panel area (same issue) */
+    .heroGrid{
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    }
+    
+    /* Optional: prevent the right sidebar from feeling “stuck wide” at mid widths */
+    @media (max-width: 1320px){
+      .mainGrid{
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+      }
+    }
+    
   </style>
 </head>
 
