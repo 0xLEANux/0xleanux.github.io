@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#070814" />
+  <link rel="manifest" href="/donate/manifest.webmanifest">
+  <link rel="icon" href="/donate/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#070814">
   <title>Donate • 0xElectron + 0xLEANux</title>
 
   <!--
@@ -1033,7 +1035,17 @@
         grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
       }
     }
+    .mainGrid{ align-items:start; grid-template-columns:minmax(0,1fr) minmax(320px,420px); }
     
+    .mainGrid > *{ min-width:0; }
+    
+    @media (max-width: 1180px){
+      .mainGrid{ grid-template-columns: 1fr; }
+    }
+    
+    .offerGrid{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .heroGrid{ grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+
   </style>
 </head>
 
@@ -1373,8 +1385,8 @@
        ========================= */
     const CFG = {
       pageTitle: "Donate • 0xElectron + 0xLEANux",
-      hubCanonical: "https://YOUR_GH_PAGES_DOMAIN/donate/",
-
+      hubCanonical: "https://0xElectron.github.io/donate/",
+      
       recipients: {
         dev: {
           id: "dev",
@@ -1992,5 +2004,13 @@
     pickTip();
     applyRecipient();
   </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/donate/sw.js", { scope: "/donate/" }).catch(() => {});
+      });
+    }
+  </script>
+
 </body>
 </html>
