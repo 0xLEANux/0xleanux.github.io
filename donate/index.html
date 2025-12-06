@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Donate</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; font-family: system-ui, sans-serif; background:#0b0b14; color:#e9e9ff; }
+    .wrap { max-width: 760px; margin: 48px auto; padding: 0 16px; }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    p { margin: 0 0 16px; line-height: 1.5; color: rgba(233,233,255,0.85); }
+    .grid { display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+    a.btn {
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; color:#0b0b14; font-weight: 700;
+      padding: 14px 14px; border-radius: 14px;
+      background: #e9e9ff;
+    }
+    .muted { font-size: 13px; opacity: 0.9; }
+    .addr { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; word-break: break-all; }
+    .row { display: grid; gap: 10px; }
+    .subcard {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Support my work</h1>
+      <p>If my projects help you, you can donate via PayPal, card, or crypto. Thank you.</p>
+
+      <div class="grid">
+        <a class="btn" href="YOUR_PAYPAL_ME_LINK" target="_blank" rel="noopener">Donate with PayPal</a>
+        <a class="btn" href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" rel="noopener">Donate with Card (Visa / MasterCard)</a>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="row">
+        <div class="subcard">
+          <div class="muted">BTC address</div>
+          <div class="addr">YOUR_BTC_ADDRESS</div>
+        </div>
+        <div class="subcard">
+          <div class="muted">ETH address</div>
+          <div class="addr">YOUR_ETH_ADDRESS</div>
+        </div>
+        <div class="muted">
+          Only send BTC to the BTC address and ETH to the ETH address.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
