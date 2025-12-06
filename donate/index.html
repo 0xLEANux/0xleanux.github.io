@@ -44,6 +44,8 @@
         rgba(255,107,214,.78),
         rgba(183,107,255,.85)
       );
+      --glowA: rgba(183,107,255,.32);
+      --glowB: rgba(0,229,255,.32);
 
       --good: rgba(124,255,158,.16);
       --warn: rgba(255,210,120,.16);
@@ -533,8 +535,8 @@
       animation: borderFlow 14s linear infinite;
       padding: 14px;
       overflow:hidden;
-      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), filter var(--dur2) var(--ease);
-      box-shadow: 0 14px 46px rgba(0,0,0,.36);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), filter var(--dur2) var(--ease), background-size var(--dur2) var(--ease);
+      box-shadow: 0 14px 46px rgba(0,0,0,.36), 0 0 0 1px rgba(255,255,255,.04), 0 0 30px var(--glowA), 0 0 42px var(--glowB);
     }
     .offer[data-tone="cyan"]{
       --offer-a: rgba(0,229,255,.22);
@@ -569,8 +571,9 @@
     .offer:hover{
       transform: translateY(-2px);
       border-color: rgba(255,255,255,.20);
-      box-shadow: 0 24px 70px rgba(0,0,0,.42);
+      box-shadow: 0 24px 70px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.06), 0 0 38px var(--glowA), 0 0 54px var(--glowB);
       filter: saturate(1.05);
+      background-size: 185% 185%;
     }
     .offer:hover::before{ opacity:.85; }
     .offer > *{ position:relative; }
@@ -629,7 +632,7 @@
       background-size: 140% 140%;
       animation: borderFlow 18s linear infinite;
       padding: 10px;
-      box-shadow: 0 12px 36px rgba(0,0,0,.28);
+      box-shadow: 0 12px 36px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.04), 0 0 22px var(--glowA), 0 0 28px var(--glowB);
     }
     .miniDev{ --mini-a: rgba(183,107,255,.14); --mini-b: rgba(0,0,0,.12); }
     .miniOrg{ --mini-a: rgba(0,229,255,.12); --mini-b: rgba(0,0,0,.12); }
@@ -824,10 +827,10 @@
       background-size: 170% 170%;
       animation: borderFlow 16s linear infinite;
       padding: 12px;
-      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
-      box-shadow: 0 14px 38px rgba(0,0,0,.32);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background-size var(--dur2) var(--ease), box-shadow var(--dur2) var(--ease);
+      box-shadow: 0 14px 38px rgba(0,0,0,.32), 0 0 0 1px rgba(255,255,255,.04), 0 0 26px var(--glowA), 0 0 32px var(--glowB);
     }
-    .methodCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .methodCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background-size: 190% 190%; box-shadow: 0 18px 44px rgba(0,0,0,.36), 0 0 0 1px rgba(255,255,255,.06), 0 0 34px var(--glowA), 0 0 48px var(--glowB); }
     .methodCard[data-configured="0"]{
       --method-a: rgba(255,107,214,.12);
       --method-b: rgba(0,0,0,.08);
@@ -872,7 +875,7 @@
       background-size: 180% 180%;
       animation: borderFlow 18s linear infinite;
       padding: 12px;
-      box-shadow: 0 12px 32px rgba(0,0,0,.28);
+      box-shadow: 0 12px 32px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.05), 0 0 28px var(--glowA), 0 0 36px var(--glowB);
     }
     .addrLabel{
       font-size: var(--t0);
@@ -908,7 +911,7 @@
       background-size: 190% 190%;
       animation: borderFlow 16s linear infinite;
       padding: 12px;
-      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+      box-shadow: 0 12px 32px rgba(0,0,0,.24), 0 0 0 1px rgba(255,255,255,.06), 0 0 32px var(--glowA), 0 0 44px var(--glowB);
     }
     .verifyTitle{
       margin: 0 0 6px;
@@ -978,6 +981,7 @@
       padding: 12px;
       position: relative;
       overflow:hidden;
+      box-shadow: 0 12px 34px rgba(0,0,0,.30), 0 0 0 1px rgba(255,255,255,.04), 0 0 26px var(--glowA), 0 0 32px var(--glowB);
     }
     .archTip::before{
       content:"";
@@ -1070,9 +1074,10 @@
       background-size: 150% 150%;
       animation: borderFlow 16s linear infinite;
       padding: 12px;
-      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background-size var(--dur2) var(--ease), box-shadow var(--dur2) var(--ease);
+      box-shadow: 0 12px 28px rgba(0,0,0,.26), 0 0 0 1px rgba(255,255,255,.04), 0 0 20px var(--glowA), 0 0 28px var(--glowB);
     }
-    .wallCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .wallCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background-size: 170% 170%; box-shadow: 0 16px 34px rgba(0,0,0,.30), 0 0 0 1px rgba(255,255,255,.06), 0 0 28px var(--glowA), 0 0 36px var(--glowB); }
     .wallName{ font-weight: 950; }
     .wallNote{ margin-top: 6px; color: rgba(245,245,255,.62); font-size: var(--t0); line-height: 1.45; }
 
