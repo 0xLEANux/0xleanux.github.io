@@ -2107,8 +2107,8 @@
       const map = {
         btc:"Bitcoin",
         eth:"Ethereum",
-        eth_arb:"Ethereum (Arbitrum)",
-        eth_linea:"Ethereum (Linea)",
+        eth_arb:"Arbitrum",
+        eth_linea:"Linea",
         sol:"Solana",
         arbitrum:"Arbitrum",
         base:"Base",
@@ -2751,9 +2751,12 @@
           box.appendChild(div);
           return;
         }
+        const brand = brandTheme(sym.toLowerCase());
         list.forEach((addr, idx) => {
           const row = document.createElement("div");
           row.className = "addrRow";
+          row.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
+          row.style.background = `linear-gradient(120deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
           row.innerHTML = `
             <div style="min-width:0;">
               <div class="addrLabel">${label}${list.length > 1 ? ` #${idx+1}` : ""}</div>
