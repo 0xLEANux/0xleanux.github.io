@@ -2815,6 +2815,8 @@
         card.className = "walletCard";
         const brand = brandTheme(w.key);
         const uses = w.coins.flatMap((c) => walletAddrs(w.key, c).map((addr, idx) => ({ coin:c, addr, idx })));
+        card.style.borderColor = brand.fade || "rgba(255,255,255,.12)";
+        card.style.background = `linear-gradient(135deg, ${brand.fade || "rgba(255,255,255,.04)"}, rgba(0,0,0,.18))`;
 
         card.innerHTML = `
           <div class="walletTop">
