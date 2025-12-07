@@ -2040,6 +2040,13 @@
       return isConfigured(val) ? [val] : [];
     }
 
+    function walletAddrs(walletKey, coin){
+      const w = rec().wallets?.[walletKey]?.[coin];
+      const arr = Array.isArray(w) ? w : (isConfigured(w) ? [w] : []);
+      if(arr.length) return arr.filter(isConfigured);
+      return toList(rec().crypto[coin]);
+    }
+
     function getAddr(sym, idx){
       const list = toList(rec().crypto[sym] || []);
       return list[idx || 0] || "";
@@ -2504,7 +2511,7 @@
         const card = document.createElement("div");
         card.className = "walletCard";
         const brand = brandTheme(w.key);
-        const uses = w.coins.flatMap((c) => toList(r.crypto[c]).map((addr, idx) => ({ coin:c, addr, idx })));
+        const uses = w.coins.flatMap((c) => walletAddrs(w.key, c).map((addr, idx) => ({ coin:c, addr, idx })));
 
         card.innerHTML = `
           <div class="walletTop">
