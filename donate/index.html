@@ -2224,7 +2224,6 @@
     </div>
   </dialog>
 
-  <script src="/donate/qrcode.js"></script>
   <script>
     /* =========================
        CONFIG (LOADED FROM config.json)
@@ -2769,6 +2768,7 @@
       const iconImg = brand.remoteSvg ? `<span class="miniBrandIcon imgOnly"><img src="${brand.remoteSvg}" alt="${actionLabel(action)}" loading="lazy" decoding="async"></span>` : "";
       a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
       a.dataset.utm = `offer-${brandKey}`;
+      a.title = `${actionLabel(action)} • quick action`;
       setLink(a, actionUrl(r, actionKey));
       return a;
     }
@@ -3073,8 +3073,8 @@
         const show = visible(r);
         r.style.display = show ? "" : "none";
         if(show){
-          r.style.animation = `fadeUp 220ms var(--ease) ${delay}ms both`;
-          delay += 40;
+          const d = Math.min(idx, 5) * 40;
+          r.style.animation = `fadeUp 220ms var(--ease) ${d}ms both`;
         } else {
           r.style.animation = "";
         }
@@ -3085,7 +3085,8 @@
         const show = visible(c);
         c.style.display = show ? "" : "none";
         if(show){
-          c.style.animation = `fadeUp 220ms var(--ease) ${delayCard}ms both`;
+          const d = Math.min(delayCard / 40, 5) * 40;
+          c.style.animation = `fadeUp 220ms var(--ease) ${d}ms both`;
           delayCard += 40;
         } else {
           c.style.animation = "";
@@ -3308,7 +3309,8 @@
     /* =========================
        QR + COPY
        ========================= */
-    function openQR(sym, idx=0){
+    async function openQR(sym, idx=0){
+      await ensureQRLib();
       const r = rec();
       const addr = getAddr(sym, idx);
       if(!isConfigured(addr)){
@@ -3341,6 +3343,19 @@
     function pickTip(){
       const tip = ARCH_TIPS[Math.floor(Math.random() * ARCH_TIPS.length)];
       document.getElementById("archTipText").textContent = tip;
+    }
+
+    let qrLibReady = false;
+    function ensureQRLib(){
+      if(qrLibReady || typeof qrcode === "function") return Promise.resolve(true);
+      return new Promise((resolve) => {
+        const s = document.createElement("script");
+        s.src = "/donate/qrcode.js";
+        s.async = true;
+        s.onload = () => { qrLibReady = true; resolve(true); };
+        s.onerror = () => resolve(false);
+        document.head.appendChild(s);
+      });
     }
 
     function applyBackgroundStyle(){
@@ -3475,6 +3490,7 @@
 
       const qrAddrBtn = e.target.closest("[data-qraddr]");
       if(qrAddrBtn){
+        await ensureQRLib();
         const addr = qrAddrBtn.getAttribute("data-qraddr") || "";
         const chain = (qrAddrBtn.getAttribute("data-qrchain") || "").toLowerCase();
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
