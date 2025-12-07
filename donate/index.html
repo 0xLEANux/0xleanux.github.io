@@ -1706,20 +1706,35 @@
 
         <div style="height:16px;"></div>
 
-        <h2 class="h2">Crypto wallets (quick view)</h2>
-        <p class="pMuted">Direct + wallet-specific addresses for the selected recipient.</p>
-
-        <div class="miniTableWrap" aria-label="Crypto wallet table">
+        <h2 class="h2">MetaMask addresses</h2>
+        <p class="pMuted">Chain-specific MetaMask addresses (per recipient).</p>
+        <div class="miniTableWrap" aria-label="MetaMask wallet table">
           <table class="miniTable">
             <thead>
               <tr>
-                <th style="width:18%;">Chain</th>
-                <th style="width:20%;">Source</th>
-                <th style="width:42%;">Address</th>
+                <th style="width:22%;">Chain</th>
+                <th style="width:58%;">Address</th>
                 <th style="width:20%;">Action</th>
               </tr>
             </thead>
-            <tbody id="cryptoTableBody"></tbody>
+            <tbody id="metamaskTableBody"></tbody>
+          </table>
+        </div>
+
+        <div style="height:12px;"></div>
+
+        <h2 class="h2">Atomic Wallet addresses</h2>
+        <p class="pMuted">Chain-specific Atomic Wallet addresses (per recipient).</p>
+        <div class="miniTableWrap" aria-label="Atomic Wallet table">
+          <table class="miniTable">
+            <thead>
+              <tr>
+                <th style="width:22%;">Chain</th>
+                <th style="width:58%;">Address</th>
+                <th style="width:20%;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="atomicTableBody"></tbody>
           </table>
         </div>
 
@@ -2167,19 +2182,6 @@
     function toList(val){
       if(Array.isArray(val)) return val.filter(x => isConfigured(x));
       return isConfigured(val) ? [val] : [];
-    }
-
-    function collectCryptoRows(r){
-      const rows = [];
-      for(const [chain, val] of Object.entries(r.crypto || {})){
-        toList(val).forEach((addr, idx) => rows.push({ chain, addr, idx, source:"Direct" }));
-      }
-      for(const [wallet, chains] of Object.entries(r.wallets || {})){
-        for(const [chain, val] of Object.entries(chains || {})){
-          toList(val).forEach((addr, idx) => rows.push({ chain, addr, idx, source: wallet }));
-        }
-      }
-      return rows;
     }
 
     function walletAddrs(walletKey, coin){
@@ -2719,36 +2721,40 @@
       });
     }
 
-    function renderCryptoTable(r){
-      const body = document.getElementById("cryptoTableBody");
+    function renderWalletTable(walletKey, bodyId){
+      const body = document.getElementById(bodyId);
       body.innerHTML = "";
-      const rows = collectCryptoRows(r);
-      if(!rows.length){
-        body.innerHTML = `<tr><td colspan="4" style="padding:12px;">No crypto addresses configured.</td></tr>`;
+      const wallet = rec().wallets?.[walletKey] || {};
+      const entries = Object.entries(wallet);
+      if(!entries.length){
+        body.innerHTML = `<tr><td colspan="3" style="padding:12px;">No ${walletKey} addresses configured.</td></tr>`;
         return;
       }
-      rows.forEach((row) => {
-        const chainLower = (row.chain || "").toLowerCase();
-        const isBtc = chainLower === "btc";
-        const isEth = chainLower === "eth" || chainLower === "eth_arb" || chainLower === "eth_linea";
-        const brand = brandTheme(chainLower);
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td style="text-transform: uppercase;">
-            <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
-            <span style="margin-left:8px;">${chainLabel(row.chain)}</span>
-          </td>
-          <td>${row.source}</td>
-          <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all;">${row.addr}</td>
-          <td>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="btn btnSm" type="button" data-copyaddr="${row.addr}">Copy</button>
-              ${isBtc || isEth ? `<button class="btn btnSm btnGhost" type="button" data-qraddr="${row.addr}" data-qrchain="${row.chain}">QR</button>` : ""}
-            </div>
-          </td>
-        `;
-        body.appendChild(tr);
-      });
+      for(const [chain, val] of entries){
+        const list = toList(val);
+        if(!list.length) continue;
+        const brand = brandTheme(chain.toLowerCase());
+        list.forEach((addr, idx) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td style="text-transform: uppercase;">
+              <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
+              <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
+            </td>
+            <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all;">${addr}</td>
+            <td>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn btnSm" type="button" data-copyaddr="${addr}">Copy</button>
+                <button class="btn btnSm btnGhost" type="button" data-qraddr="${addr}" data-qrchain="${chain}">QR</button>
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      }
+      if(!body.children.length){
+        body.innerHTML = `<tr><td colspan="3" style="padding:12px;">No ${walletKey} addresses configured.</td></tr>`;
+      }
     }
 
     /* =========================
@@ -2778,7 +2784,8 @@
       document.getElementById("metaDeep").textContent = `?to=${selected}`;
       renderCrypto(r);
       renderWallets(r);
-      renderCryptoTable(r);
+      renderWalletTable("metamask", "metamaskTableBody");
+      renderWalletTable("atomicwallet", "atomicTableBody");
 
       renderMethods();
       applyFilters();
