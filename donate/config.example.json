@@ -24,7 +24,10 @@
       "revolut": "",
       "bankTransfer": "",
       "crypto": {
-        "btc": "YOUR_BTC_ADDRESS_DEV",
+        "btc": [
+          "YOUR_BTC_ADDRESS_DEV_1",
+          "YOUR_BTC_ADDRESS_DEV_2"
+        ],
         "eth": "YOUR_ETH_ADDRESS_DEV"
       }
     },
@@ -50,7 +53,10 @@
       "revolut": "",
       "bankTransfer": "",
       "crypto": {
-        "btc": "YOUR_BTC_ADDRESS_ORG",
+        "btc": [
+          "YOUR_BTC_ADDRESS_ORG_1",
+          "YOUR_BTC_ADDRESS_ORG_2"
+        ],
         "eth": "YOUR_ETH_ADDRESS_ORG"
       }
     }
