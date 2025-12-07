@@ -1167,7 +1167,7 @@
     }
     .cmdTop{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
       gap: 10px;
     }
@@ -1202,6 +1202,12 @@
       display:flex;
       gap: 8px;
       align-items:center;
+    }
+    .cmdActions .cmdCopy{
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: var(--t0);
+      font-weight: 800;
     }
 
     /* Supporter wall */
@@ -3029,7 +3035,7 @@
               <p class="cmdDesc">${c.desc}</p>
             </div>
             <div class="cmdActions">
-              <button class="btn btnSm" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
+              <button class="btn btnSm cmdCopy" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
             </div>
           </div>
           <div class="cmdCodeWrap">
