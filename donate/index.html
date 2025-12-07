@@ -1538,12 +1538,20 @@
       word-break: break-all;
       white-space: normal;
     }
-    .blur-wallet{
-      filter: blur(5px);
-      -webkit-filter: blur(5px);
-      transition: filter var(--dur) var(--ease), -webkit-filter var(--dur) var(--ease);
-      display: inline-block;
-      max-width: 100%;
+    .blur-wallet {
+        position: relative;
+        display: flex;
+        filter: blur(1.3px);
+        -webkit-filter: blur(1.3px);
+        font-family: var(--mono);
+        font-size: 12.5px;
+        margin: auto auto;
+        padding: 0;
+        padding-top: 2px;
+        word-break: break-all;
+        text-align: center; /* Center the text */
+        align-items: center;
+        display: table-cell; /* Allows text-align to work */
     }
     .walletRow:hover .blur-wallet,
     .walletRow:focus-within .blur-wallet,
@@ -1588,7 +1596,7 @@
     .miniTable tbody td{
       padding: 10px;
       border-bottom: 1px solid rgba(255,255,255,.06);
-      vertical-align: top;
+      vertical-align: middle;
     }
     .miniIcon{
       display:inline-flex;
