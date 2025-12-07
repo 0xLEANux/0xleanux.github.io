@@ -807,7 +807,7 @@
 
     .tableWrap{
       overflow:auto;
-      max-height: 420px;
+      max-height: 560px; /* ~8 rows visible before scroll */
       margin-top: 12px;
       border-radius: var(--r2);
       border: 1px solid var(--stroke2);
@@ -1129,6 +1129,12 @@
       font-size: var(--t1);
       line-height: 1.5;
     }
+    .cmdTop {
+      display: flex;
+      margin: auto;
+      padding: 0;
+      justify-content: space-between;
+    }
     .cmdList{
       margin-top: 10px;
       display:grid;
@@ -1164,7 +1170,6 @@
     .cmdTop button.btn:hover{ box-shadow:0 12px 30px rgba(0,0,0,.28); }
     .cmd:hover .cmdName{ color: rgba(245,245,255,.95); }
     .cmd:hover .cmdCode{ border-color: rgba(0,229,255,.28); }
-    }
     .cmdTop{
       display:flex;
       align-items:center;
@@ -1336,7 +1341,7 @@
     /* Left-side crypto table */
     .miniTableWrap{
       overflow:auto;
-      max-height: 320px;
+      max-height: 380px; /* ~6 rows visible before scroll */
       margin-top: 12px;
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.12);
@@ -1892,7 +1897,7 @@
                   </div>
                   <div style="display:flex; gap:8px; flex-wrap:wrap;">
                     <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
-                    <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
+                    <button class="btn btnSm btnGhost" type="button" id="btnArchMode">“ArchIt!”</button>
                   </div>
                 </div>
               </div>
