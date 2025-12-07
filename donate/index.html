@@ -3222,10 +3222,10 @@
             row.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
             row.style.background = `linear-gradient(120deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
             row.innerHTML = `
-              <div style="min-width:0;">
-                <div class="walletLabel">${u.coin.toUpperCase()}${toList(r.crypto[u.coin]).length > 1 ? " #" + (u.idx+1) : ""}</div>
-                <div class="addrVal">${u.addr}</div>
-              </div>
+            <div style="min-width:0;">
+              <div class="walletLabel">${u.coin.toUpperCase()}${toList(r.crypto[u.coin]).length > 1 ? " #" + (u.idx+1) : ""}</div>
+              <div class="addrVal blur-wallet">${u.addr}</div>
+            </div>
               <div class="addrBtns">
                 <button class="btn btnSm" type="button" data-copy="${u.coin}:${u.idx}">Copy</button>
                 <button class="btn btnSm btnGhost" type="button" data-qr="${u.coin}:${u.idx}">QR</button>
@@ -3269,7 +3269,7 @@
               <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
               <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
             </td>
-            <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
+            <td class="blur-wallet" style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
             <td style="text-align:center;">
               <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
                 <button class="btn btnSm" type="button" data-copyaddr="${addr}">Copy</button>
