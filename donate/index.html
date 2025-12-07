@@ -1009,6 +1009,17 @@
     }
     .addrRow:first-child{ margin-top: 0; }
     .addrBtns{ display:flex; gap:8px; flex-wrap: wrap; flex: 0 0 auto; }
+    .addrBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-size: var(--t0);
+      letter-spacing: .04em;
+    }
 
     .verifyBox{
       margin-top: 12px;
@@ -1586,29 +1597,7 @@
         <h2 class="h2">Crypto for selected recipient</h2>
         <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
 
-        <div class="addrBox">
-          <div class="addrRow">
-            <div style="min-width:0;">
-              <div class="addrLabel">BTC</div>
-              <div class="addrVal" id="btcAddr">Not configured</div>
-            </div>
-            <div class="addrBtns">
-              <button class="btn btnSm" type="button" data-copy="btc">Copy</button>
-              <button class="btn btnSm btnGhost" type="button" data-qr="btc">QR</button>
-            </div>
-          </div>
-
-          <div class="addrRow">
-            <div style="min-width:0;">
-              <div class="addrLabel">ETH</div>
-              <div class="addrVal" id="ethAddr">Not configured</div>
-            </div>
-            <div class="addrBtns">
-              <button class="btn btnSm" type="button" data-copy="eth">Copy</button>
-              <button class="btn btnSm btnGhost" type="button" data-qr="eth">QR</button>
-            </div>
-          </div>
-        </div>
+        <div class="addrBox" id="cryptoBox"></div>
 
         <div style="height:14px;"></div>
 
@@ -1616,27 +1605,8 @@
           <p class="verifyTitle">Verify this page</p>
           <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
 
-          <div class="verifyRow">
-            <div style="min-width:0;">
-              <div class="addrLabel">BTC (short)</div>
-              <div class="shortAddr" id="btcShort">Not configured</div>
-            </div>
-            <div class="addrBtns">
-              <button class="btn btnSm" type="button" data-copy="btc">Copy full</button>
-              <button class="btn btnSm btnGhost" type="button" data-qr="btc">QR</button>
-            </div>
-          </div>
-
-          <div class="verifyRow">
-            <div style="min-width:0;">
-              <div class="addrLabel">ETH (short)</div>
-              <div class="shortAddr" id="ethShort">Not configured</div>
-            </div>
-            <div class="addrBtns">
-              <button class="btn btnSm" type="button" data-copy="eth">Copy full</button>
-              <button class="btn btnSm btnGhost" type="button" data-qr="eth">QR</button>
-            </div>
-          </div>
+          <div class="verifyRow" id="verifyBTC"></div>
+          <div class="verifyRow" id="verifyETH"></div>
 
           <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
         </div>
@@ -1981,6 +1951,16 @@
       const t = v.trim();
       if(t.length <= 14) return t;
       return `${t.slice(0, 6)}…${t.slice(-6)}`;
+    }
+
+    function toList(val){
+      if(Array.isArray(val)) return val.filter(x => isConfigured(x));
+      return isConfigured(val) ? [val] : [];
+    }
+
+    function getAddr(sym, idx){
+      const list = toList(rec().crypto[sym] || []);
+      return list[idx || 0] || "";
     }
 
     function generateQRDataUrl(data, size=260){
@@ -2358,6 +2338,72 @@
       cards.forEach(c => c.style.display = visible(c) ? "" : "none");
     }
 
+    function renderCrypto(r){
+      const box = document.getElementById("cryptoBox");
+      const vBtc = document.getElementById("verifyBTC");
+      const vEth = document.getElementById("verifyETH");
+      box.innerHTML = "";
+      vBtc.innerHTML = "";
+      vEth.innerHTML = "";
+
+      const btcList = toList(r.crypto.btc);
+      const ethList = toList(r.crypto.eth);
+
+      const renderRows = (list, sym, label) => {
+        if(!list.length){
+          const div = document.createElement("div");
+          div.className = "addrRow";
+          div.innerHTML = `<div><div class="addrLabel">${label}</div><div class="addrVal">Not configured</div></div>`;
+          box.appendChild(div);
+          return;
+        }
+        list.forEach((addr, idx) => {
+          const row = document.createElement("div");
+          row.className = "addrRow";
+          row.innerHTML = `
+            <div style="min-width:0;">
+              <div class="addrLabel">${label}${list.length > 1 ? ` #${idx+1}` : ""}</div>
+              <div class="addrVal">${addr}</div>
+            </div>
+            <div class="addrBtns">
+              <button class="btn btnSm" type="button" data-copy="${sym}:${idx}">Copy</button>
+              <button class="btn btnSm btnGhost" type="button" data-qr="${sym}:${idx}">QR</button>
+            </div>
+          `;
+          box.appendChild(row);
+        });
+      };
+
+      renderRows(btcList, "btc", "BTC");
+      renderRows(ethList, "eth", "ETH");
+
+      const renderVerify = (el, list, label) => {
+        if(!list.length){
+          el.innerHTML = `
+            <div style="min-width:0;">
+              <div class="addrLabel">${label} (short)</div>
+              <div class="shortAddr">Not configured</div>
+            </div>
+          `;
+          return;
+        }
+        const addr = list[0];
+        el.innerHTML = `
+          <div style="min-width:0;">
+            <div class="addrLabel">${label} (short)</div>
+            <div class="shortAddr">${shortAddr(addr)}</div>
+          </div>
+          <div class="addrBtns">
+            <button class="btn btnSm" type="button" data-copy="${label.toLowerCase()}:0">Copy full</button>
+            <button class="btn btnSm btnGhost" type="button" data-qr="${label.toLowerCase()}:0">QR</button>
+          </div>
+        `;
+      };
+
+      renderVerify(vBtc, btcList, "BTC");
+      renderVerify(vEth, ethList, "ETH");
+    }
+
     /* =========================
        APPLY RECIPIENT
        ========================= */
@@ -2377,17 +2423,13 @@
       setLink(document.getElementById("ctaCard"), r.card);
       setLink(document.getElementById("ctaPayPal"), r.paypal);
 
-      document.getElementById("btcAddr").textContent = isConfigured(r.crypto.btc) ? r.crypto.btc : "Not configured";
-      document.getElementById("ethAddr").textContent = isConfigured(r.crypto.eth) ? r.crypto.eth : "Not configured";
-      document.getElementById("btcShort").textContent = shortAddr(r.crypto.btc);
-      document.getElementById("ethShort").textContent = shortAddr(r.crypto.eth);
-
       const { configured, total } = methodTotals(r);
       document.getElementById("metaConfigured").textContent = `${configured}/${total}`;
       const recRail = recommendedRail(r);
       document.getElementById("metaRec").textContent = recRail.label;
       document.getElementById("metaRecNote").textContent = recRail.note;
       document.getElementById("metaDeep").textContent = `?to=${selected}`;
+      renderCrypto(r);
 
       renderMethods();
       applyFilters();
@@ -2398,9 +2440,8 @@
     /* =========================
        QR + COPY
        ========================= */
-    function openQR(sym){
-      const r = rec();
-      const addr = (r.crypto[sym] || "").trim();
+    function openQR(sym, idx=0){
+      const addr = getAddr(sym, idx);
       if(!isConfigured(addr)){
         showToast("Address not configured for this recipient.");
         return;
@@ -2533,9 +2574,8 @@
     document.addEventListener("click", async (e) => {
       const copyBtn = e.target.closest("[data-copy]");
       if(copyBtn){
-        const sym = copyBtn.getAttribute("data-copy");
-        const r = rec();
-        const addr = (r.crypto[sym] || "").trim();
+        const [sym, idxStr] = (copyBtn.getAttribute("data-copy") || "").split(":");
+        const addr = getAddr(sym, Number(idxStr) || 0);
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
         showToast((await copyText(addr)) ? `${sym.toUpperCase()} copied.` : "Copy failed.");
         return;
@@ -2543,7 +2583,8 @@
 
       const qrBtn = e.target.closest("[data-qr]");
       if(qrBtn){
-        openQR(qrBtn.getAttribute("data-qr"));
+        const [sym, idxStr] = (qrBtn.getAttribute("data-qr") || "").split(":");
+        openQR(sym, Number(idxStr) || 0);
         return;
       }
 
