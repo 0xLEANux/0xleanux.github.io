@@ -1539,12 +1539,15 @@
       white-space: normal;
     }
     /* Blur wallet text until hover/focus */
+    /* Hide wallet strings until interaction */
     .addrVal,
-    .miniTable td.addrVal{
-      filter: blur(10px);
-      transition: filter var(--dur) var(--ease);
+    td.addrVal{
+      filter: blur(14px);
+      -webkit-filter: blur(14px);
+      transition: filter var(--dur) var(--ease), -webkit-filter var(--dur) var(--ease);
       display: inline-block;
     }
+    .addrVal span{ filter: inherit; -webkit-filter: inherit; }
     .walletRow:hover .addrVal,
     .walletRow:focus-within .addrVal,
     .miniTable tr:hover td.addrVal,
@@ -1552,6 +1555,7 @@
     .addrRow:hover .addrVal,
     .addrRow:focus-within .addrVal{
       filter: blur(0);
+      -webkit-filter: blur(0);
     }
 
     /* Accordion toggles (right column) */
