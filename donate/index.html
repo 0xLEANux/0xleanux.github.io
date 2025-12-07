@@ -2136,9 +2136,9 @@
           card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
           paypal: "YOUR_PAYPAL_LINK_DEV",
           openCollective: "",
-          koFi: "",
-          buyMeACoffee: "",
-          patreon: "",
+          koFi: "https://ko-fi.com/0xLEANux",
+          buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
+          patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
           liberapay: "",
           polar: "",
           thanksDev: "",
@@ -2159,9 +2159,9 @@
           card: "YOUR_STRIPE_PAYMENT_LINK_ORG",
           paypal: "YOUR_PAYPAL_LINK_ORG",
           openCollective: "",
-          koFi: "",
-          buyMeACoffee: "",
-          patreon: "",
+          koFi: "https://ko-fi.com/0xLEANux",
+          buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
+          patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
           liberapay: "",
           polar: "",
           thanksDev: "",
@@ -2575,7 +2575,8 @@
        OFFERINGS
        ========================= */
     function actionUrl(r, action){
-      switch(action){
+      const a = (action || "").toLowerCase();
+      switch(a){
         case "sponsors": return r.sponsors;
         case "card": return r.card;
         case "paypal": return r.paypal;
@@ -2597,7 +2598,8 @@
     }
 
     function actionLabel(action){
-      switch(action){
+      const a = (action || "").toLowerCase();
+      switch(a){
         case "sponsors": return "Sponsors";
         case "card": return "Card";
         case "paypal": return "PayPal";
@@ -2623,10 +2625,12 @@
       a.className = "btn btnSm btnIcon";
       a.target = "_blank";
       a.rel = "noopener";
-      const brand = brandTheme(action.toLowerCase());
-      a.innerHTML = `${brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : ""}<span>${actionLabel(action)}</span>`;
-      a.dataset.utm = `offer-${action}`;
-      setLink(a, actionUrl(r, action));
+      const key = (action || "").toLowerCase();
+      const brand = brandTheme(key);
+      const iconImg = brand.remoteSvg ? `<img src="${brand.remoteSvg}" alt="${actionLabel(action)}" style="width:16px; height:16px; object-fit:contain;">` : "";
+      a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
+      a.dataset.utm = `offer-${key}`;
+      setLink(a, actionUrl(r, key));
       return a;
     }
 
