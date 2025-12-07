@@ -173,6 +173,16 @@
       pointer-events: none;
       z-index: -1;
     }
+    .wrap::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 1px, transparent 2px, transparent 3px);
+      opacity: .12;
+      mix-blend-mode: soft-light;
+      pointer-events:none;
+      z-index:-1;
+    }
 
     .srOnly{
       position:absolute; width:1px; height:1px; padding:0; margin:-1px;
@@ -180,13 +190,14 @@
     }
 
     /* Reveal animations + copy pulses */
-    .reveal{ opacity:0; transform: translateY(12px); transition: opacity 320ms var(--ease), transform 320ms var(--ease); }
-    .reveal.visible{ opacity:1; transform:none; }
     @keyframes pulseCopy{
       0%{ transform: translateY(0); box-shadow: 0 0 0 0 rgba(0,229,255,.30); }
       100%{ transform: translateY(-1px); box-shadow: 0 0 0 8px rgba(0,229,255,0); }
     }
     .pulse{ animation: pulseCopy 360ms var(--ease); }
+    @media (prefers-reduced-motion: no-preference){
+      .spawn{ animation: spawnIn 420ms cubic-bezier(.25,.9,.35,1) both; }
+    }
 
     @media (prefers-reduced-motion: reduce){
       *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
@@ -233,6 +244,10 @@
     @keyframes swirl{
       0%{ transform: rotate(0deg) scale(1); }
       100%{ transform: rotate(360deg) scale(1); }
+    }
+    @keyframes spawnIn{
+      0%{ opacity:0; transform: translateY(12px) scale(.98); filter: blur(2px); }
+      100%{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
     }
     @keyframes borderFlow{
       0%{ background-position: 0% 50%; }
@@ -2624,11 +2639,10 @@
        ========================= */
 
     /* Reveal handling */
-    let revealObs;
     function tagReveal(el){
       if(!el) return;
-      el.classList.add("visible");
-      el.classList.remove("reveal", "reveal-bound");
+      el.classList.add("spawn");
+      setTimeout(() => el.classList.remove("spawn"), 480);
     }
 
     function setupReveals(){
@@ -2966,6 +2980,7 @@
         }
 
         body.appendChild(tr);
+        tagReveal(tr);
 
         // Mobile card
         const mc = document.createElement("div");
