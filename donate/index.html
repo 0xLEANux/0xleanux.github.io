@@ -1541,11 +1541,12 @@
     /* Blur wallet text until hover/focus */
     /* Hide wallet strings until interaction */
     .blur-wallet{
-      filter: blur(5px);
-      -webkit-filter: blur(5px);
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
       transition: filter var(--dur) var(--ease), -webkit-filter var(--dur) var(--ease);
-      display: block;
-      width: 100%;
+      display: inline-block;
+      max-width: 100%;
+      text-align: inherit;
     }
     .walletRow:hover .blur-wallet,
     .walletRow:focus-within .blur-wallet,
