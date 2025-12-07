@@ -1202,6 +1202,80 @@
     .wallName{ font-weight: 950; }
     .wallNote{ margin-top: 6px; color: rgba(245,245,255,.62); font-size: var(--t0); line-height: 1.45; }
 
+    /* Wallet apps */
+    .walletGrid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+    }
+    .walletCard{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,0,0,.18));
+      padding: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.26);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .walletCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .walletTop{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:space-between;
+    }
+    .walletIcon{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 950;
+      font-size: 14px;
+      color: #050614;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.32), transparent 55%),
+        linear-gradient(135deg, var(--brand-color, #999), rgba(0,0,0,.10));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 26px rgba(0,0,0,.26);
+    }
+    .walletTitle{
+      margin:0;
+      font-size: var(--t2);
+      font-weight: 950;
+      letter-spacing: .01em;
+    }
+    .walletNote{
+      margin:6px 0 0;
+      color: rgba(245,245,255,.70);
+      font-size: var(--t1);
+      line-height: 1.45;
+    }
+    .walletAddrs{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .walletRow{
+      border-radius: var(--r3);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 10px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .walletLabel{
+      font-size: var(--t0);
+      color: rgba(245,245,255,.70);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
     /* Toast + modal */
     .toast{
       position: fixed;
@@ -1598,6 +1672,13 @@
         <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
 
         <div class="addrBox" id="cryptoBox"></div>
+
+        <div style="height:14px;"></div>
+
+        <h2 class="h2">Wallet apps (MetaMask & Atomic Wallet)</h2>
+        <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH; Atomic can read BTC/ETH.</p>
+
+        <div class="walletGrid" id="walletGrid"></div>
 
         <div style="height:14px;"></div>
 
@@ -2410,6 +2491,62 @@
       renderVerify(vEth, ethList, "ETH");
     }
 
+    function renderWallets(r){
+      const grid = document.getElementById("walletGrid");
+      grid.innerHTML = "";
+
+      const wallets = [
+        { key:"metamask", label:"MetaMask", note:"Connect with ETH/ERC20 using the ETH address below.", coins:["eth"] },
+        { key:"atomicwallet", label:"Atomic Wallet", note:"Paste BTC or ETH into Atomic Wallet; QR works too.", coins:["btc","eth"] }
+      ];
+
+      wallets.forEach((w) => {
+        const card = document.createElement("div");
+        card.className = "walletCard";
+        const brand = brandTheme(w.key);
+        const uses = w.coins.flatMap((c) => toList(r.crypto[c]).map((addr, idx) => ({ coin:c, addr, idx })));
+
+        card.innerHTML = `
+          <div class="walletTop">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="walletIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
+              <div>
+                <p class="walletTitle">${w.label}</p>
+                <p class="walletNote">${w.note}</p>
+              </div>
+            </div>
+          </div>
+          <div class="walletAddrs"></div>
+        `;
+
+        const listEl = card.querySelector(".walletAddrs");
+        if(!uses.length){
+          const row = document.createElement("div");
+          row.className = "walletRow";
+          row.innerHTML = `<div><div class="walletLabel">Not configured</div><div class="addrVal">Add BTC/ETH in config.json</div></div>`;
+          listEl.appendChild(row);
+        } else {
+          uses.forEach((u) => {
+            const row = document.createElement("div");
+            row.className = "walletRow";
+            row.innerHTML = `
+              <div style="min-width:0;">
+                <div class="walletLabel">${u.coin.toUpperCase()}${toList(r.crypto[u.coin]).length > 1 ? " #" + (u.idx+1) : ""}</div>
+                <div class="addrVal">${u.addr}</div>
+              </div>
+              <div class="addrBtns">
+                <button class="btn btnSm" type="button" data-copy="${u.coin}:${u.idx}">Copy</button>
+                <button class="btn btnSm btnGhost" type="button" data-qr="${u.coin}:${u.idx}">QR</button>
+              </div>
+            `;
+            listEl.appendChild(row);
+          });
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
     /* =========================
        APPLY RECIPIENT
        ========================= */
@@ -2436,6 +2573,7 @@
       document.getElementById("metaRecNote").textContent = recRail.note;
       document.getElementById("metaDeep").textContent = `?to=${selected}`;
       renderCrypto(r);
+      renderWallets(r);
 
       renderMethods();
       applyFilters();
