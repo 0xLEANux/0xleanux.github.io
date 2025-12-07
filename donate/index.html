@@ -1538,6 +1538,18 @@
       word-break: break-all;
       white-space: normal;
     }
+    /* Blur wallet text until hover/focus */
+    .walletRow .addrVal,
+    .miniTable td.addrVal{
+      filter: blur(6px);
+      transition: filter var(--dur) var(--ease);
+    }
+    .walletRow:hover .addrVal,
+    .walletRow:focus-within .addrVal,
+    .miniTable tr:hover td.addrVal,
+    .miniTable td.addrVal:focus-within{
+      filter: blur(0);
+    }
 
     /* Accordion toggles (right column) */
     /* Left-side crypto table */
@@ -3254,7 +3266,7 @@
               <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
               <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
             </td>
-            <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
+            <td class="addrVal" style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
             <td style="text-align:center;">
               <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
                 <button class="btn btnSm" type="button" data-copyaddr="${addr}">Copy</button>
