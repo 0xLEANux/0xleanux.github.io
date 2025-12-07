@@ -2050,6 +2050,37 @@
       return { label:"Configure links", note:"Set URLs in config.json" };
     }
 
+    function chainLabel(chain){
+      const map = {
+        btc:"Bitcoin",
+        eth:"Ethereum",
+        eth_arb:"Ethereum (Arbitrum)",
+        eth_linea:"Ethereum (Linea)",
+        sol:"Solana",
+        arbitrum:"Arbitrum",
+        base:"Base",
+        linea:"Linea",
+        polygon:"Polygon",
+        op:"OP",
+        bnb:"BNB Chain",
+        sei:"Sei",
+        glmr:"Moonbeam",
+        dogs:"DOGS",
+        justachilguy:"Just a Chil Guy",
+        btt:"BitTorrent",
+        ada:"Cardano",
+        shibarium:"Shibarium",
+        shib:"Shiba Inu",
+        zec:"ZCash",
+        hex:"HEX",
+        nexo:"NEXO",
+        chz:"Chiliz",
+        chaingpt:"ChainGPT",
+        xaut:"Tether Gold"
+      };
+      return map[chain.toLowerCase()] || chain.toUpperCase();
+    }
+
     function methodTotals(r){
       const methods = buildMethods(r);
       let configured = 0;
@@ -2136,6 +2167,19 @@
     function toList(val){
       if(Array.isArray(val)) return val.filter(x => isConfigured(x));
       return isConfigured(val) ? [val] : [];
+    }
+
+    function collectCryptoRows(r){
+      const rows = [];
+      for(const [chain, val] of Object.entries(r.crypto || {})){
+        toList(val).forEach((addr, idx) => rows.push({ chain, addr, idx, source:"Direct" }));
+      }
+      for(const [wallet, chains] of Object.entries(r.wallets || {})){
+        for(const [chain, val] of Object.entries(chains || {})){
+          toList(val).forEach((addr, idx) => rows.push({ chain, addr, idx, source: wallet }));
+        }
+      }
+      return rows;
     }
 
     function walletAddrs(walletKey, coin){
@@ -2675,6 +2719,38 @@
       });
     }
 
+    function renderCryptoTable(r){
+      const body = document.getElementById("cryptoTableBody");
+      body.innerHTML = "";
+      const rows = collectCryptoRows(r);
+      if(!rows.length){
+        body.innerHTML = `<tr><td colspan="4" style="padding:12px;">No crypto addresses configured.</td></tr>`;
+        return;
+      }
+      rows.forEach((row) => {
+        const chainLower = (row.chain || "").toLowerCase();
+        const isBtc = chainLower === "btc";
+        const isEth = chainLower === "eth" || chainLower === "eth_arb" || chainLower === "eth_linea";
+        const brand = brandTheme(chainLower);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="text-transform: uppercase;">
+            <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
+            <span style="margin-left:8px;">${chainLabel(row.chain)}</span>
+          </td>
+          <td>${row.source}</td>
+          <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all;">${row.addr}</td>
+          <td>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn btnSm" type="button" data-copyaddr="${row.addr}">Copy</button>
+              ${isBtc || isEth ? `<button class="btn btnSm btnGhost" type="button" data-qraddr="${row.addr}" data-qrchain="${row.chain}">QR</button>` : ""}
+            </div>
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+
     /* =========================
        APPLY RECIPIENT
        ========================= */
@@ -2702,6 +2778,7 @@
       document.getElementById("metaDeep").textContent = `?to=${selected}`;
       renderCrypto(r);
       renderWallets(r);
+      renderCryptoTable(r);
 
       renderMethods();
       applyFilters();
@@ -2853,10 +2930,36 @@
         return;
       }
 
+      const copyAddrBtn = e.target.closest("[data-copyaddr]");
+      if(copyAddrBtn){
+        const addr = copyAddrBtn.getAttribute("data-copyaddr") || "";
+        showToast((await copyText(addr)) ? "Address copied." : "Copy failed.");
+        return;
+      }
+
       const qrBtn = e.target.closest("[data-qr]");
       if(qrBtn){
         const [sym, idxStr] = (qrBtn.getAttribute("data-qr") || "").split(":");
         openQR(sym, Number(idxStr) || 0);
+        return;
+      }
+
+      const qrAddrBtn = e.target.closest("[data-qraddr]");
+      if(qrAddrBtn){
+        const addr = qrAddrBtn.getAttribute("data-qraddr") || "";
+        const chain = (qrAddrBtn.getAttribute("data-qrchain") || "").toLowerCase();
+        if(!isConfigured(addr)){ showToast("Address not configured."); return; }
+        const scheme = chain === "btc" ? `bitcoin:${addr}` : chain.startsWith("eth") ? `ethereum:${addr}` : addr;
+        const qrUrl = generateQRDataUrl(scheme);
+        if(qrUrl){
+          qrTitle.textContent = `QR • ${chain.toUpperCase() || "ADDR"}`;
+          qrData.textContent = scheme;
+          qrImg.src = qrUrl;
+          qrModal.showModal();
+        }else{
+          showToast("QR unavailable; address copied instead.");
+          copyText(addr);
+        }
         return;
       }
 
