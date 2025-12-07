@@ -9,10 +9,13 @@ Unified donation landing page for:
 - DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
 - ORG tab: `https://0xLEANux.github.io/donate/?to=org`
 
-This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, PayPal, BTC/ETH, etc.) with minimal friction.
+This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, PayPal — currently paused, BTC/ETH, etc.) with minimal friction.
 
 > [!TIP]
 > If you want one canonical donor link everywhere, use the DEV deep link and keep ORG as option #2 in the page UI.
+
+> [!NOTE]
+> PayPal links remain in config for later, but the live UI intentionally disables PayPal. Flip `PAYPAL_DISABLED` in `donate/index.html` when you want to show it again.
 
 ---
 
@@ -44,7 +47,7 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 - A **static site** approach (no backend required)
 
 > [!IMPORTANT]
-> GitHub Pages is static. It cannot process payments directly. Payments are handled by the providers you link (Sponsors/Stripe/PayPal/etc.).
+> GitHub Pages is static. It cannot process payments directly. Payments are handled by the providers you link (Sponsors/Stripe/PayPal/etc.; PayPal currently paused in the live UI).
 
 ---
 
@@ -80,8 +83,8 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 
 | Audience / intent | Deep link | Emphasis in UI | Notes |
 | --- | --- | --- | --- |
-| Individuals backing the dev | `https://0xLEANux.github.io/donate/?to=dev` | Sponsors → Card/PayPal → Crypto | Treat as the canonical link (good for personal repos and social profiles). |
-| Org-focused supporters | `https://0xLEANux.github.io/donate/?to=org` | Org Sponsors → Card/PayPal → Crypto | Use when the org is the brand you want people to support. |
+| Individuals backing the dev | `https://0xLEANux.github.io/donate/?to=dev` | Sponsors → Card → Crypto (PayPal paused) | Treat as the canonical link (good for personal repos and social profiles). |
+| Org-focused supporters | `https://0xLEANux.github.io/donate/?to=org` | Org Sponsors → Card → Crypto (PayPal paused) | Use when the org is the brand you want people to support. |
 | GitHub Sponsor button | `.github/FUNDING.yml` custom URLs | Opens the right tab directly | Works for both repo-level and org-level funding files. |
 | Offline fallback | `/donate/offline.html` | Cached copy of the hub | Payment providers still need network; fallback keeps the hub usable. |
 
@@ -147,7 +150,7 @@ For safety, keep a template:
 Make sure these are set for **DEV** *and optionally* **ORG**:
 
 - `card` → Stripe Payment Link (Visa/Mastercard/etc.)
-- `paypal` → PayPal donate URL or `paypal.me/...`
+- `paypal` → PayPal donate URL or `paypal.me/...` (UI currently disabled; set `PAYPAL_DISABLED=false` in `donate/index.html` to surface it)
 - `crypto.btc` → BTC receive address
 - `crypto.eth` → ETH receive address
 
@@ -258,7 +261,7 @@ If you need a quick sanity check, test:
 - If you accept crypto, use dedicated receiving addresses per recipient.
 - Add a “verify this page” block: show short-form addresses, copy/QR buttons, and remind donors to check the signed git history (optionally publish a PGP-signed `DONATION_ADDRESSES.txt.asc`).
 - Consider adding a short “refunds / reversals” policy:
-  - Card/PayPal may be reversible
+  - Card/PayPal (if enabled) may be reversible
   - crypto typically is not
 
 ---
