@@ -93,11 +93,13 @@
       background: linear-gradient(120deg, rgba(183,107,255,.92), rgba(0,229,255,.82), rgba(124,255,158,.75));
       -webkit-background-clip: text;
       color: transparent;
+      text-shadow: 0 6px 22px rgba(0,0,0,.40);
     }
     h2, .h2{
       background: linear-gradient(110deg, rgba(183,107,255,.86), rgba(0,229,255,.74));
       -webkit-background-clip: text;
       color: transparent;
+      text-shadow: 0 4px 16px rgba(0,0,0,.30);
     }
     .impactTitle, .archTipTitle, .cmdName, .methodMeta, .walletLabel{
       letter-spacing: .02em;
@@ -111,6 +113,7 @@
     }
     p, .fineprint, .pMuted{
       max-width: 96ch;
+      text-shadow: 0 0 12px rgba(0,0,0,.32);
     }
 
     *{ box-sizing:border-box; }
@@ -197,6 +200,15 @@
     .pulse{ animation: pulseCopy 360ms var(--ease); }
     @media (prefers-reduced-motion: no-preference){
       .spawn{ animation: spawnIn 420ms cubic-bezier(.25,.9,.35,1) both; }
+      .fadeSeq > *{ animation: fadeUp 420ms var(--ease) both; }
+      .fadeSeq > *:nth-child(1){ animation-delay: 40ms; }
+      .fadeSeq > *:nth-child(2){ animation-delay: 80ms; }
+      .fadeSeq > *:nth-child(3){ animation-delay: 120ms; }
+      .fadeSeq > *:nth-child(4){ animation-delay: 160ms; }
+      .fadeSeq > *:nth-child(5){ animation-delay: 200ms; }
+      .hero .pMuted, .hero p, .metaStrip, .impactStrip, .offer, .methodCard, .walletCard, .archTip, .fold, .addrBox, .verifyBox, .wallCard, .cmd, .tableWrap, .miniTableWrap{
+        animation: fadeUp 420ms var(--ease) both;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
