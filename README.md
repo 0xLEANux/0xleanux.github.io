@@ -6,8 +6,8 @@ Unified donation landing page for:
 - Organization: **@0xLEANux** — https://github.com/0xLEANux
 
 **Live (recommended):**
-- DEV tab: `https://0xElectron.github.io/donate/?to=dev`
-- ORG tab: `https://0xElectron.github.io/donate/?to=org`
+- DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
+- ORG tab: `https://0xLEANux.github.io/donate/?to=org`
 
 This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, PayPal, BTC/ETH, etc.) with minimal friction.
 
@@ -70,9 +70,9 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 
 ## Live links
 
-- DEV tab: `https://0xElectron.github.io/donate/?to=dev`
-- ORG tab: `https://0xElectron.github.io/donate/?to=org`
-- Root redirect: `https://0xElectron.github.io/` → `.../donate/?to=dev`
+- DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
+- ORG tab: `https://0xLEANux.github.io/donate/?to=org`
+- Root redirect: `https://0xLEANux.github.io/` → `.../donate/?to=dev`
 
 ---
 
@@ -80,8 +80,8 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 
 | Audience / intent | Deep link | Emphasis in UI | Notes |
 | --- | --- | --- | --- |
-| Individuals backing the dev | `https://0xElectron.github.io/donate/?to=dev` | Sponsors → Card/PayPal → Crypto | Treat as the canonical link (good for personal repos and social profiles). |
-| Org-focused supporters | `https://0xElectron.github.io/donate/?to=org` | Org Sponsors → Card/PayPal → Crypto | Use when the org is the brand you want people to support. |
+| Individuals backing the dev | `https://0xLEANux.github.io/donate/?to=dev` | Sponsors → Card/PayPal → Crypto | Treat as the canonical link (good for personal repos and social profiles). |
+| Org-focused supporters | `https://0xLEANux.github.io/donate/?to=org` | Org Sponsors → Card/PayPal → Crypto | Use when the org is the brand you want people to support. |
 | GitHub Sponsor button | `.github/FUNDING.yml` custom URLs | Opens the right tab directly | Works for both repo-level and org-level funding files. |
 | Offline fallback | `/donate/offline.html` | Cached copy of the hub | Payment providers still need network; fallback keeps the hub usable. |
 
@@ -167,8 +167,8 @@ Add this file to any repo you want to show GitHub’s funding links:
 ```yml
 github: [0xElectron, 0xLEANux]
 custom:
-  - "https://0xElectron.github.io/donate/?to=dev"
-  - "https://0xElectron.github.io/donate/?to=org"
+  - "https://0xLEANux.github.io/donate/?to=dev"
+  - "https://0xLEANux.github.io/donate/?to=org"
 ```
 
 ✅ Result: your project repos will display a **Sponsor** button that links to these.
