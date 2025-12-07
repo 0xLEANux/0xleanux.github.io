@@ -68,60 +68,58 @@
         },
         "atomicwallet": {
           "btc": [
-            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw",
             "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
           ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-            "YOUR_ETH_ADDRESS_DEV_2"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "glmr": [
-            "YOUR_ATOMIC_MOONBEAM_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "dogs": [
-            "YOUR_ATOMIC_DOGS_ADDRESS_DEV"
+            "EQCZVekB76g95rFV8N3LPOjILaXlkmiVnsg_dnuqIXo0qpiJ"
           ],
           "justachilguy": [
-            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_DEV"
+            "7nqVZTN9HJvZN62rLKq2MFmMtsbm8hkZC7gNpZjtSViV"
           ],
           "btt": [
-            "YOUR_ATOMIC_BITTORRENT_ADDRESS_DEV"
+            "TSxuVNDxVzqqXD9JJH2WarCsCae7mrKPwF"
           ],
           "ada": [
-            "YOUR_ATOMIC_ADA_ADDRESS_DEV"
+            "addr1qx6mchlc67ne8fxgk6cf3wzu2x4gfkejt8ecx76av5l280ywvk7m55pl6229rlf2m43g48d0afxt7yuwycg3zrzm24esnlzun7"
           ],
           "shibarium": [
-            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "shib": [
-            "YOUR_ATOMIC_SHIB_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "zec": [
-            "YOUR_ATOMIC_ZCASH_ADDRESS_DEV"
+            "t1cNCRgYniMwtwbg1tzD4XV3XD6A7ZgRpnM"
           ],
           "hex": [
-            "YOUR_ATOMIC_HEX_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "nexo": [
-            "YOUR_ATOMIC_NEXO_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "chz": [
-            "YOUR_ATOMIC_CHILIZ_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "arbitrum": [
-            "YOUR_ATOMIC_ARBITRUM_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "chaingpt": [
-            "YOUR_ATOMIC_CHAINGPT_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "xaut": [
-            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "eth_arb": [
-            "YOUR_ATOMIC_ETH_ARB_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "eth_linea": [
-            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_DEV"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ]
         }
       }
@@ -192,60 +190,58 @@
         },
         "atomicwallet": {
           "btc": [
-            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw",
             "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
           ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-            "YOUR_ETH_ADDRESS_ORG_2"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "glmr": [
-            "YOUR_ATOMIC_MOONBEAM_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "dogs": [
-            "YOUR_ATOMIC_DOGS_ADDRESS_ORG"
+            "EQCZVekB76g95rFV8N3LPOjILaXlkmiVnsg_dnuqIXo0qpiJ"
           ],
           "justachilguy": [
-            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_ORG"
+            "7nqVZTN9HJvZN62rLKq2MFmMtsbm8hkZC7gNpZjtSViV"
           ],
           "btt": [
-            "YOUR_ATOMIC_BITTORRENT_ADDRESS_ORG"
+            "TSxuVNDxVzqqXD9JJH2WarCsCae7mrKPwF"
           ],
           "ada": [
-            "YOUR_ATOMIC_ADA_ADDRESS_ORG"
+            "addr1qx6mchlc67ne8fxgk6cf3wzu2x4gfkejt8ecx76av5l280ywvk7m55pl6229rlf2m43g48d0afxt7yuwycg3zrzm24esnlzun7"
           ],
           "shibarium": [
-            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "shib": [
-            "YOUR_ATOMIC_SHIB_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "zec": [
-            "YOUR_ATOMIC_ZCASH_ADDRESS_ORG"
+            "t1cNCRgYniMwtwbg1tzD4XV3XD6A7ZgRpnM"
           ],
           "hex": [
-            "YOUR_ATOMIC_HEX_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "nexo": [
-            "YOUR_ATOMIC_NEXO_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "chz": [
-            "YOUR_ATOMIC_CHILIZ_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "arbitrum": [
-            "YOUR_ATOMIC_ARBITRUM_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "chaingpt": [
-            "YOUR_ATOMIC_CHAINGPT_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "xaut": [
-            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "eth_arb": [
-            "YOUR_ATOMIC_ETH_ARB_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ],
           "eth_linea": [
-            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_ORG"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ]
         }
       }
