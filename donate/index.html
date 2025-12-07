@@ -998,7 +998,9 @@
       font-family: var(--mono);
       font-size: 12.5px;
       color: rgba(245,245,255,.90);
-      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .addrRow{
       display:flex;
@@ -1275,6 +1277,74 @@
       text-transform: uppercase;
       margin-bottom: 4px;
     }
+
+    /* Accordion toggles (right column) */
+    /* Left-side crypto table */
+    .miniTableWrap{
+      overflow:auto;
+      margin-top: 12px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+    }
+    .miniTable{
+      width:100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 540px;
+      font-size: var(--t1);
+    }
+    .miniTable thead th{
+      text-align:left;
+      padding: 10px;
+      font-size: var(--t0);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(245,245,255,.74);
+      background: rgba(0,0,0,.24);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .miniTable tbody td{
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      vertical-align: top;
+    }
+    .miniIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #050614;
+      background: linear-gradient(135deg, var(--brand-color, #999), rgba(0,0,0,.12));
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    /* Hideable sections (right) */
+    .fold{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding: 10px 12px;
+      margin-top: 12px;
+      transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+    .fold:hover{ border-color: rgba(255,255,255,.18); transform: translateY(-1px); }
+    .fold > summary{
+      cursor: pointer;
+      list-style:none;
+      font-weight: 950;
+      font-size: var(--t2);
+      color: rgba(245,245,255,.92);
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .fold > summary::-webkit-details-marker{ display:none; }
+    .fold .body{ margin-top: 10px; }
 
     /* Toast + modal */
     .toast{
@@ -1636,6 +1706,25 @@
 
         <div style="height:16px;"></div>
 
+        <h2 class="h2">Crypto wallets (quick view)</h2>
+        <p class="pMuted">Direct + wallet-specific addresses for the selected recipient.</p>
+
+        <div class="miniTableWrap" aria-label="Crypto wallet table">
+          <table class="miniTable">
+            <thead>
+              <tr>
+                <th style="width:18%;">Chain</th>
+                <th style="width:20%;">Source</th>
+                <th style="width:42%;">Address</th>
+                <th style="width:20%;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="cryptoTableBody"></tbody>
+          </table>
+        </div>
+
+        <div style="height:16px;"></div>
+
         <h2 class="h2">Supporter wall (manual / placeholder)</h2>
         <p class="pMuted">
           GitHub Pages is static, so this is intentionally a “manual wall.” Add names if supporters opt in.
@@ -1668,87 +1757,96 @@
       </section>
 
       <aside class="rgb panel" aria-label="Crypto and Arch Corner">
-        <h2 class="h2">Crypto for selected recipient</h2>
-        <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
+        <details class="fold" open>
+          <summary>Crypto for selected recipient</summary>
+          <div class="body">
+            <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
+            <div class="addrBox" id="cryptoBox"></div>
+          </div>
+        </details>
 
-        <div class="addrBox" id="cryptoBox"></div>
+        <details class="fold">
+          <summary>Wallet apps (MetaMask & Atomic Wallet)</summary>
+          <div class="body">
+            <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH/L2s; Atomic covers BTC/ETH/alt-chains.</p>
+            <div class="walletGrid" id="walletGrid"></div>
+          </div>
+        </details>
 
-        <div style="height:14px;"></div>
+        <details class="fold">
+          <summary>Verify this page</summary>
+          <div class="body">
+            <div class="verifyBox" aria-label="Donation verification">
+              <p class="verifyTitle">Verify this page</p>
+              <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
 
-        <h2 class="h2">Wallet apps (MetaMask & Atomic Wallet)</h2>
-        <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH; Atomic can read BTC/ETH.</p>
+              <div class="verifyRow" id="verifyBTC"></div>
+              <div class="verifyRow" id="verifyETH"></div>
 
-        <div class="walletGrid" id="walletGrid"></div>
+              <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
+            </div>
+          </div>
+        </details>
 
-        <div style="height:14px;"></div>
-
-        <div class="verifyBox" aria-label="Donation verification">
-          <p class="verifyTitle">Verify this page</p>
-          <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
-
-          <div class="verifyRow" id="verifyBTC"></div>
-          <div class="verifyRow" id="verifyETH"></div>
-
-          <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
-        </div>
-
-        <div style="height:14px;"></div>
-
-        <h2 class="h2">Arch Corner</h2>
-        <p class="pMuted">A small “Arch and Arch-based distro” area: tips, commands, and a little fun.</p>
-
-        <div class="archGrid">
-          <div class="archTip">
-            <div class="cmdTop">
-              <div>
-                <p class="archTipTitle">Random Arch tip</p>
-                <p class="archTipText" id="archTipText">—</p>
+        <details class="fold">
+          <summary>Arch Corner</summary>
+          <div class="body">
+            <div class="archGrid">
+              <div class="archTip">
+                <div class="cmdTop">
+                  <div>
+                    <p class="archTipTitle">Random Arch tip</p>
+                    <p class="archTipText" id="archTipText">—</p>
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
+                    <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
+                  </div>
+                </div>
               </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
-                <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
+
+              <div class="archTip">
+                <p class="archTipTitle">Pacman & AUR cheatsheet (copyable)</p>
+                <p class="archTipText">
+                  If your donation funds one thing, let it be: fewer broken upgrades and more calm.
+                </p>
+
+                <div class="cmdList" id="cmdList"></div>
+              </div>
+
+              <div class="archTip">
+                <p class="archTipTitle">Arch-based distro reality check</p>
+                <p class="archTipText">
+                  Arch itself gives you maximum control and responsibility. Arch-based distros often smooth the edges.
+                  Neither is “better”; it’s about how much you enjoy tinkering vs shipping.
+                </p>
               </div>
             </div>
           </div>
-
-          <div class="archTip">
-            <p class="archTipTitle">Pacman & AUR cheatsheet (copyable)</p>
-            <p class="archTipText">
-              If your donation funds one thing, let it be: fewer broken upgrades and more calm.
-            </p>
-
-            <div class="cmdList" id="cmdList"></div>
-          </div>
-
-          <div class="archTip">
-            <p class="archTipTitle">Arch-based distro reality check</p>
-            <p class="archTipText">
-              Arch itself gives you maximum control and responsibility. Arch-based distros often smooth the edges.
-              Neither is “better”; it’s about how much you enjoy tinkering vs shipping.
-            </p>
-          </div>
-        </div>
-
-        <div style="height:14px;"></div>
-
-        <h2 class="h2">FAQ</h2>
-        <details>
-          <summary>Which method is best?</summary>
-          <p>
-            Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
-          </p>
         </details>
-        <details>
-          <summary>Can I donate to both DEV and ORG?</summary>
-          <p>
-            Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
-          </p>
-        </details>
-        <details>
-          <summary>Why does diffusion of methods matter?</summary>
-          <p>
-            Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
-          </p>
+
+        <details class="fold">
+          <summary>FAQ</summary>
+          <div class="body">
+            <details>
+              <summary>Which method is best?</summary>
+              <p>
+                Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
+              </p>
+            </details>
+            <details>
+              <summary>Can I donate to both DEV and ORG?</summary>
+              <p>
+                Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
+              </p>
+            </details>
+            <details>
+              <summary>Why does diffusion of methods matter?</summary>
+              <p>
+                Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
+              </p>
+            </details>
+          </div>
         </details>
 
         <footer class="fineprint">
