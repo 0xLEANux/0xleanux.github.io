@@ -131,6 +131,19 @@
     }
     body.ready{ opacity: 1; }
 
+    #tint{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events:none;
+      mix-blend-mode: soft-light;
+      opacity: .28;
+      background:
+        radial-gradient(30% 40% at 15% 20%, rgba(183,107,255,.18), transparent 60%),
+        radial-gradient(26% 36% at 82% 18%, rgba(0,229,255,.12), transparent 60%),
+        linear-gradient(120deg, rgba(0,0,0,.32), rgba(0,0,0,.12));
+    }
+
     /* Fixed background gradient (constant) */
     body::before{
       content:"";
@@ -260,10 +273,10 @@
       0%{ transform: rotate(0deg) scale(1); }
       100%{ transform: rotate(360deg) scale(1); }
     }
-    @keyframes slideUpIn{ from{ opacity:0; transform: translateY(12px) scale(.98); filter: blur(1px); } to{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); } }
-    @keyframes slideLeftIn{ from{ opacity:0; transform: translateX(-14px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
-    @keyframes slideRightIn{ from{ opacity:0; transform: translateX(14px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
-    @keyframes zoomInSoft{ from{ opacity:0; transform: scale(.96); filter: blur(1px); } to{ opacity:1; transform: scale(1); filter: blur(0); } }
+    @keyframes slideUpIn{ from{ opacity:0; transform: translateY(14px) scale(.98); filter: blur(1px); } to{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes slideLeftIn{ from{ opacity:0; transform: translateX(-16px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
+    @keyframes slideRightIn{ from{ opacity:0; transform: translateX(16px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
+    @keyframes zoomInSoft{ from{ opacity:0; transform: scale(.95); filter: blur(1px); } to{ opacity:1; transform: scale(1); filter: blur(0); } }
     @keyframes borderFlow{
       0%{ background-position: 0% 50%; }
       100%{ background-position: 200% 50%; }
@@ -2656,10 +2669,17 @@
     /* Reveal handling */
     let revealIndex = 0;
     const revealClasses = ["spawnUp","spawnLeft","spawnRight","spawnZoom"];
+    function pickAnim(el){
+      if(el.dataset.anim) return el.dataset.anim;
+      if(el.classList.contains("offer")) return "spawnRight";
+      if(el.classList.contains("walletCard") || el.classList.contains("addrBox")) return "spawnLeft";
+      if(el.classList.contains("archTip") || el.classList.contains("cmd") || el.classList.contains("fold")) return "spawnZoom";
+      if(el.classList.contains("methodCard") || el.classList.contains("tableWrap") || el.classList.contains("miniTableWrap")) return "spawnUp";
+      return revealClasses[revealIndex++ % revealClasses.length];
+    }
     function tagReveal(el){
       if(!el) return;
-      const cls = revealClasses[revealIndex % revealClasses.length];
-      revealIndex++;
+      const cls = pickAnim(el);
       el.classList.add(cls);
       setTimeout(() => el.classList.remove(cls), 520);
     }
