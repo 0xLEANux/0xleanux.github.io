@@ -1839,6 +1839,7 @@
     }
 
     function isConfigured(v){
+      if(Array.isArray(v)) return v.some(isConfigured);
       return typeof v === "string" && v.trim() && !v.includes("YOUR_");
     }
 

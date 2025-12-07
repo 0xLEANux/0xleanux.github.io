@@ -28,7 +28,10 @@
           "YOUR_BTC_ADDRESS_DEV_1",
           "YOUR_BTC_ADDRESS_DEV_2"
         ],
-        "eth": "YOUR_ETH_ADDRESS_DEV"
+        "eth": [
+          "YOUR_ETH_ADDRESS_DEV_1",
+          "YOUR_ETH_ADDRESS_DEV_2"
+        ]
       }
     },
     "org": {
@@ -57,7 +60,10 @@
           "YOUR_BTC_ADDRESS_ORG_1",
           "YOUR_BTC_ADDRESS_ORG_2"
         ],
-        "eth": "YOUR_ETH_ADDRESS_ORG"
+        "eth": [
+          "YOUR_ETH_ADDRESS_ORG_1",
+          "YOUR_ETH_ADDRESS_ORG_2"
+        ]
       }
     }
   },
