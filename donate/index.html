@@ -1194,6 +1194,15 @@
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.26);
     }
+    .cmdCodeWrap{
+      margin-top: 8px;
+    }
+    .cmdActions{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 8px;
+      gap: 8px;
+    }
 
     /* Supporter wall */
     .wall{
@@ -3019,11 +3028,13 @@
               <p class="cmdName">${c.name}</p>
               <p class="cmdDesc">${c.desc}</p>
             </div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          </div>
+          <div class="cmdCodeWrap">
+            <div class="cmdCode">${c.cmd.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
+            <div class="cmdActions">
               <button class="btn btnSm" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
             </div>
           </div>
-          <div class="cmdCode">${c.cmd.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
         `;
         root.appendChild(el);
       });
