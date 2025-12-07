@@ -3030,14 +3030,12 @@
 
         el.innerHTML = `
           <div class="cmdTop">
-            <div>
-              <p class="cmdName">${c.name}</p>
-              <p class="cmdDesc">${c.desc}</p>
-            </div>
+            <p class="cmdName" style="margin:0;">${c.name}</p>
             <div class="cmdActions">
               <button class="btn btnSm cmdCopy" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
             </div>
           </div>
+          <p class="cmdDesc">${c.desc}</p>
           <div class="cmdCodeWrap">
             <div class="cmdCode">${c.cmd.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
           </div>
