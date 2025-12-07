@@ -2574,24 +2574,12 @@
     /* Reveal handling */
     let revealObs;
     function tagReveal(el){
-      if(!el || el.classList.contains("reveal-bound")) return;
-      el.classList.add("reveal", "reveal-bound");
-      if(revealObs) revealObs.observe(el);
+      if(!el) return;
+      el.classList.add("visible");
+      el.classList.remove("reveal", "reveal-bound");
     }
 
     function setupReveals(){
-      if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-        document.querySelectorAll(".panel, .fold, .archTip, .offer, .methodCard, .walletCard, .addrBox, .verifyBox, .tableWrap, .miniTableWrap").forEach((el)=>el.classList.add("visible"));
-        return;
-      }
-      revealObs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if(entry.isIntersecting){
-            entry.target.classList.add("visible");
-            revealObs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.14, rootMargin: "0px 0px -10%" });
       document.querySelectorAll(".panel, .fold, .archTip, .offer, .methodCard, .walletCard, .addrBox, .verifyBox, .tableWrap, .miniTableWrap").forEach(tagReveal);
     }
     const tabDev = document.getElementById("tabDev");
