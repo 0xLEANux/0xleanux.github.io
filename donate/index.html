@@ -2640,13 +2640,13 @@
       a.className = "btn btnSm btnIcon";
       a.target = "_blank";
       a.rel = "noopener";
-      const keyRaw = (action || "").toLowerCase();
-      const key = keyRaw === "buymeacoffee" ? "bmc" : keyRaw;
-      const brand = brandTheme(key);
+      const actionKey = (action || "").toLowerCase();
+      const brandKey = actionKey === "buymeacoffee" ? "bmc" : actionKey;
+      const brand = brandTheme(brandKey);
       const iconImg = brand.remoteSvg ? `<span class="miniBrandIcon imgOnly"><img src="${brand.remoteSvg}" alt="${actionLabel(action)}" loading="lazy" decoding="async"></span>` : "";
       a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
-      a.dataset.utm = `offer-${key}`;
-      setLink(a, actionUrl(r, key));
+      a.dataset.utm = `offer-${brandKey}`;
+      setLink(a, actionUrl(r, actionKey));
       return a;
     }
 
