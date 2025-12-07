@@ -1539,15 +1539,17 @@
       white-space: normal;
     }
     /* Blur wallet text until hover/focus */
-    .walletRow .addrVal,
+    .addrVal,
     .miniTable td.addrVal{
-      filter: blur(6px);
+      filter: blur(9px);
       transition: filter var(--dur) var(--ease);
     }
     .walletRow:hover .addrVal,
     .walletRow:focus-within .addrVal,
     .miniTable tr:hover td.addrVal,
-    .miniTable td.addrVal:focus-within{
+    .miniTable tr:focus-within td.addrVal,
+    .addrRow:hover .addrVal,
+    .addrRow:focus-within .addrVal{
       filter: blur(0);
     }
 
