@@ -2838,7 +2838,10 @@
         } else {
           uses.forEach((u) => {
             const row = document.createElement("div");
+            const brand = brandTheme(u.coin.toLowerCase());
             row.className = "walletRow";
+            row.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
+            row.style.background = `linear-gradient(120deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
             row.innerHTML = `
               <div style="min-width:0;">
                 <div class="walletLabel">${u.coin.toUpperCase()}${toList(r.crypto[u.coin]).length > 1 ? " #" + (u.idx+1) : ""}</div>
