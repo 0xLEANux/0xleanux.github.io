@@ -1138,8 +1138,32 @@
     .cmd{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(0,0,0,.18));
       padding: 10px;
+      position: relative;
+      overflow:hidden;
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease);
+    }
+    .cmd::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(120deg, rgba(0,229,255,.14), rgba(183,107,255,.12), rgba(124,255,158,.10));
+      opacity: 0;
+      transition: opacity var(--dur2) var(--ease);
+      z-index:0;
+    }
+    .cmd:hover{
+      transform: translateY(-2px);
+      border-color: rgba(0,229,255,.28);
+      box-shadow: 0 16px 32px rgba(0,0,0,.32);
+    }
+    .cmd:hover::before{ opacity: .24; }
+    .cmd > *{ position:relative; z-index:1; }
+    .cmdTop button.btn{ box-shadow:none; }
+    .cmdTop button.btn:hover{ box-shadow:0 12px 30px rgba(0,0,0,.28); }
+    .cmd:hover .cmdName{ color: rgba(245,245,255,.95); }
+    .cmd:hover .cmdCode{ border-color: rgba(0,229,255,.28); }
     }
     .cmdTop{
       display:flex;
@@ -1167,8 +1191,8 @@
       word-break: break-word;
       padding: 10px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.26);
     }
 
     /* Supporter wall */
