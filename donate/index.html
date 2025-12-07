@@ -123,7 +123,10 @@
       overflow-x:hidden;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      opacity: 0;
+      transition: opacity 260ms var(--ease);
     }
+    body.ready{ opacity: 1; }
 
     /* Fixed background gradient (constant) */
     body::before{
@@ -3476,6 +3479,7 @@
       pickTip();
       applyRecipient();
       setupCursor();
+      document.body.classList.add("ready");
     }
     init();
   </script>
