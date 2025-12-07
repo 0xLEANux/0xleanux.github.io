@@ -2,7 +2,7 @@
    Scope: /donate/
 */
 const CACHE_PREFIX = "donate-hub-";
-const CACHE_NAME = "donate-hub-v2025-12-07";
+const CACHE_NAME = "donate-hub-v2025-12-09";
 const CORE = [
   "/donate/",
   "/donate/index.html",

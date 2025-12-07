@@ -9,7 +9,7 @@ Unified donation landing page for:
 - DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
 - ORG tab: `https://0xLEANux.github.io/donate/?to=org`
 
-This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, PayPal — currently paused, BTC/ETH, etc.) with minimal friction.
+This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, thanks.dev, PayPal — currently paused, BTC/ETH, etc.) with minimal friction.
 
 > [!TIP]
 > If you want one canonical donor link everywhere, use the DEV deep link and keep ORG as option #2 in the page UI.
@@ -151,6 +151,7 @@ Make sure these are set for **DEV** *and optionally* **ORG**:
 
 - `card` → Stripe Payment Link (Visa/Mastercard/etc.)
 - `paypal` → PayPal donate URL or `paypal.me/...` (UI currently disabled; set `PAYPAL_DISABLED=false` in `donate/index.html` to surface it)
+- `thanksDev` → `https://thanks.dev/gh/<handle>` (use your thanks.dev profile; shows up as a recurring option)
 - `crypto.btc` → BTC receive address
 - `crypto.eth` → ETH receive address
 

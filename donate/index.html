@@ -1903,6 +1903,7 @@
           <div class="ctaRow">
             <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener" data-utm="cta-sponsors">GitHub Sponsors</a>
             <a class="btn" id="ctaCard" target="_blank" rel="noopener" data-utm="cta-card">Donate by Card</a>
+            <a class="btn" id="ctaThanks" target="_blank" rel="noopener" data-utm="cta-thanks">thanks.dev</a>
             <a class="btn btnStrike" id="ctaPayPal" aria-disabled="true" target="_blank" rel="noopener" data-utm="cta-paypal" title="Temporarily disabled">PayPal (disabled)</a>
             <button class="btn" id="ctaCrypto" type="button">Show Crypto (QR)</button>
           </div>
@@ -2024,7 +2025,7 @@
         <div class="filters">
           <label class="search" aria-label="Search donation methods">
             <span class="srOnly">Search</span>
-            <input id="search" type="text" placeholder="Search: sponsors, card, stripe, kofi, open collective, crypto, wise..." />
+            <input id="search" type="text" placeholder="Search: sponsors, card, stripe, thanks.dev, kofi, open collective, crypto, wise..." />
           </label>
 
           <label class="toggle">
@@ -2316,7 +2317,7 @@
           patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
           liberapay: "https://liberapay.com/0xLEANux/",
           polar: "",
-          thanksDev: "",
+          thanksDev: "https://thanks.dev/e/gh/0xElectron/dependencies",
           issueHunt: "",
           tidelift: "",
           communityBridge: "",
@@ -2339,7 +2340,7 @@
           patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
           liberapay: "https://liberapay.com/0xLEANux/",
           polar: "",
-          thanksDev: "",
+          thanksDev: "https://thanks.dev/e/gh/0xLEANux/dependencies",
           issueHunt: "",
           tidelift: "",
           communityBridge: "",
@@ -2350,9 +2351,9 @@
         }
       },
       offerings: [
-        { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","paypal","sponsors"] },
-        { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","paypal","sponsors","kofi","buymeacoffee"] },
-        { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","card","paypal","opencollective","patreon","polar"] }
+        { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","thanksdev","paypal","sponsors"] },
+        { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","thanksdev","paypal","sponsors","kofi","buymeacoffee"] },
+        { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","thanksdev","card","paypal","opencollective","patreon","polar"] }
       ]
     };
     let CFG = DEFAULT_CFG;
@@ -2433,6 +2434,7 @@
 
     function recommendedRail(r){
       if(isConfigured(r.sponsors)) return { label:"Sponsors", note:"Recurring; highest impact over time." };
+      if(isConfigured(r.thanksDev)) return { label:"thanks.dev", note:"Recurring via thanks.dev." };
       if(isConfigured(r.card)) return { label:"Card", note:"Fast one-time checkout." };
       if(!PAYPAL_DISABLED && isConfigured(r.paypal)) return { label:"PayPal", note:"Common one-time option." };
       if(isConfigured(r.crypto?.btc) || isConfigured(r.crypto?.eth)) return { label:"Crypto", note:"Use QR or copy address." };
@@ -2906,6 +2908,8 @@
         { label:"Card (Stripe)", brand:"stripe", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
         PAYPAL_DISABLED ? null : { label:"PayPal", brand:"paypal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
 
+        { label:"thanks.dev", brand:"thanksdev", type:"Recurring", githubMenu:"Via custom URL", note:"Recurring support via thanks.dev (GitHub-linked).", url:r.thanksDev },
+
         { label:"Open Collective", brand:"opencollective", type:"One-time", githubMenu:"Yes", note:"Transparent OSS funding (if you use it).", url:r.openCollective },
         { label:"Ko-fi", brand:"kofi", type:"One-time", githubMenu:"Yes", note:"One-time + optional memberships.", url:r.koFi },
         { label:"Buy Me a Coffee", brand:"bmc", type:"One-time", githubMenu:"Yes", note:"Fast donor flow; common option.", url:r.buyMeACoffee },
@@ -3347,6 +3351,7 @@
 
       setLink(document.getElementById("ctaSponsors"), r.sponsors);
       setLink(document.getElementById("ctaCard"), r.card);
+      setLink(document.getElementById("ctaThanks"), r.thanksDev);
       const payPalBtn = document.getElementById("ctaPayPal");
       setLink(payPalBtn, PAYPAL_DISABLED ? "" : r.paypal);
       if(payPalBtn){
