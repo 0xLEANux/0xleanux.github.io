@@ -1539,19 +1539,19 @@
       white-space: normal;
     }
     .blur-wallet {
-        position: relative;
-        display: flex;
-        filter: blur(1.3px);
-        -webkit-filter: blur(1.3px);
-        font-family: var(--mono);
-        font-size: 12.5px;
-        margin: auto auto;
-        padding: 0;
-        padding-top: 2px;
-        word-break: break-all;
-        text-align: center; /* Center the text */
-        align-items: center;
-        display: table-cell; /* Allows text-align to work */
+      position: relative;
+      display: flex;
+      filter: blur(1.3px);
+      -webkit-filter: blur(1.3px);
+      font-family: var(--mono);
+      font-size: 12.5px;
+      margin: auto auto;
+      padding: 0;
+      word-break: break-all;
+      text-align: center; /* Center the text */
+      align-items: center;
+      display: table-cell; /* Allows text-align to work */
+      animation: slashBlur 3.5s infinite; /* Apply the animation indefinitely */
     }
     .walletRow:hover .blur-wallet,
     .walletRow:focus-within .blur-wallet,
@@ -1562,7 +1562,9 @@
       filter: blur(0);
       -webkit-filter: blur(0);
     }
-
+    .blur-wallet:hover {
+      animation: none; /* Stop the animation on hover */
+    }
     /* Accordion toggles (right column) */
     /* Left-side crypto table */
     .miniTableWrap{
@@ -1726,7 +1728,6 @@
       color: rgba(245,245,255,.90);
       word-break: break-all;
     }
-
     footer{
       margin-top: 18px;
       color: rgba(245,245,255,.55);
@@ -1736,6 +1737,18 @@
     ::selection{
       background: rgba(0,229,255,.28);
       color: rgba(8,9,20,.96);
+    }
+    /* Animation */
+    @keyframes slashBlur {
+      0% {
+        filter: blur(1.3px);
+      }
+      50% {
+        filter: blur(0.5px);
+      }
+      100% {
+        filter: blur(1.3px);
+      }
     }
     @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
     @keyframes popIn{ from{ opacity:0; transform: scale(.98); } to{ opacity:1; transform: scale(1); } }
