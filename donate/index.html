@@ -2272,6 +2272,14 @@
         bank:       { color:"#6c7a89", fade:"rgba(108,122,137,.18)", icon:"$" },
         btc:        { color:"#f7931a", fade:"rgba(247,147,26,.20)", icon:"₿" },
         eth:        { color:"#627eea", fade:"rgba(98,126,234,.20)", icon:"Ξ" },
+        sol:        { color:"#14f195", fade:"rgba(20,241,149,.18)", icon:"SOL" },
+        arbitrum:   { color:"#28a0f0", fade:"rgba(40,160,240,.18)", icon:"A" },
+        base:       { color:"#0052ff", fade:"rgba(0,82,255,.18)", icon:"B" },
+        linea:      { color:"#2b2b2b", fade:"rgba(43,43,43,.18)", icon:"L" },
+        polygon:    { color:"#8247e5", fade:"rgba(130,71,229,.18)", icon:"POLY" },
+        op:         { color:"#ff0420", fade:"rgba(255,4,32,.18)", icon:"OP" },
+        bnb:        { color:"#f3ba2f", fade:"rgba(243,186,47,.18)", icon:"BNB" },
+        sei:        { color:"#ff5b5b", fade:"rgba(255,91,91,.18)", icon:"SEI" },
         metamask:   { color:"#f6851b", fade:"rgba(246,133,27,.20)", icon:"MM" },
         atomicwallet:{ color:"#1d9bf0", fade:"rgba(29,155,240,.18)", icon:"AW" },
         thanksdev:  { color:"#111827", fade:"rgba(17,24,39,.16)", icon:"TD" },
@@ -2503,7 +2511,7 @@
       grid.innerHTML = "";
 
       const wallets = [
-        { key:"metamask", label:"MetaMask", note:"Connect with ETH/ERC20 using the ETH address below.", coins:["eth"] },
+        { key:"metamask", label:"MetaMask", note:"Use these chain-specific addresses in MetaMask (ETH, L2s, SOL, BTC).", coins:["eth","btc","sol","arbitrum","base","linea","polygon","op","bnb","sei"] },
         { key:"atomicwallet", label:"Atomic Wallet", note:"Paste BTC or ETH into Atomic Wallet; QR works too.", coins:["btc","eth"] }
       ];
 

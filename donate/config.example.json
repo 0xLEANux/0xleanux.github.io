@@ -35,9 +35,36 @@
       },
       "wallets": {
         "metamask": {
+          "btc": [
+            "YOUR_METAMASK_BTC_ADDRESS_DEV"
+          ],
           "eth": [
-            "YOUR_ETH_ADDRESS_DEV_1",
-            "YOUR_ETH_ADDRESS_DEV_2"
+            "YOUR_METAMASK_ETH_ADDRESS_DEV_1",
+            "YOUR_METAMASK_ETH_ADDRESS_DEV_2"
+          ],
+          "sol": [
+            "YOUR_METAMASK_SOL_ADDRESS_DEV"
+          ],
+          "arbitrum": [
+            "YOUR_METAMASK_ARBITRUM_ADDRESS_DEV"
+          ],
+          "base": [
+            "YOUR_METAMASK_BASE_ADDRESS_DEV"
+          ],
+          "linea": [
+            "YOUR_METAMASK_LINEA_ADDRESS_DEV"
+          ],
+          "polygon": [
+            "YOUR_METAMASK_POLYGON_ADDRESS_DEV"
+          ],
+          "op": [
+            "YOUR_METAMASK_OP_ADDRESS_DEV"
+          ],
+          "bnb": [
+            "YOUR_METAMASK_BNB_ADDRESS_DEV"
+          ],
+          "sei": [
+            "YOUR_METAMASK_SEI_ADDRESS_DEV"
           ]
         },
         "atomicwallet": {
@@ -85,9 +112,36 @@
       },
       "wallets": {
         "metamask": {
+          "btc": [
+            "YOUR_METAMASK_BTC_ADDRESS_ORG"
+          ],
           "eth": [
-            "YOUR_ETH_ADDRESS_ORG_1",
-            "YOUR_ETH_ADDRESS_ORG_2"
+            "YOUR_METAMASK_ETH_ADDRESS_ORG_1",
+            "YOUR_METAMASK_ETH_ADDRESS_ORG_2"
+          ],
+          "sol": [
+            "YOUR_METAMASK_SOL_ADDRESS_ORG"
+          ],
+          "arbitrum": [
+            "YOUR_METAMASK_ARBITRUM_ADDRESS_ORG"
+          ],
+          "base": [
+            "YOUR_METAMASK_BASE_ADDRESS_ORG"
+          ],
+          "linea": [
+            "YOUR_METAMASK_LINEA_ADDRESS_ORG"
+          ],
+          "polygon": [
+            "YOUR_METAMASK_POLYGON_ADDRESS_ORG"
+          ],
+          "op": [
+            "YOUR_METAMASK_OP_ADDRESS_ORG"
+          ],
+          "bnb": [
+            "YOUR_METAMASK_BNB_ADDRESS_ORG"
+          ],
+          "sei": [
+            "YOUR_METAMASK_SEI_ADDRESS_ORG"
           ]
         },
         "atomicwallet": {

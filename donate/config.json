@@ -35,9 +35,35 @@
       },
       "wallets": {
         "metamask": {
+          "btc": [
+            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw"
+          ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-            "YOUR_ETH_ADDRESS_DEV_2"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "sol": [
+            "YOUR_SOL_ADDRESS_DEV"
+          ],
+          "arbitrum": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "base": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "linea": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "polygon": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "op": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "bnb": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "sei": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ]
         },
         "atomicwallet": {
@@ -85,9 +111,35 @@
       },
       "wallets": {
         "metamask": {
+          "btc": [
+            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw"
+          ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-            "YOUR_ETH_ADDRESS_ORG_2"
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "sol": [
+            "YOUR_SOL_ADDRESS_ORG"
+          ],
+          "arbitrum": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "base": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "linea": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "polygon": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "op": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "bnb": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "sei": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
           ]
         },
         "atomicwallet": {
