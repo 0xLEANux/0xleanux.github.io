@@ -2633,7 +2633,7 @@
       a.rel = "noopener";
       const key = (action || "").toLowerCase();
       const brand = brandTheme(key);
-      const iconImg = brand.remoteSvg ? `<img src="${brand.remoteSvg}" alt="${actionLabel(action)}" style="width:16px; height:16px; object-fit:contain;">` : "";
+      const iconImg = brand.remoteSvg ? `<img src="${brand.remoteSvg}" alt="${actionLabel(action)}" style="width:16px; height:16px; object-fit:contain;" loading="lazy" decoding="async">` : "";
       a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
       a.dataset.utm = `offer-${key}`;
       setLink(a, actionUrl(r, key));
@@ -3110,8 +3110,8 @@
             <td style="text-transform: uppercase; text-align:center;">
               <span class="miniIcon miniIconImg" style="--brand-color:${brand.color};">
                 ${brand.remoteSvg
-                  ? `<img class="brandSvg" src="${brand.remoteSvg}" data-fallback="${brand.svg || ""}" alt="${chainLabel(chain)} icon" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback;}" />`
-                  : brand.svg ? `<img class="brandSvg" src="${brand.svg}" alt="${chainLabel(chain)} icon" />` : brand.icon}
+                  ? `<img class="brandSvg" src="${brand.remoteSvg}" data-fallback="${brand.svg || ""}" alt="${chainLabel(chain)} icon" loading="lazy" decoding="async" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback;}" />`
+                  : brand.svg ? `<img class="brandSvg" src="${brand.svg}" alt="${chainLabel(chain)} icon" loading="lazy" decoding="async" />` : brand.icon}
               </span>
             </td>
             <td style="text-transform: uppercase; font-weight: 900; color: rgba(245,245,255,.90);">
