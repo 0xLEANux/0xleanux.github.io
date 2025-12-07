@@ -359,7 +359,7 @@
       pointer-events:none;
     }
     .btn:hover{
-      transform: translateY(-1px);
+      transform: translateY(-1px) scale(1.01);
       border-color: rgba(255,255,255,.24);
       background: rgba(255,255,255,.085);
       box-shadow: 0 18px 60px rgba(0,0,0,.34);
@@ -450,6 +450,13 @@
       align-items:center;
       margin-top: 14px;
     }
+    .ctaRow .btn{
+      animation: ctaIn 260ms var(--ease) both;
+    }
+    .ctaRow .btn:nth-child(1){ animation-delay: 40ms; }
+    .ctaRow .btn:nth-child(2){ animation-delay: 80ms; }
+    .ctaRow .btn:nth-child(3){ animation-delay: 120ms; }
+    .ctaRow .btn:nth-child(4){ animation-delay: 160ms; }
 
     .metaStrip{
       display:grid;
@@ -703,6 +710,27 @@
       color: rgba(245,245,255,.72);
       line-height: 1.48;
     }
+    .btnIcon{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .miniBrandIcon{
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #050614;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.32), transparent 55%),
+        linear-gradient(135deg, var(--brand-color, #999), rgba(0,0,0,.10));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 6px 16px rgba(0,0,0,.24);
+    }
 
     .splitActions{
       margin-top: 12px;
@@ -862,14 +890,42 @@
       top: 0;
       z-index: 2;
       backdrop-filter: blur(8px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.25);
     }
     tbody td{
       padding: 12px;
       border-bottom: 1px solid rgba(255,255,255,.06);
       vertical-align: top;
       color: rgba(245,245,255,.86);
+      position: relative;
+      z-index: 1;
+    }
+    tbody tr{
+      position: relative;
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), opacity 200ms var(--ease);
+    }
+    tbody tr::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:4px;
+      background: linear-gradient(180deg, var(--brand-color, rgba(183,107,255,.8)), var(--brand-fade, rgba(255,255,255,.18)));
+      opacity:.75;
+      border-radius: 8px 0 0 8px;
+      pointer-events:none;
+      z-index:1;
     }
     tbody tr:hover td{ background: rgba(255,255,255,.04); }
+    tbody tr:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.28);
+    }
+    tbody tr:hover td{
+      background: linear-gradient(90deg, var(--brand-fade, rgba(255,255,255,.06)), rgba(255,255,255,.02));
+    }
+    tbody tr:hover::before{ animation: pulseBar 320ms var(--ease); }
     tbody tr[data-configured="1"] td{
       background-image:
         linear-gradient(90deg, var(--brand-fade, rgba(124,255,158,.02)), transparent),
@@ -1226,6 +1282,7 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.26);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease);
     }
     .cmdCodeWrap{
       margin-top: 8px;
@@ -1242,6 +1299,7 @@
       font-size: var(--t0);
       font-weight: 800;
     }
+    .cmd:hover .cmdCode{ transform: translateY(-1px); border-color: rgba(0,229,255,.20); box-shadow: 0 12px 28px rgba(0,0,0,.28); }
 
     /* Supporter wall */
     .wall{
@@ -1349,9 +1407,21 @@
       justify-content:space-between;
       gap: 10px;
       min-width: 0;
-      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), background var(--dur2) var(--ease);
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), background var(--dur2) var(--ease), opacity var(--dur) var(--ease);
+      opacity: .95;
     }
-    .walletRow:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); box-shadow: 0 10px 24px rgba(0,0,0,.28); background: rgba(255,255,255,.06); }
+    .walletRow .addrBtns{
+      opacity: .86;
+      transition: opacity var(--dur) var(--ease);
+    }
+    .walletRow:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      background: rgba(255,255,255,.06);
+      opacity: 1;
+    }
+    .walletRow:hover .addrBtns{ opacity:1; }
     .walletLabel{
       font-size: var(--t0);
       color: rgba(245,245,255,.70);
@@ -1543,6 +1613,12 @@
       0%{ filter: blur(12px) hue-rotate(0deg); }
       100%{ filter: blur(12px) hue-rotate(360deg); }
     }
+    @keyframes pulseBar{
+      0%{ opacity:.9; transform: scaleY(.9); }
+      100%{ opacity:.3; transform: scaleY(1); }
+    }
+    @keyframes fadeUp{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: none; } }
+    @keyframes ctaIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: none; } }
     .footerGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -2319,7 +2395,9 @@
       eth_arb: ["https://cryptologos.cc/logos/ethereum-eth-logo.svg"],
       eth_linea: ["https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/linea/info/logo.png"],
       metamask: [],
-      atomicwallet: []
+      atomicwallet: [],
+      kofi: ["https://storage.ko-fi.com/cdn/brandasset/kofi_s_tag_white.svg"],
+      bmc: ["https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg"]
     };
 
     function methodTotals(r){
@@ -2472,6 +2550,10 @@
     }
 
     function setupReveals(){
+      if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+        document.querySelectorAll(".panel, .fold, .archTip, .offer, .methodCard, .walletCard, .addrBox, .verifyBox, .tableWrap, .miniTableWrap").forEach((el)=>el.classList.add("visible"));
+        return;
+      }
       revealObs = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if(entry.isIntersecting){
@@ -2552,10 +2634,11 @@
 
     function makeOfferBtn(r, action){
       const a = document.createElement("a");
-      a.className = "btn btnSm";
+      a.className = "btn btnSm btnIcon";
       a.target = "_blank";
       a.rel = "noopener";
-      a.textContent = actionLabel(action);
+      const brand = brandTheme(action.toLowerCase());
+      a.innerHTML = `${brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : ""}<span>${actionLabel(action)}</span>`;
       a.dataset.utm = `offer-${action}`;
       setLink(a, actionUrl(r, action));
       return a;
@@ -2855,8 +2938,29 @@
         return match && ok && typeOk;
       };
 
-      rows.forEach(r => r.style.display = visible(r) ? "" : "none");
-      cards.forEach(c => c.style.display = visible(c) ? "" : "none");
+      let delay = 0;
+      rows.forEach((r, idx) => {
+        const show = visible(r);
+        r.style.display = show ? "" : "none";
+        if(show){
+          r.style.animation = `fadeUp 220ms var(--ease) ${delay}ms both`;
+          delay += 40;
+        } else {
+          r.style.animation = "";
+        }
+      });
+
+      let delayCard = 0;
+      cards.forEach((c) => {
+        const show = visible(c);
+        c.style.display = show ? "" : "none";
+        if(show){
+          c.style.animation = `fadeUp 220ms var(--ease) ${delayCard}ms both`;
+          delayCard += 40;
+        } else {
+          c.style.animation = "";
+        }
+      });
     }
 
     function renderCrypto(r){
