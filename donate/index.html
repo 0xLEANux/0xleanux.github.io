@@ -158,6 +158,20 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 18px var(--pad) 72px;
+      position: relative;
+      isolation: isolate;
+    }
+    .wrap::before{
+      content:"";
+      position: fixed;
+      inset: -15%;
+      background: conic-gradient(from 45deg, rgba(183,107,255,.06), rgba(0,229,255,.05), rgba(124,255,158,.04), rgba(255,107,214,.05), rgba(183,107,255,.06));
+      mix-blend-mode: screen;
+      opacity: .22;
+      filter: blur(24px);
+      animation: swirl 28s linear infinite;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .srOnly{
@@ -215,6 +229,10 @@
     @keyframes hue{
       0%{ filter: blur(12px) hue-rotate(0deg); }
       100%{ filter: blur(12px) hue-rotate(360deg); }
+    }
+    @keyframes swirl{
+      0%{ transform: rotate(0deg) scale(1); }
+      100%{ transform: rotate(360deg) scale(1); }
     }
     @keyframes borderFlow{
       0%{ background-position: 0% 50%; }
