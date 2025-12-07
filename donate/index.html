@@ -2752,6 +2752,8 @@
         const brand = brandTheme(chain.toLowerCase());
         list.forEach((addr, idx) => {
           const tr = document.createElement("tr");
+          tr.style.background = `linear-gradient(90deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
+          tr.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
           tr.innerHTML = `
             <td style="text-transform: uppercase;">
               <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
