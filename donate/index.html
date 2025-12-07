@@ -904,19 +904,6 @@
       position: relative;
       transition: transform var(--dur) var(--ease), box-shadow var(--dur2) var(--ease), opacity 200ms var(--ease);
     }
-    tbody tr::before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:4px;
-      background: linear-gradient(180deg, var(--brand-color, rgba(183,107,255,.8)), var(--brand-fade, rgba(255,255,255,.18)));
-      opacity:.75;
-      border-radius: 8px 0 0 8px;
-      pointer-events:none;
-      z-index:1;
-    }
     tbody tr:hover td{ background: rgba(255,255,255,.04); }
     tbody tr:hover{
       transform: translateY(-2px);
@@ -925,7 +912,6 @@
     tbody tr:hover td{
       background: linear-gradient(90deg, var(--brand-fade, rgba(255,255,255,.06)), rgba(255,255,255,.02));
     }
-    tbody tr:hover::before{ animation: pulseBar 320ms var(--ease); }
     tbody tr[data-configured="1"] td{
       background-image:
         linear-gradient(90deg, var(--brand-fade, rgba(124,255,158,.02)), transparent),
