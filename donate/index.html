@@ -1347,6 +1347,17 @@
       object-fit: contain;
       display:block;
     }
+    .miniIconImg{
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+    .brandSvg{
+      width: 30px;
+      height: 26px;
+      object-fit: contain;
+      display:block;
+    }
 
     /* Hideable sections (right) */
     .fold{
@@ -2159,6 +2170,34 @@
       eth_linea: svgBadge("#2b2b2b","ETH")
     };
 
+    const BRAND_SVG_REMOTE = {
+      btc: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg",
+      eth: "https://cryptologos.cc/logos/ethereum-eth-logo.svg",
+      sol: "https://cryptologos.cc/logos/solana-sol-logo.svg",
+      arbitrum: "https://cryptologos.cc/logos/arbitrum-arb-logo.svg",
+      base: "https://cryptologos.cc/logos/base-base-logo.svg",
+      linea: "https://cryptologos.cc/logos/linea-linea-logo.svg",
+      polygon: "https://cryptologos.cc/logos/polygon-matic-logo.svg",
+      op: "https://cryptologos.cc/logos/optimism-ethereum-op-logo.svg",
+      bnb: "https://cryptologos.cc/logos/bnb-bnb-logo.svg",
+      sei: "https://cryptologos.cc/logos/sei-network-sei-logo.svg",
+      glmr: "https://cryptologos.cc/logos/moonbeam-new-glmr-logo.svg",
+      dogs: "https://cryptologos.cc/logos/dogecoin-doge-logo.svg",
+      justachilguy: "",
+      btt: "https://cryptologos.cc/logos/bittorrent-new-btt-logo.svg",
+      ada: "https://cryptologos.cc/logos/cardano-ada-logo.svg",
+      shibarium: "https://cryptologos.cc/logos/shiba-inu-shib-logo.svg",
+      shib: "https://cryptologos.cc/logos/shiba-inu-shib-logo.svg",
+      zec: "https://cryptologos.cc/logos/zcash-zec-logo.svg",
+      hex: "https://cryptologos.cc/logos/hex-hex-logo.svg",
+      nexo: "https://cryptologos.cc/logos/nexo-nexo-logo.svg",
+      chz: "https://cryptologos.cc/logos/chiliz-chz-logo.svg",
+      chaingpt: "",
+      xaut: "",
+      metamask: "",
+      atomicwallet: ""
+    };
+
     function methodTotals(r){
       const methods = buildMethods(r);
       let configured = 0;
@@ -2465,6 +2504,7 @@
 
     function brandTheme(key){
       const svg = BRAND_SVG[key];
+      const remote = BRAND_SVG_REMOTE?.[key];
       const map = {
         sponsors:   { color:"#ea4aaa", fade:"rgba(234,74,170,.18)", icon:"❤" },
         stripe:     { color:"#635bff", fade:"rgba(99,91,255,.18)", icon:"S" },
@@ -2509,7 +2549,7 @@
         issuehunt:  { color:"#e83e8c", fade:"rgba(232,62,140,.18)", icon:"IH" }
       };
       const base = map[key] || { color:"#7a7f92", fade:"rgba(122,127,146,.16)", icon:"•" };
-      return { ...base, svg: svg || base.svg };
+      return { ...base, svg: svg || base.svg, remoteSvg: remote || base.remoteSvg };
     }
 
     function renderMethods(){
@@ -2805,12 +2845,13 @@
           tr.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
           tr.innerHTML = `
             <td style="text-transform: uppercase; text-align:center;">
-              <span class="miniIcon" style="--brand-color:${brand.color};">
-                ${brand.svg ? `<img src="${brand.svg}" alt="${chainLabel(chain)} icon" />` : brand.icon}
+              <span class="miniIcon miniIconImg" style="--brand-color:${brand.color};">
+                ${brand.remoteSvg ? `<img class="brandSvg" src="${brand.remoteSvg}" alt="${chainLabel(chain)} icon" />` : brand.svg ? `<img class="brandSvg" src="${brand.svg}" alt="${chainLabel(chain)} icon" />` : brand.icon}
               </span>
             </td>
             <td style="text-transform: uppercase; font-weight: 900; color: rgba(245,245,255,.90);">
-              ${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}
+              <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
+              <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
             </td>
             <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all;">${addr}</td>
             <td>
