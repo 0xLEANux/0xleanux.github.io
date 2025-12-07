@@ -3191,6 +3191,7 @@
        ========================= */
     async function init(){
       CFG = await loadConfig();
+      document.getElementById("onlyConfigured").checked = true;
       renderOffers();
       renderCmds();
       pickTip();
