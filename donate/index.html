@@ -827,7 +827,7 @@
       font-size: var(--t0);
       text-transform: uppercase;
       letter-spacing: .10em;
-      color: rgba(245,245,255,.74);
+      color: rgba(245,245,255,1);
       background: rgba(0,0,0,.30);
       border-bottom: 1px solid var(--stroke2);
       position: sticky;
@@ -1316,7 +1316,7 @@
       font-size: var(--t0);
       text-transform: uppercase;
       letter-spacing: .08em;
-      color: rgba(245,245,255,.74);
+      color: rgba(245,245,255,1);
       background: rgba(0,0,0,.24);
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
@@ -2813,6 +2813,7 @@
        QR + COPY
        ========================= */
     function openQR(sym, idx=0){
+      const r = rec();
       const addr = getAddr(sym, idx);
       if(!isConfigured(addr)){
         showToast("Address not configured for this recipient.");
