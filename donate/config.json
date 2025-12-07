@@ -24,8 +24,8 @@
       "revolut": "",
       "bankTransfer": "",
       "crypto": {
-        "btc": "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw",
-        "eth": "YOUR_ETH_ADDRESS_DEV"
+        "btc": "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic",
+        "eth": "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
       }
     },
     "org": {
@@ -50,8 +50,8 @@
       "revolut": "",
       "bankTransfer": "",
       "crypto": {
-        "btc": "YOUR_BTC_ADDRESS_ORG",
-        "eth": "YOUR_ETH_ADDRESS_ORG"
+        "btc": "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic",
+        "eth": "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
       }
     }
   },
