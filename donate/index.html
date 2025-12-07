@@ -128,6 +128,7 @@
       text-rendering: optimizeLegibility;
       opacity: 0;
       transition: opacity 260ms var(--ease);
+      filter: saturate(1.08) contrast(1.05) brightness(1.02);
     }
     body.ready{ opacity: 1; }
 
@@ -1822,6 +1823,7 @@
 </head>
 
 <body>
+  <div id="tint" aria-hidden="true"></div>
   <header>
     <div class="top">
       <div class="brand">
@@ -2668,6 +2670,7 @@
 
     /* Reveal handling */
     let revealIndex = 0;
+    let revealObs;
     const revealClasses = ["spawnUp","spawnLeft","spawnRight","spawnZoom"];
     function pickAnim(el){
       if(el.dataset.anim) return el.dataset.anim;
@@ -2678,10 +2681,26 @@
       return revealClasses[revealIndex++ % revealClasses.length];
     }
     function tagReveal(el){
-      if(!el) return;
-      const cls = pickAnim(el);
-      el.classList.add(cls);
-      setTimeout(() => el.classList.remove(cls), 520);
+      if(!el || el.dataset.revealBound) return;
+      el.dataset.revealBound = "1";
+      const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if(reduce){
+        el.classList.add("visible");
+        return;
+      }
+      if(!revealObs){
+        revealObs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if(entry.isIntersecting){
+              const cls = pickAnim(entry.target);
+              entry.target.classList.add(cls);
+              setTimeout(() => entry.target.classList.remove(cls), 520);
+              revealObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: "0px 0px -8%" });
+      }
+      revealObs.observe(el);
     }
 
     function setupReveals(){
@@ -3244,6 +3263,7 @@
         }
 
         grid.appendChild(card);
+        tagReveal(card);
       });
     }
 
