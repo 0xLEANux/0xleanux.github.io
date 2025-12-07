@@ -2161,7 +2161,10 @@
         { label:"Bank transfer", brand:"bank", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
 
         { label:"Crypto (BTC)", brand:"btc", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
-        { label:"Crypto (ETH)", brand:"eth", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" }
+        { label:"Crypto (ETH)", brand:"eth", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" },
+
+        { label:"MetaMask (ETH/ERC20)", brand:"metamask", type:"One-time", githubMenu:"Via custom URL", note:"Use the ETH address with MetaMask; copy or scan QR.", crypto:"eth" },
+        { label:"Atomic Wallet", brand:"atomicwallet", type:"One-time", githubMenu:"Via custom URL", note:"Use BTC/ETH address in Atomic Wallet; copy or scan QR.", crypto:"btc" }
       ];
     }
 
@@ -2181,6 +2184,8 @@
         bank:       { color:"#6c7a89", fade:"rgba(108,122,137,.18)", icon:"$" },
         btc:        { color:"#f7931a", fade:"rgba(247,147,26,.20)", icon:"₿" },
         eth:        { color:"#627eea", fade:"rgba(98,126,234,.20)", icon:"Ξ" },
+        metamask:   { color:"#f6851b", fade:"rgba(246,133,27,.20)", icon:"MM" },
+        atomicwallet:{ color:"#1d9bf0", fade:"rgba(29,155,240,.18)", icon:"AW" },
         thanksdev:  { color:"#111827", fade:"rgba(17,24,39,.16)", icon:"TD" },
         issuehunt:  { color:"#e83e8c", fade:"rgba(232,62,140,.18)", icon:"IH" }
       };
