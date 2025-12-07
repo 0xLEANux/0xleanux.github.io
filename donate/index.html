@@ -737,6 +737,14 @@
       overflow:hidden;
     }
     .miniBrandIcon img{ width:100%; height:100%; object-fit:contain; display:block; }
+    .miniBrandIcon.imgOnly{
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+    }
 
     .splitActions{
       margin-top: 12px;
@@ -2634,7 +2642,7 @@
       a.rel = "noopener";
       const key = (action || "").toLowerCase();
       const brand = brandTheme(key);
-      const iconImg = brand.remoteSvg ? `<img src="${brand.remoteSvg}" alt="${actionLabel(action)}" style="width:16px; height:16px; object-fit:contain;" loading="lazy" decoding="async">` : "";
+      const iconImg = brand.remoteSvg ? `<span class="miniBrandIcon imgOnly"><img src="${brand.remoteSvg}" alt="${actionLabel(action)}" loading="lazy" decoding="async"></span>` : "";
       a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
       a.dataset.utm = `offer-${key}`;
       setLink(a, actionUrl(r, key));
