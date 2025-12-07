@@ -601,6 +601,14 @@
       font-size: var(--t1);
       line-height: var(--lh);
     }
+    p, .pMuted, .fineprint{
+      letter-spacing: .01em;
+      transition: color var(--dur) var(--ease), text-shadow var(--dur2) var(--ease);
+    }
+    p:hover, .pMuted:hover, .fineprint:hover{
+      color: rgba(245,245,255,.98);
+      text-shadow: 0 0 12px rgba(183,107,255,.24), 0 0 18px rgba(0,229,255,.18);
+    }
     .mono{ font-family: var(--mono); }
 
     .fineprint{
@@ -1635,6 +1643,10 @@
       color: rgba(245,245,255,.55);
       font-size: var(--t0);
       line-height: 1.5;
+    }
+    ::selection{
+      background: rgba(0,229,255,.28);
+      color: rgba(8,9,20,.96);
     }
     @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
     @keyframes popIn{ from{ opacity:0; transform: scale(.98); } to{ opacity:1; transform: scale(1); } }
