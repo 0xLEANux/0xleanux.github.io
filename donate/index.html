@@ -807,7 +807,7 @@
 
     .tableWrap{
       overflow:auto;
-      max-height: 560px; /* ~8 rows visible before scroll */
+      max-height: 667px; /* ~8 rows visible before scroll */
       margin-top: 12px;
       border-radius: var(--r2);
       border: 1px solid var(--stroke2);
@@ -834,41 +834,14 @@
       top: 0;
       z-index: 2;
       backdrop-filter: blur(8px);
-      box-shadow: 0 8px 22px rgba(0,0,0,.25);
     }
     tbody td{
       padding: 12px;
       border-bottom: 1px solid rgba(255,255,255,.06);
       vertical-align: top;
       color: rgba(245,245,255,.86);
-      position: relative;
-      z-index: 1;
-    }
-    tbody tr{
-      position: relative;
-      transition: transform var(--dur) var(--ease), box-shadow var(--dur2) var(--ease);
-    }
-    tbody tr::before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:4px;
-      background: linear-gradient(180deg, var(--brand-color, rgba(183,107,255,.8)), var(--brand-fade, rgba(255,255,255,.18)));
-      opacity:.75;
-      border-radius: 8px 0 0 8px;
-      pointer-events:none;
-      z-index:1;
     }
     tbody tr:hover td{ background: rgba(255,255,255,.04); }
-    tbody tr:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(0,0,0,.28);
-    }
-    tbody tr:hover td{
-      background: linear-gradient(90deg, var(--brand-fade, rgba(255,255,255,.06)), rgba(255,255,255,.02));
-    }
     tbody tr[data-configured="1"] td{
       background-image:
         linear-gradient(90deg, var(--brand-fade, rgba(124,255,158,.02)), transparent),
@@ -1780,7 +1753,7 @@
           </label>
 
           <label class="toggle">
-            <input id="onlyConfigured" type="checkbox" />
+            <input id="onlyConfigured" type="checkbox" checked />
             Show only configured
           </label>
 
@@ -1889,7 +1862,7 @@
           </div>
         </details>
 
-        <details class="fold">
+        <details class="fold" open>
           <summary>Wallet apps (MetaMask & Atomic Wallet)</summary>
           <div class="body">
             <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH/L2s; Atomic covers BTC/ETH/alt-chains. Full lists also appear in the tables on the left.</p>
@@ -1949,22 +1922,22 @@
           </div>
         </details>
 
-        <details class="fold">
+        <details class="fold" open>
           <summary>FAQ</summary>
           <div class="body">
-            <details>
+            <details open>
               <summary>Which method is best?</summary>
               <p>
                 Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
               </p>
             </details>
-            <details>
+            <details open>
               <summary>Can I donate to both DEV and ORG?</summary>
               <p>
                 Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
               </p>
             </details>
-            <details>
+            <details open>
               <summary>Why does diffusion of methods matter?</summary>
               <p>
                 Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
