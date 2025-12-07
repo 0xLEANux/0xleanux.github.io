@@ -1199,11 +1199,9 @@
       position: relative;
     }
     .cmdActions{
-      position:absolute;
-      top: 6px;
-      right: 6px;
       display:flex;
-      gap: 6px;
+      gap: 8px;
+      align-items:center;
     }
 
     /* Supporter wall */
@@ -3030,12 +3028,12 @@
               <p class="cmdName">${c.name}</p>
               <p class="cmdDesc">${c.desc}</p>
             </div>
+            <div class="cmdActions">
+              <button class="btn btnSm" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">Copy</button>
+            </div>
           </div>
           <div class="cmdCodeWrap">
             <div class="cmdCode">${c.cmd.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
-            <div class="cmdActions">
-              <button class="btn btnSm" title="Copy" aria-label="Copy command" type="button" data-copycmd="${encodeURIComponent(c.cmd)}">📋</button>
-            </div>
           </div>
         `;
         root.appendChild(el);
