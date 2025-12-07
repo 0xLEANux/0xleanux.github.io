@@ -1538,18 +1538,12 @@
       word-break: break-all;
       white-space: normal;
     }
-    /* Blur wallet text until hover/focus */
-    /* Hide wallet strings until interaction */
     .blur-wallet{
-      filter: blur(8px);
-      -webkit-filter: blur(8px);
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
       transition: filter var(--dur) var(--ease), -webkit-filter var(--dur) var(--ease);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      text-align: center;
+      display: inline-block;
+      max-width: 100%;
     }
     .walletRow:hover .blur-wallet,
     .walletRow:focus-within .blur-wallet,
@@ -2246,6 +2240,7 @@
     </div>
   </dialog>
 
+  <script src="/donate/qrcode.js"></script>
   <script>
     /* =========================
        CONFIG (LOADED FROM config.json)
@@ -2790,7 +2785,6 @@
       const iconImg = brand.remoteSvg ? `<span class="miniBrandIcon imgOnly"><img src="${brand.remoteSvg}" alt="${actionLabel(action)}" loading="lazy" decoding="async"></span>` : "";
       a.innerHTML = `${iconImg || (brand.icon ? `<span class="miniBrandIcon" style="--brand-color:${brand.color};">${brand.icon}</span>` : "")}<span>${actionLabel(action)}</span>`;
       a.dataset.utm = `offer-${brandKey}`;
-      a.title = `${actionLabel(action)} • quick action`;
       setLink(a, actionUrl(r, actionKey));
       return a;
     }
@@ -3095,8 +3089,8 @@
         const show = visible(r);
         r.style.display = show ? "" : "none";
         if(show){
-          const d = Math.min(idx, 5) * 40;
-          r.style.animation = `fadeUp 220ms var(--ease) ${d}ms both`;
+          r.style.animation = `fadeUp 220ms var(--ease) ${delay}ms both`;
+          delay += 40;
         } else {
           r.style.animation = "";
         }
@@ -3107,8 +3101,7 @@
         const show = visible(c);
         c.style.display = show ? "" : "none";
         if(show){
-          const d = Math.min(delayCard / 40, 5) * 40;
-          c.style.animation = `fadeUp 220ms var(--ease) ${d}ms both`;
+          c.style.animation = `fadeUp 220ms var(--ease) ${delayCard}ms both`;
           delayCard += 40;
         } else {
           c.style.animation = "";
@@ -3141,10 +3134,10 @@
           row.className = "addrRow";
           row.style.borderLeft = `3px solid ${brand.color || "rgba(255,255,255,.18)"}`;
           row.style.background = `linear-gradient(120deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
-              row.innerHTML = `
+          row.innerHTML = `
             <div style="min-width:0;">
               <div class="addrLabel">${label}${list.length > 1 ? ` #${idx+1}` : ""}</div>
-              <div class="addrVal blur-wallet">${addr}</div>
+              <div class="addrVal">${addr}</div>
             </div>
             <div class="addrBtns">
               <button class="btn btnSm" type="button" data-copy="${sym}:${idx}">Copy</button>
@@ -3276,7 +3269,7 @@
               <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
               <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
             </td>
-            <td class="addrVal blur-wallet" style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
+            <td style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
             <td style="text-align:center;">
               <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
                 <button class="btn btnSm" type="button" data-copyaddr="${addr}">Copy</button>
@@ -3331,8 +3324,7 @@
     /* =========================
        QR + COPY
        ========================= */
-    async function openQR(sym, idx=0){
-      await ensureQRLib();
+    function openQR(sym, idx=0){
       const r = rec();
       const addr = getAddr(sym, idx);
       if(!isConfigured(addr)){
@@ -3365,19 +3357,6 @@
     function pickTip(){
       const tip = ARCH_TIPS[Math.floor(Math.random() * ARCH_TIPS.length)];
       document.getElementById("archTipText").textContent = tip;
-    }
-
-    let qrLibReady = false;
-    function ensureQRLib(){
-      if(qrLibReady || typeof qrcode === "function") return Promise.resolve(true);
-      return new Promise((resolve) => {
-        const s = document.createElement("script");
-        s.src = "/donate/qrcode.js";
-        s.async = true;
-        s.onload = () => { qrLibReady = true; resolve(true); };
-        s.onerror = () => resolve(false);
-        document.head.appendChild(s);
-      });
     }
 
     function applyBackgroundStyle(){
@@ -3512,7 +3491,6 @@
 
       const qrAddrBtn = e.target.closest("[data-qraddr]");
       if(qrAddrBtn){
-        await ensureQRLib();
         const addr = qrAddrBtn.getAttribute("data-qraddr") || "";
         const chain = (qrAddrBtn.getAttribute("data-qrchain") || "").toLowerCase();
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
