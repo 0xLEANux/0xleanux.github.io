@@ -1208,7 +1208,7 @@
     .walletGrid{
       margin-top: 12px;
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: 1fr;
       gap: 10px;
     }
     .walletCard{
@@ -1218,6 +1218,12 @@
       padding: 12px;
       box-shadow: 0 12px 30px rgba(0,0,0,.26);
       transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      max-height: 340px;
+      overflow: hidden;
+    }
+    .walletCard .walletAddrs{
+      max-height: 240px;
+      overflow: auto;
     }
     .walletCard:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
     .walletTop{
@@ -1269,6 +1275,7 @@
       align-items:flex-start;
       justify-content:space-between;
       gap: 10px;
+      min-width: 0;
     }
     .walletLabel{
       font-size: var(--t0);
@@ -1276,6 +1283,13 @@
       letter-spacing: .05em;
       text-transform: uppercase;
       margin-bottom: 4px;
+    }
+    .walletRow .addrVal{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(245,245,255,.90);
+      word-break: break-all;
+      white-space: normal;
     }
 
     /* Accordion toggles (right column) */
@@ -1783,7 +1797,7 @@
         <details class="fold">
           <summary>Wallet apps (MetaMask & Atomic Wallet)</summary>
           <div class="body">
-            <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH/L2s; Atomic covers BTC/ETH/alt-chains.</p>
+            <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH/L2s; Atomic covers BTC/ETH/alt-chains. Full lists also appear in the tables on the left.</p>
             <div class="walletGrid" id="walletGrid"></div>
           </div>
         </details>
