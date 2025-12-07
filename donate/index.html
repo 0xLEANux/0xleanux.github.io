@@ -1540,20 +1540,18 @@
     }
     /* Blur wallet text until hover/focus */
     /* Hide wallet strings until interaction */
-    .addrVal,
-    td.addrVal{
+    .blurred{
       filter: blur(14px);
       -webkit-filter: blur(14px);
       transition: filter var(--dur) var(--ease), -webkit-filter var(--dur) var(--ease);
       display: inline-block;
     }
-    .addrVal span{ filter: inherit; -webkit-filter: inherit; }
-    .walletRow:hover .addrVal,
-    .walletRow:focus-within .addrVal,
-    .miniTable tr:hover td.addrVal,
-    .miniTable tr:focus-within td.addrVal,
-    .addrRow:hover .addrVal,
-    .addrRow:focus-within .addrVal{
+    .walletRow:hover .blurred,
+    .walletRow:focus-within .blurred,
+    .miniTable tr:hover .blurred,
+    .miniTable tr:focus-within .blurred,
+    .addrRow:hover .blurred,
+    .addrRow:focus-within .blurred{
       filter: blur(0);
       -webkit-filter: blur(0);
     }
@@ -3140,8 +3138,8 @@
           row.style.background = `linear-gradient(120deg, ${brand.fade || "rgba(255,255,255,.06)"}, rgba(255,255,255,.02))`;
           row.innerHTML = `
             <div style="min-width:0;">
-              <div class="addrLabel">${label}${list.length > 1 ? ` #${idx+1}` : ""}</div>
-              <div class="addrVal">${addr}</div>
+            <div class="addrLabel">${label}${list.length > 1 ? ` #${idx+1}` : ""}</div>
+            <div class="addrVal blurred">${addr}</div>
             </div>
             <div class="addrBtns">
               <button class="btn btnSm" type="button" data-copy="${sym}:${idx}">Copy</button>
@@ -3273,7 +3271,7 @@
               <span class="miniIcon" style="--brand-color:${brand.color};">${brand.icon}</span>
               <span style="margin-left:8px;">${chainLabel(chain)}${list.length > 1 ? " #" + (idx+1) : ""}</span>
             </td>
-            <td class="addrVal" style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
+            <td class="addrVal blurred" style="font-family: var(--mono); font-size: 12.5px; word-break: break-all; text-align:center;">${addr}</td>
             <td style="text-align:center;">
               <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
                 <button class="btn btnSm" type="button" data-copyaddr="${addr}">Copy</button>
