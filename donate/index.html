@@ -2280,6 +2280,21 @@
         op:         { color:"#ff0420", fade:"rgba(255,4,32,.18)", icon:"OP" },
         bnb:        { color:"#f3ba2f", fade:"rgba(243,186,47,.18)", icon:"BNB" },
         sei:        { color:"#ff5b5b", fade:"rgba(255,91,91,.18)", icon:"SEI" },
+        ada:        { color:"#0033ad", fade:"rgba(0,51,173,.18)", icon:"ADA" },
+        btt:        { color:"#ef1b2d", fade:"rgba(239,27,45,.18)", icon:"BTT" },
+        glmr:       { color:"#53cbc9", fade:"rgba(83,203,201,.18)", icon:"GLMR" },
+        shib:       { color:"#f26522", fade:"rgba(242,101,34,.18)", icon:"SHIB" },
+        shibarium:  { color:"#e64a19", fade:"rgba(230,74,25,.18)", icon:"SHIB" },
+        zec:        { color:"#f4b728", fade:"rgba(244,183,40,.18)", icon:"ZEC" },
+        hex:        { color:"#ff3c7d", fade:"rgba(255,60,125,.18)", icon:"HEX" },
+        nexo:       { color:"#2663ff", fade:"rgba(38,99,255,.18)", icon:"NEXO" },
+        chz:        { color:"#e3001b", fade:"rgba(227,0,27,.18)", icon:"CHZ" },
+        chaingpt:   { color:"#1f6feb", fade:"rgba(31,111,235,.18)", icon:"GPT" },
+        xaut:       { color:"#d1a941", fade:"rgba(209,169,65,.18)", icon:"XAUT" },
+        dogs:       { color:"#f5a623", fade:"rgba(245,166,35,.18)", icon:"DOGS" },
+        justachilguy:{ color:"#7a7f92", fade:"rgba(122,127,146,.16)", icon:"JCG" },
+        eth_arb:    { color:"#28a0f0", fade:"rgba(40,160,240,.18)", icon:"ETH" },
+        eth_linea:  { color:"#2b2b2b", fade:"rgba(43,43,43,.18)", icon:"ETH" },
         metamask:   { color:"#f6851b", fade:"rgba(246,133,27,.20)", icon:"MM" },
         atomicwallet:{ color:"#1d9bf0", fade:"rgba(29,155,240,.18)", icon:"AW" },
         thanksdev:  { color:"#111827", fade:"rgba(17,24,39,.16)", icon:"TD" },
@@ -2512,7 +2527,7 @@
 
       const wallets = [
         { key:"metamask", label:"MetaMask", note:"Use these chain-specific addresses in MetaMask (ETH, L2s, SOL, BTC).", coins:["eth","btc","sol","arbitrum","base","linea","polygon","op","bnb","sei"] },
-        { key:"atomicwallet", label:"Atomic Wallet", note:"Paste BTC or ETH into Atomic Wallet; QR works too.", coins:["btc","eth"] }
+        { key:"atomicwallet", label:"Atomic Wallet", note:"Paste chain addresses into Atomic Wallet; QR works too.", coins:["btc","eth","glmr","dogs","justachilguy","btt","ada","shibarium","shib","zec","hex","nexo","chz","arbitrum","chaingpt","xaut","eth_arb","eth_linea"] }
       ];
 
       wallets.forEach((w) => {

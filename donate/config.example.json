@@ -75,6 +75,54 @@
           "eth": [
             "YOUR_ETH_ADDRESS_DEV_1",
             "YOUR_ETH_ADDRESS_DEV_2"
+          ],
+          "glmr": [
+            "YOUR_ATOMIC_MOONBEAM_ADDRESS_DEV"
+          ],
+          "dogs": [
+            "YOUR_ATOMIC_DOGS_ADDRESS_DEV"
+          ],
+          "justachilguy": [
+            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_DEV"
+          ],
+          "btt": [
+            "YOUR_ATOMIC_BITTORRENT_ADDRESS_DEV"
+          ],
+          "ada": [
+            "YOUR_ATOMIC_ADA_ADDRESS_DEV"
+          ],
+          "shibarium": [
+            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_DEV"
+          ],
+          "shib": [
+            "YOUR_ATOMIC_SHIB_ADDRESS_DEV"
+          ],
+          "zec": [
+            "YOUR_ATOMIC_ZCASH_ADDRESS_DEV"
+          ],
+          "hex": [
+            "YOUR_ATOMIC_HEX_ADDRESS_DEV"
+          ],
+          "nexo": [
+            "YOUR_ATOMIC_NEXO_ADDRESS_DEV"
+          ],
+          "chz": [
+            "YOUR_ATOMIC_CHILIZ_ADDRESS_DEV"
+          ],
+          "arbitrum": [
+            "YOUR_ATOMIC_ARBITRUM_ADDRESS_DEV"
+          ],
+          "chaingpt": [
+            "YOUR_ATOMIC_CHAINGPT_ADDRESS_DEV"
+          ],
+          "xaut": [
+            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_DEV"
+          ],
+          "eth_arb": [
+            "YOUR_ATOMIC_ETH_ARB_ADDRESS_DEV"
+          ],
+          "eth_linea": [
+            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_DEV"
           ]
         }
       }
@@ -152,6 +200,54 @@
           "eth": [
             "YOUR_ETH_ADDRESS_ORG_1",
             "YOUR_ETH_ADDRESS_ORG_2"
+          ],
+          "glmr": [
+            "YOUR_ATOMIC_MOONBEAM_ADDRESS_ORG"
+          ],
+          "dogs": [
+            "YOUR_ATOMIC_DOGS_ADDRESS_ORG"
+          ],
+          "justachilguy": [
+            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_ORG"
+          ],
+          "btt": [
+            "YOUR_ATOMIC_BITTORRENT_ADDRESS_ORG"
+          ],
+          "ada": [
+            "YOUR_ATOMIC_ADA_ADDRESS_ORG"
+          ],
+          "shibarium": [
+            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_ORG"
+          ],
+          "shib": [
+            "YOUR_ATOMIC_SHIB_ADDRESS_ORG"
+          ],
+          "zec": [
+            "YOUR_ATOMIC_ZCASH_ADDRESS_ORG"
+          ],
+          "hex": [
+            "YOUR_ATOMIC_HEX_ADDRESS_ORG"
+          ],
+          "nexo": [
+            "YOUR_ATOMIC_NEXO_ADDRESS_ORG"
+          ],
+          "chz": [
+            "YOUR_ATOMIC_CHILIZ_ADDRESS_ORG"
+          ],
+          "arbitrum": [
+            "YOUR_ATOMIC_ARBITRUM_ADDRESS_ORG"
+          ],
+          "chaingpt": [
+            "YOUR_ATOMIC_CHAINGPT_ADDRESS_ORG"
+          ],
+          "xaut": [
+            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_ORG"
+          ],
+          "eth_arb": [
+            "YOUR_ATOMIC_ETH_ARB_ADDRESS_ORG"
+          ],
+          "eth_linea": [
+            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_ORG"
           ]
         }
       }

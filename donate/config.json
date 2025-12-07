@@ -13,7 +13,7 @@
       "openCollective": "",
       "koFi": "https://ko-fi.com/0xLEANux",
       "buyMeACoffee": "https://www.buymeacoffee.com/0xLEANux",
-      "patreon": "",
+      "patreon": "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
       "liberapay": "",
       "polar": "",
       "thanksDev": "",
@@ -30,40 +30,40 @@
         ],
         "eth": [
           "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-          "YOUR_ETH_ADDRESS_DEV_2"
+          "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
         ]
       },
       "wallets": {
         "metamask": {
           "btc": [
-            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw"
+            "bc1qpwmeljfrg4ppduvgz0n6zxv79yhenvk2pk4jgl"
           ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "sol": [
-            "YOUR_SOL_ADDRESS_DEV"
+            "97Pr4ara5YfMf3LR2jtBb4iZVGgFrznvNHDfc5WtUyzb"
           ],
           "arbitrum": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "base": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "linea": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "polygon": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "op": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "bnb": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "sei": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ]
         },
         "atomicwallet": {
@@ -74,6 +74,54 @@
           "eth": [
             "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
             "YOUR_ETH_ADDRESS_DEV_2"
+          ],
+          "glmr": [
+            "YOUR_ATOMIC_MOONBEAM_ADDRESS_DEV"
+          ],
+          "dogs": [
+            "YOUR_ATOMIC_DOGS_ADDRESS_DEV"
+          ],
+          "justachilguy": [
+            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_DEV"
+          ],
+          "btt": [
+            "YOUR_ATOMIC_BITTORRENT_ADDRESS_DEV"
+          ],
+          "ada": [
+            "YOUR_ATOMIC_ADA_ADDRESS_DEV"
+          ],
+          "shibarium": [
+            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_DEV"
+          ],
+          "shib": [
+            "YOUR_ATOMIC_SHIB_ADDRESS_DEV"
+          ],
+          "zec": [
+            "YOUR_ATOMIC_ZCASH_ADDRESS_DEV"
+          ],
+          "hex": [
+            "YOUR_ATOMIC_HEX_ADDRESS_DEV"
+          ],
+          "nexo": [
+            "YOUR_ATOMIC_NEXO_ADDRESS_DEV"
+          ],
+          "chz": [
+            "YOUR_ATOMIC_CHILIZ_ADDRESS_DEV"
+          ],
+          "arbitrum": [
+            "YOUR_ATOMIC_ARBITRUM_ADDRESS_DEV"
+          ],
+          "chaingpt": [
+            "YOUR_ATOMIC_CHAINGPT_ADDRESS_DEV"
+          ],
+          "xaut": [
+            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_DEV"
+          ],
+          "eth_arb": [
+            "YOUR_ATOMIC_ETH_ARB_ADDRESS_DEV"
+          ],
+          "eth_linea": [
+            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_DEV"
           ]
         }
       }
@@ -89,7 +137,7 @@
       "openCollective": "",
       "koFi": "https://ko-fi.com/0xLEANux",
       "buyMeACoffee": "https://www.buymeacoffee.com/0xLEANux",
-      "patreon": "",
+      "patreon": "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
       "liberapay": "",
       "polar": "",
       "thanksDev": "",
@@ -106,40 +154,40 @@
         ],
         "eth": [
           "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
-          "YOUR_ETH_ADDRESS_ORG_2"
+          "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
         ]
       },
       "wallets": {
         "metamask": {
           "btc": [
-            "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw"
+            "bc1qpwmeljfrg4ppduvgz0n6zxv79yhenvk2pk4jgl"
           ],
           "eth": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "sol": [
-            "YOUR_SOL_ADDRESS_ORG"
+            "97Pr4ara5YfMf3LR2jtBb4iZVGgFrznvNHDfc5WtUyzb"
           ],
           "arbitrum": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "base": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "linea": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "polygon": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "op": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "bnb": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ],
           "sei": [
-            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
           ]
         },
         "atomicwallet": {
@@ -150,6 +198,54 @@
           "eth": [
             "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
             "YOUR_ETH_ADDRESS_ORG_2"
+          ],
+          "glmr": [
+            "YOUR_ATOMIC_MOONBEAM_ADDRESS_ORG"
+          ],
+          "dogs": [
+            "YOUR_ATOMIC_DOGS_ADDRESS_ORG"
+          ],
+          "justachilguy": [
+            "YOUR_ATOMIC_JUSTACHILGUY_ADDRESS_ORG"
+          ],
+          "btt": [
+            "YOUR_ATOMIC_BITTORRENT_ADDRESS_ORG"
+          ],
+          "ada": [
+            "YOUR_ATOMIC_ADA_ADDRESS_ORG"
+          ],
+          "shibarium": [
+            "YOUR_ATOMIC_SHIBARIUM_ADDRESS_ORG"
+          ],
+          "shib": [
+            "YOUR_ATOMIC_SHIB_ADDRESS_ORG"
+          ],
+          "zec": [
+            "YOUR_ATOMIC_ZCASH_ADDRESS_ORG"
+          ],
+          "hex": [
+            "YOUR_ATOMIC_HEX_ADDRESS_ORG"
+          ],
+          "nexo": [
+            "YOUR_ATOMIC_NEXO_ADDRESS_ORG"
+          ],
+          "chz": [
+            "YOUR_ATOMIC_CHILIZ_ADDRESS_ORG"
+          ],
+          "arbitrum": [
+            "YOUR_ATOMIC_ARBITRUM_ADDRESS_ORG"
+          ],
+          "chaingpt": [
+            "YOUR_ATOMIC_CHAINGPT_ADDRESS_ORG"
+          ],
+          "xaut": [
+            "YOUR_ATOMIC_TETHER_GOLD_ADDRESS_ORG"
+          ],
+          "eth_arb": [
+            "YOUR_ATOMIC_ETH_ARB_ADDRESS_ORG"
+          ],
+          "eth_linea": [
+            "YOUR_ATOMIC_ETH_LINEA_ADDRESS_ORG"
           ]
         }
       }
