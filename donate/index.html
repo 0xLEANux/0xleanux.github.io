@@ -1713,26 +1713,6 @@
       background: rgba(0,229,255,.28);
       color: rgba(8,9,20,.96);
     }
-    /* Cursor accent */
-    #cursorDot{
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.7), transparent 55%),
-        linear-gradient(135deg, rgba(183,107,255,.85), rgba(0,229,255,.65));
-      border: 1px solid rgba(255,255,255,.35);
-      box-shadow: 0 0 18px rgba(0,229,255,.20), 0 0 26px rgba(183,107,255,.24);
-      mix-blend-mode: screen;
-      opacity: .65;
-      transform: translate(-50%, -50%) scale(1);
-      transition: opacity 200ms var(--ease), transform 120ms var(--ease);
-      z-index: 120;
-    }
-    #cursorDot.hidden{ opacity: 0; }
-    .noCursor{ cursor: none !important; }
     @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
     @keyframes popIn{ from{ opacity:0; transform: scale(.98); } to{ opacity:1; transform: scale(1); } }
     @keyframes hue{
@@ -2708,30 +2688,6 @@
       document.querySelectorAll(".panel, .fold, .archTip, .offer, .methodCard, .walletCard, .addrBox, .verifyBox, .tableWrap, .miniTableWrap").forEach(tagReveal);
     }
 
-    function setupCursor(){
-      const fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
-      if(!fine) return;
-      const dot = document.createElement("div");
-      dot.id = "cursorDot";
-      document.body.appendChild(dot);
-      document.body.classList.add("noCursor");
-
-      let x=0, y=0, raf=null, down=false;
-      const render = () => {
-        raf = null;
-        dot.style.transform = `translate(${x}px, ${y}px) scale(${down ? 0.85 : 1})`;
-        dot.classList.toggle("hidden", false);
-      };
-      const move = (e) => {
-        x = e.clientX; y = e.clientY;
-        if(!raf) raf = requestAnimationFrame(render);
-      };
-      window.addEventListener("mousemove", move);
-      window.addEventListener("mousedown", () => { down=true; if(!raf) raf=requestAnimationFrame(render); });
-      window.addEventListener("mouseup", () => { down=false; if(!raf) raf=requestAnimationFrame(render); });
-      window.addEventListener("mouseleave", () => dot.classList.add("hidden"));
-      window.addEventListener("mouseenter", () => dot.classList.remove("hidden"));
-    }
     const tabDev = document.getElementById("tabDev");
     const tabOrg = document.getElementById("tabOrg");
     const typeButtons = Array.from(document.querySelectorAll("[data-filter-type]"));
@@ -3571,7 +3527,6 @@
       renderCmds();
       pickTip();
       applyRecipient();
-      setupCursor();
       document.body.classList.add("ready");
     }
     init();
