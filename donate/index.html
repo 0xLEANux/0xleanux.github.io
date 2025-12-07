@@ -1202,28 +1202,6 @@
     .wallName{ font-weight: 950; }
     .wallNote{ margin-top: 6px; color: rgba(245,245,255,.62); font-size: var(--t0); line-height: 1.45; }
 
-    .accordion{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      padding: 10px 12px;
-      margin-top: 12px;
-      transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-    }
-    .accordion:hover{ border-color: rgba(255,255,255,.18); transform: translateY(-1px); }
-    .accordion > summary{
-      cursor: pointer;
-      list-style: none;
-      font-weight: 950;
-      font-size: var(--t2);
-      color: rgba(245,245,255,.90);
-      display:flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .accordion > summary::-webkit-details-marker{ display:none; }
-    .accordion .body{ margin-top: 10px; }
-
     /* Wallet apps */
     .walletGrid{
       margin-top: 12px;
@@ -1690,94 +1668,87 @@
       </section>
 
       <aside class="rgb panel" aria-label="Crypto and Arch Corner">
-        <details class="accordion" open>
-          <summary>Crypto for selected recipient</summary>
-          <div class="body">
-            <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
-            <div class="addrBox" id="cryptoBox"></div>
-          </div>
-        </details>
+        <h2 class="h2">Crypto for selected recipient</h2>
+        <p class="pMuted">Copy addresses or open a QR. Addresses are per recipient (DEV/ORG).</p>
 
-        <details class="accordion">
-          <summary>Wallet apps (MetaMask & Atomic Wallet)</summary>
-          <div class="body">
-            <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH/L2s; Atomic covers BTC/ETH/alt-chains.</p>
-            <div class="walletGrid" id="walletGrid"></div>
-          </div>
-        </details>
+        <div class="addrBox" id="cryptoBox"></div>
 
-        <details class="accordion">
-          <summary>Verify this page</summary>
-          <div class="body">
-            <div class="verifyBox" aria-label="Donation verification">
-              <p class="verifyTitle">Verify this page</p>
-              <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
-              <div class="verifyRow" id="verifyBTC"></div>
-              <div class="verifyRow" id="verifyETH"></div>
-              <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
-            </div>
-          </div>
-        </details>
+        <div style="height:14px;"></div>
 
-        <details class="accordion">
-          <summary>Arch Corner</summary>
-          <div class="body">
-            <div class="archGrid">
-              <div class="archTip">
-                <div class="cmdTop">
-                  <div>
-                    <p class="archTipTitle">Random Arch tip</p>
-                    <p class="archTipText" id="archTipText">—</p>
-                  </div>
-                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
-                    <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
-                  </div>
-                </div>
+        <h2 class="h2">Wallet apps (MetaMask & Atomic Wallet)</h2>
+        <p class="pMuted">Use the wallets you already trust. MetaMask reads ETH; Atomic can read BTC/ETH.</p>
+
+        <div class="walletGrid" id="walletGrid"></div>
+
+        <div style="height:14px;"></div>
+
+        <div class="verifyBox" aria-label="Donation verification">
+          <p class="verifyTitle">Verify this page</p>
+          <p class="verifyNote">Only trust addresses shown here and in the signed git history of this repo.</p>
+
+          <div class="verifyRow" id="verifyBTC"></div>
+          <div class="verifyRow" id="verifyETH"></div>
+
+          <p class="verifyFine">Optional: publish a PGP-signed DONATION_ADDRESSES.txt.asc; donors can also cross-check commit history before sending.</p>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <h2 class="h2">Arch Corner</h2>
+        <p class="pMuted">A small “Arch and Arch-based distro” area: tips, commands, and a little fun.</p>
+
+        <div class="archGrid">
+          <div class="archTip">
+            <div class="cmdTop">
+              <div>
+                <p class="archTipTitle">Random Arch tip</p>
+                <p class="archTipText" id="archTipText">—</p>
               </div>
-
-              <div class="archTip">
-                <p class="archTipTitle">Pacman & AUR cheatsheet (copyable)</p>
-                <p class="archTipText">
-                  If your donation funds one thing, let it be: fewer broken upgrades and more calm.
-                </p>
-
-                <div class="cmdList" id="cmdList"></div>
-              </div>
-
-              <div class="archTip">
-                <p class="archTipTitle">Arch-based distro reality check</p>
-                <p class="archTipText">
-                  Arch itself gives you maximum control and responsibility. Arch-based distros often smooth the edges.
-                  Neither is “better”; it’s about how much you enjoy tinkering vs shipping.
-                </p>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn btnSm" type="button" id="btnNewTip">New tip</button>
+                <button class="btn btnSm btnGhost" type="button" id="btnArchMode">Toggle “Arch btw”</button>
               </div>
             </div>
           </div>
-        </details>
 
-        <details class="accordion">
-          <summary>FAQ</summary>
-          <div class="body">
-            <details>
-              <summary>Which method is best?</summary>
-              <p>
-                Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
-              </p>
-            </details>
-            <details>
-              <summary>Can I donate to both DEV and ORG?</summary>
-              <p>
-                Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
-              </p>
-            </details>
-            <details>
-              <summary>Why does diffusion of methods matter?</summary>
-              <p>
-                Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
-              </p>
-            </details>
+          <div class="archTip">
+            <p class="archTipTitle">Pacman & AUR cheatsheet (copyable)</p>
+            <p class="archTipText">
+              If your donation funds one thing, let it be: fewer broken upgrades and more calm.
+            </p>
+
+            <div class="cmdList" id="cmdList"></div>
           </div>
+
+          <div class="archTip">
+            <p class="archTipTitle">Arch-based distro reality check</p>
+            <p class="archTipText">
+              Arch itself gives you maximum control and responsibility. Arch-based distros often smooth the edges.
+              Neither is “better”; it’s about how much you enjoy tinkering vs shipping.
+            </p>
+          </div>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <h2 class="h2">FAQ</h2>
+        <details>
+          <summary>Which method is best?</summary>
+          <p>
+            Sponsors is best for long-term work. One-time: Card (Stripe) or PayPal is simplest. Crypto works if you prefer it.
+          </p>
+        </details>
+        <details>
+          <summary>Can I donate to both DEV and ORG?</summary>
+          <p>
+            Yes. Use the offerings section (DEV and ORG buttons side-by-side), or switch the recipient in the top bar.
+          </p>
+        </details>
+        <details>
+          <summary>Why does diffusion of methods matter?</summary>
+          <p>
+            Different supporters prefer different rails. The goal is raising “conversion”: less friction for donors, more stability for maintainers.
+          </p>
         </details>
 
         <footer class="fineprint">
