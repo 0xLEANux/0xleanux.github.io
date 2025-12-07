@@ -34,9 +34,9 @@
       --stroke: rgba(255,255,255,.08);
       --stroke2: rgba(255,255,255,.07);
 
-      --text: rgba(245,245,255,.92);
-      --muted: rgba(245,245,255,.70);
-      --muted2: rgba(245,245,255,.54);
+      --text: rgba(245,245,255,.94);
+      --muted: rgba(245,245,255,.72);
+      --muted2: rgba(245,245,255,.56);
 
       /* RGB palette */
       --c1:#b76bff; /* neon purple */
@@ -85,6 +85,13 @@
       --dur: 130ms;
       --dur2: 220ms;
     }
+    h1,h2,h3{
+      text-wrap: balance;
+      letter-spacing: -.01em;
+    }
+    p, .fineprint, .pMuted{
+      max-width: 96ch;
+    }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -94,6 +101,8 @@
       color: var(--text);
       background: var(--bg0);
       overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     /* Fixed background gradient (constant) */
