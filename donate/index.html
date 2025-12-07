@@ -1539,6 +1539,10 @@
     }
     @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
     @keyframes popIn{ from{ opacity:0; transform: scale(.98); } to{ opacity:1; transform: scale(1); } }
+    @keyframes hue{
+      0%{ filter: blur(12px) hue-rotate(0deg); }
+      100%{ filter: blur(12px) hue-rotate(360deg); }
+    }
     .footerGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -2382,6 +2386,14 @@
       }
     }
 
+    function pulseBtn(btn){
+      if(!btn) return;
+      btn.classList.remove("pulse");
+      void btn.offsetWidth;
+      btn.classList.add("pulse");
+      setTimeout(() => btn.classList.remove("pulse"), 400);
+    }
+
     function withUTM(url, medium){
       try{
         const u = new URL(url);
@@ -2450,6 +2462,26 @@
     /* =========================
        STATE
        ========================= */
+
+    /* Reveal handling */
+    let revealObs;
+    function tagReveal(el){
+      if(!el || el.classList.contains("reveal-bound")) return;
+      el.classList.add("reveal", "reveal-bound");
+      if(revealObs) revealObs.observe(el);
+    }
+
+    function setupReveals(){
+      revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+            revealObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14, rootMargin: "0px 0px -10%" });
+      document.querySelectorAll(".panel, .fold, .archTip, .offer, .methodCard, .walletCard, .addrBox, .verifyBox, .tableWrap, .miniTableWrap").forEach(tagReveal);
+    }
     const tabDev = document.getElementById("tabDev");
     const tabOrg = document.getElementById("tabOrg");
     const typeButtons = Array.from(document.querySelectorAll("[data-filter-type]"));
@@ -2588,6 +2620,7 @@
 
         card.appendChild(head);
         card.appendChild(split);
+        tagReveal(card);
         root.appendChild(card);
       });
     }
@@ -2804,6 +2837,7 @@
         }
 
         cards.appendChild(mc);
+        tagReveal(mc);
       }
     }
 
@@ -3182,14 +3216,18 @@
         const [sym, idxStr] = (copyBtn.getAttribute("data-copy") || "").split(":");
         const addr = getAddr(sym, Number(idxStr) || 0);
         if(!isConfigured(addr)){ showToast("Address not configured."); return; }
-        showToast((await copyText(addr)) ? `${sym.toUpperCase()} copied.` : "Copy failed.");
+        const ok = await copyText(addr);
+        showToast(ok ? `${sym.toUpperCase()} copied.` : "Copy failed.");
+        if(ok) pulseBtn(copyBtn);
         return;
       }
 
       const copyAddrBtn = e.target.closest("[data-copyaddr]");
       if(copyAddrBtn){
         const addr = copyAddrBtn.getAttribute("data-copyaddr") || "";
-        showToast((await copyText(addr)) ? "Address copied." : "Copy failed.");
+        const ok = await copyText(addr);
+        showToast(ok ? "Address copied." : "Copy failed.");
+        if(ok) pulseBtn(copyAddrBtn);
         return;
       }
 
@@ -3222,7 +3260,9 @@
       const cmdBtn = e.target.closest("[data-copycmd]");
       if(cmdBtn){
         const cmd = decodeURIComponent(cmdBtn.getAttribute("data-copycmd") || "");
-        showToast((await copyText(cmd)) ? "Command copied." : "Copy failed.");
+        const ok = await copyText(cmd);
+        showToast(ok ? "Command copied." : "Copy failed.");
+        if(ok) pulseBtn(cmdBtn);
         return;
       }
 
@@ -3245,6 +3285,7 @@
        ========================= */
     async function init(){
       CFG = await loadConfig();
+      setupReveals();
       applyBackgroundStyle();
       document.getElementById("onlyConfigured").checked = true;
       renderOffers();
