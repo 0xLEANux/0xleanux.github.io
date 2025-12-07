@@ -2641,8 +2641,8 @@
         const status = configured
           ? `<span class="status"><span class="dot on"></span>Configured</span>`
           : `<span class="status"><span class="dot off"></span>Not set</span>`;
-        const popular = configured && (m.label === "Card (Stripe)" || m.label === "PayPal");
-        const popBadge = popular ? `<span class="pillBadge">Most supporters use</span>` : "";
+        const popular = false;
+        const popBadge = "";
         const slug = (m.label || "").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
         const brand = brandTheme(m.brand || slug);
 
