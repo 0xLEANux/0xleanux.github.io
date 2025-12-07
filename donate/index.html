@@ -199,15 +199,18 @@
     }
     .pulse{ animation: pulseCopy 360ms var(--ease); }
     @media (prefers-reduced-motion: no-preference){
-      .spawn{ animation: spawnIn 420ms cubic-bezier(.25,.9,.35,1) both; }
-      .fadeSeq > *{ animation: fadeUp 420ms var(--ease) both; }
+      .spawnUp{ animation: slideUpIn 420ms cubic-bezier(.25,.9,.35,1) both; }
+      .spawnLeft{ animation: slideLeftIn 420ms cubic-bezier(.25,.9,.35,1) both; }
+      .spawnRight{ animation: slideRightIn 420ms cubic-bezier(.25,.9,.35,1) both; }
+      .spawnZoom{ animation: zoomInSoft 420ms cubic-bezier(.25,.9,.35,1) both; }
+      .fadeSeq > *{ animation: slideUpIn 420ms var(--ease) both; }
       .fadeSeq > *:nth-child(1){ animation-delay: 40ms; }
       .fadeSeq > *:nth-child(2){ animation-delay: 80ms; }
       .fadeSeq > *:nth-child(3){ animation-delay: 120ms; }
       .fadeSeq > *:nth-child(4){ animation-delay: 160ms; }
       .fadeSeq > *:nth-child(5){ animation-delay: 200ms; }
       .hero .pMuted, .hero p, .metaStrip, .impactStrip, .offer, .methodCard, .walletCard, .archTip, .fold, .addrBox, .verifyBox, .wallCard, .cmd, .tableWrap, .miniTableWrap{
-        animation: fadeUp 420ms var(--ease) both;
+        animation: slideUpIn 420ms var(--ease) both;
       }
     }
 
@@ -257,10 +260,10 @@
       0%{ transform: rotate(0deg) scale(1); }
       100%{ transform: rotate(360deg) scale(1); }
     }
-    @keyframes spawnIn{
-      0%{ opacity:0; transform: translateY(12px) scale(.98); filter: blur(2px); }
-      100%{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
+    @keyframes slideUpIn{ from{ opacity:0; transform: translateY(12px) scale(.98); filter: blur(1px); } to{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes slideLeftIn{ from{ opacity:0; transform: translateX(-14px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
+    @keyframes slideRightIn{ from{ opacity:0; transform: translateX(14px) scale(.98); filter: blur(1px); } to{ opacity:1; transform:none; filter: blur(0); } }
+    @keyframes zoomInSoft{ from{ opacity:0; transform: scale(.96); filter: blur(1px); } to{ opacity:1; transform: scale(1); filter: blur(0); } }
     @keyframes borderFlow{
       0%{ background-position: 0% 50%; }
       100%{ background-position: 200% 50%; }
@@ -2651,10 +2654,14 @@
        ========================= */
 
     /* Reveal handling */
+    let revealIndex = 0;
+    const revealClasses = ["spawnUp","spawnLeft","spawnRight","spawnZoom"];
     function tagReveal(el){
       if(!el) return;
-      el.classList.add("spawn");
-      setTimeout(() => el.classList.remove("spawn"), 480);
+      const cls = revealClasses[revealIndex % revealClasses.length];
+      revealIndex++;
+      el.classList.add(cls);
+      setTimeout(() => el.classList.remove(cls), 520);
     }
 
     function setupReveals(){
