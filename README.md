@@ -107,6 +107,9 @@ This repository hosts a **static donation hub** under GitHub Pages. The page sup
 │   ├── config.example.json
 │   ├── qrcode.js
 │   └── favicon.svg
+├── ovpn
+│   ├── index.html
+│   └── client.ovpn
 └── .github
     ├── FUNDING.yml
     └── workflows
@@ -266,6 +269,13 @@ If you need a quick sanity check, test:
   - crypto typically is not
 
 ---
+
+## OpenVPN profile hosting (`/ovpn`)
+
+- Static page lives at `/ovpn/index.html` with a download link.
+- Replace `ovpn/client.ovpn` with your real profile (endpoint, certs, and keys).
+- The file will be served at `https://0xLEANux.github.io/ovpn/client.ovpn` after pushing to `main`.
+- Do not commit private credentials; paste cert/key blocks only if they are meant to be public to your users.
 
 ## Maintenance
 
