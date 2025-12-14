@@ -1878,7 +1878,7 @@
 
         <span class="pill">Selected <code id="selHandle">@0xElectron</code></span>
         <a class="btn btnSm btnGhost" id="btnProfile" target="_blank" rel="noopener" data-utm="top-profile">Profile</a>
-        <a class="btn btnSm btnPrimary" id="btnSponsor" target="_blank" rel="noopener" data-utm="top-sponsor">Sponsor</a>
+        <!-- <a class="btn btnSm btnPrimary" id="btnSponsor" target="_blank" rel="noopener" data-utm="top-sponsor">Sponsor</a> -->
       </div>
     </div>
   </header>
@@ -1887,8 +1887,9 @@
     <section class="rgb panel hero" aria-label="Donation hero">
       <h1 id="heroTitle">Support @0xElectron</h1>
       <p id="heroCopy">
-        Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Choose the recipient above, then pick Sponsors/Card/Crypto. PayPal is temporarily disabled.
-        Background stays fixed. Only the content scrolls.
+        <!-- Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Choose the recipient above, then pick Sponsors/Card/Crypto. PayPal is temporarily disabled.
+        Background stays fixed. Only the content scrolls. -->
+        Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Crypto-only rails are active (BTC/ETH). All fiat/card/paypal CTAs remain in comments for reference.
       </p>
 
       <div class="chips">
@@ -1901,18 +1902,18 @@
       <div class="heroGrid">
         <div class="subPanel">
           <div class="ctaRow">
-            <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener" data-utm="cta-sponsors">GitHub Sponsors</a>
+            <!-- <a class="btn btnPrimary" id="ctaSponsors" target="_blank" rel="noopener" data-utm="cta-sponsors">GitHub Sponsors</a>
             <a class="btn" id="ctaCard" target="_blank" rel="noopener" data-utm="cta-card">Donate by Card</a>
             <a class="btn" id="ctaThanks" target="_blank" rel="noopener" data-utm="cta-thanks">thanks.dev</a>
-            <a class="btn btnStrike" id="ctaPayPal" aria-disabled="true" target="_blank" rel="noopener" data-utm="cta-paypal" title="Temporarily disabled">PayPal (disabled)</a>
+            <a class="btn btnStrike" id="ctaPayPal" aria-disabled="true" target="_blank" rel="noopener" data-utm="cta-paypal" title="Temporarily disabled">PayPal (disabled)</a> -->
             <button class="btn" id="ctaCrypto" type="button">Show Crypto (QR)</button>
           </div>
-          <p class="fineprint" id="paypalNotice" style="margin: 10px 0 0;">
+          <!-- <p class="fineprint" id="paypalNotice" style="margin: 10px 0 0;">
             PayPal donations are paused for now. Please use Card/Stripe or GitHub Sponsors instead.
-          </p>
+          </p> -->
 
           <div class="kpiGrid" aria-label="Donation summary">
-            <div class="kpi">
+            <!-- <div class="kpi">
               <div class="label">Best recurring</div>
               <div class="value">Sponsors</div>
               <div class="desc">Sustains maintenance and roadmap work.</div>
@@ -1921,6 +1922,11 @@
               <div class="label">Best one-time</div>
               <div class="value">Card (PayPal paused)</div>
               <div class="desc">Fast checkout via Stripe link.</div>
+            </div> -->
+            <div class="kpi">
+              <div class="label">Wallet flows</div>
+              <div class="value">BTC + ETH</div>
+              <div class="desc">Copy, QR, or open wallet deeplinks.</div>
             </div>
             <div class="kpi">
               <div class="label">Arch mode</div>
@@ -1932,8 +1938,8 @@
           <div class="metaStrip" aria-label="Recipient quick facts">
             <div class="metaItem">
               <div class="metaLabel">Recommended rail</div>
-              <div class="metaValue" id="metaRec">Sponsors</div>
-              <div class="metaNote" id="metaRecNote">Best for recurring support.</div>
+              <div class="metaValue" id="metaRec">Crypto</div>
+              <div class="metaNote" id="metaRecNote">On-chain BTC/ETH (copy or QR).</div>
             </div>
             <div class="metaItem">
               <div class="metaLabel">Configured methods</div>
@@ -2001,13 +2007,21 @@
 
     <div class="mainGrid">
       <section class="rgb panel" aria-label="Offerings and methods">
-        <h2 class="h2">Suggested offerings (explicit DEV + ORG buttons)</h2>
+        <!-- <h2 class="h2">Suggested offerings (explicit DEV + ORG buttons)</h2>
         <p class="pMuted">
           Each tier shows buttons for both recipients. Configure different links per recipient/method in CFG.
+        </p> -->
+        <h2 class="h2">Crypto-only offerings (DEV + ORG buttons)</h2>
+        <p class="pMuted">
+          On-chain only: BTC + ETH options per recipient. Old fiat/card/paypal rails are commented out in this file for safekeeping.
         </p>
 
         <div class="currencySwitch" aria-label="Select display currency">
-          <span class="fineprint" style="margin:0;">Display currency:</span>
+          <!-- <span class="fineprint" style="margin:0;">Display currency:</span>
+          <button class="filterBtn active" type="button" data-currency="usd">USD $</button>
+          <button class="filterBtn" type="button" data-currency="eur">EUR €</button>
+          <button class="filterBtn" type="button" data-currency="gbp">GBP £</button> -->
+          <span class="fineprint" style="margin:0;">Display currency (for USD equivalents):</span>
           <button class="filterBtn active" type="button" data-currency="usd">USD $</button>
           <button class="filterBtn" type="button" data-currency="eur">EUR €</button>
           <button class="filterBtn" type="button" data-currency="gbp">GBP £</button>
@@ -2017,15 +2031,19 @@
 
         <div style="height:16px;"></div>
 
-        <h2 class="h2">All donation methods (selected recipient)</h2>
+        <!-- <h2 class="h2">All donation methods (selected recipient)</h2>
         <p class="pMuted">
           Search, filter, and show only configured methods. Desktop = matrix; mobile = cards.
+        </p> -->
+        <h2 class="h2">Crypto methods (selected recipient)</h2>
+        <p class="pMuted">
+          Only on-chain rails remain active. Fiat rails (card/PayPal/etc.) are commented out below.
         </p>
 
         <div class="filters">
           <label class="search" aria-label="Search donation methods">
             <span class="srOnly">Search</span>
-            <input id="search" type="text" placeholder="Search: sponsors, card, stripe, thanks.dev, kofi, open collective, crypto, wise..." />
+            <input id="search" type="text" placeholder="Search: BTC, ETH, MetaMask, Atomic Wallet..." />
           </label>
 
           <label class="toggle">
@@ -2040,7 +2058,7 @@
           </div>
         </div>
 
-        <p class="fineprint" style="margin-top:8px;">Donate anonymously: leave your name blank on Card/Sponsors (PayPal paused), or use crypto (address-only).</p>
+        <p class="fineprint" style="margin-top:8px;">Donate anonymously: use crypto (address-only). Card/Sponsors/PayPal are commented out.</p>
 
         <div class="tableWrap" role="region" aria-label="Donation methods table">
           <table>
@@ -2048,7 +2066,7 @@
               <tr>
                 <th style="width: 18%;">Method</th>
                 <th style="width: 12%;">Type</th>
-                <th style="width: 16%;">GitHub Sponsor menu</th>
+                <th style="width: 16%;">Network</th>
                 <th style="width: 34%;">Notes</th>
                 <th style="width: 12%;">Status</th>
                 <th style="width: 8%;">Action</th>
@@ -2105,7 +2123,7 @@
 
         <div class="wall">
           <div class="pMuted">
-            Want to be listed? Donate publicly (Sponsors) or add a note “OK to list my name,” then I can add you here.
+            Want to be listed? Donate publicly (crypto address + note) or DM a handle with “OK to list my name,” then I can add you here.
           </div>
 
           <div class="wallGrid" id="wallGrid">
@@ -2125,7 +2143,7 @@
         </div>
 
         <footer class="fineprint">
-          GitHub supports specific platforms plus up to 4 custom URLs. Use custom URLs for Stripe/crypto hub flows (PayPal paused).
+          GitHub supports specific platforms plus up to 4 custom URLs. Use custom URLs for this crypto hub (fiat rails commented out).
         </footer>
       </section>
 
@@ -2204,7 +2222,7 @@
             <details open>
               <summary>Which method is best?</summary>
               <p>
-                Sponsors is best for long-term work. One-time: Card (Stripe) is simplest. PayPal is paused. Crypto works if you prefer it.
+                Crypto is the active path (BTC/ETH). Legacy sponsors/card/paypal rails are commented out for now.
               </p>
             </details>
             <details open>
@@ -2308,22 +2326,22 @@
           label: "@0xElectron",
           kind: "Developer",
           profile: "https://github.com/0xElectron",
-          sponsors: "https://github.com/sponsors/0xElectron",
-          card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
-          paypal: "YOUR_PAYPAL_LINK_DEV",
-          openCollective: "",
-          koFi: "https://ko-fi.com/0xLEANux",
-          buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
-          patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
-          liberapay: "https://liberapay.com/0xLEANux/",
-          polar: "",
-          thanksDev: "https://thanks.dev/e/gh/0xElectron/dependencies",
-          issueHunt: "",
-          tidelift: "",
-          communityBridge: "",
-          wise: "",
-          revolut: "",
-          bankTransfer: "",
+          // sponsors: "https://github.com/sponsors/0xElectron",
+          // card: "YOUR_STRIPE_PAYMENT_LINK_DEV",
+          // paypal: "YOUR_PAYPAL_LINK_DEV",
+          // openCollective: "",
+          // koFi: "https://ko-fi.com/0xLEANux",
+          // buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
+          // patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+          // liberapay: "https://liberapay.com/0xLEANux/",
+          // polar: "",
+          // thanksDev: "https://thanks.dev/e/gh/0xElectron/dependencies",
+          // issueHunt: "",
+          // tidelift: "",
+          // communityBridge: "",
+          // wise: "",
+          // revolut: "",
+          // bankTransfer: "",
           crypto: { btc: "YOUR_BTC_ADDRESS_DEV", eth: "YOUR_ETH_ADDRESS_DEV" }
         },
         org: {
@@ -2331,34 +2349,39 @@
           label: "@0xLEANux",
           kind: "Organization",
           profile: "https://github.com/0xLEANux",
-          sponsors: "https://github.com/sponsors/0xLEANux",
-          card: "YOUR_STRIPE_PAYMENT_LINK_ORG",
-          paypal: "YOUR_PAYPAL_LINK_ORG",
-          openCollective: "",
-          koFi: "https://ko-fi.com/0xLEANux",
-          buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
-          patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
-          liberapay: "https://liberapay.com/0xLEANux/",
-          polar: "",
-          thanksDev: "https://thanks.dev/e/gh/0xLEANux/dependencies",
-          issueHunt: "",
-          tidelift: "",
-          communityBridge: "",
-          wise: "",
-          revolut: "",
-          bankTransfer: "",
+          // sponsors: "https://github.com/sponsors/0xLEANux",
+          // card: "YOUR_STRIPE_PAYMENT_LINK_ORG",
+          // paypal: "YOUR_PAYPAL_LINK_ORG",
+          // openCollective: "",
+          // koFi: "https://ko-fi.com/0xLEANux",
+          // buyMeACoffee: "https://www.buymeacoffee.com/0xLEANux",
+          // patreon: "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+          // liberapay: "https://liberapay.com/0xLEANux/",
+          // polar: "",
+          // thanksDev: "https://thanks.dev/e/gh/0xLEANux/dependencies",
+          // issueHunt: "",
+          // tidelift: "",
+          // communityBridge: "",
+          // wise: "",
+          // revolut: "",
+          // bankTransfer: "",
           crypto: { btc: "YOUR_BTC_ADDRESS_ORG", eth: "YOUR_ETH_ADDRESS_ORG" }
         }
       },
+      // offerings: [
+      //   { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","thanksdev","paypal","sponsors"] },
+      //   { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","thanksdev","paypal","sponsors","kofi","buymeacoffee"] },
+      //   { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","thanksdev","card","paypal","opencollective","patreon","polar"] }
+      // ],
       offerings: [
-        { name:"Coffee",    price:"$5",  note:"Quick thank-you for a useful project, release, or fix.", actions:["card","thanksdev","paypal","sponsors"] },
-        { name:"Supporter", price:"$15", note:"Helps with maintenance, docs, packaging, CI, and small improvements.", actions:["card","thanksdev","paypal","sponsors","kofi","buymeacoffee"] },
-        { name:"Sponsor",   price:"$50", note:"Back roadmap features, refactors, and long-term support work.", actions:["sponsors","thanksdev","card","paypal","opencollective","patreon","polar"] }
+        { name:"Crypto Coffee",    price:"$5.46",  note:"Quick thank-you for a useful project.", actions:["btc","eth"] },
+        { name:"Crypto Supporter", price:"$16",    note:"Covers maintenance, docs, packaging, CI.", actions:["btc","eth"] },
+        { name:"Crypto Sponsor",   price:"$52",    note:"Backs roadmap features and long-term support.", actions:["btc","eth"] }
       ]
     };
     let CFG = DEFAULT_CFG;
     const PAYPAL_DISABLED = true;
-    const PAYPAL_DISABLED_NOTE = "PayPal is temporarily disabled; please use Card/Stripe or GitHub Sponsors.";
+    const PAYPAL_DISABLED_NOTE = "Fiat rails (PayPal/Card/Sponsors) are commented out; crypto is the active path.";
 
     /* =========================
        ARCH FUN CONTENT
@@ -2433,10 +2456,10 @@
     }
 
     function recommendedRail(r){
-      if(isConfigured(r.sponsors)) return { label:"Sponsors", note:"Recurring; highest impact over time." };
-      if(isConfigured(r.thanksDev)) return { label:"thanks.dev", note:"Recurring via thanks.dev." };
-      if(isConfigured(r.card)) return { label:"Card", note:"Fast one-time checkout." };
-      if(!PAYPAL_DISABLED && isConfigured(r.paypal)) return { label:"PayPal", note:"Common one-time option." };
+      // if(isConfigured(r.sponsors)) return { label:"Sponsors", note:"Recurring; highest impact over time." };
+      // if(isConfigured(r.thanksDev)) return { label:"thanks.dev", note:"Recurring via thanks.dev." };
+      // if(isConfigured(r.card)) return { label:"Card", note:"Fast one-time checkout." };
+      // if(!PAYPAL_DISABLED && isConfigured(r.paypal)) return { label:"PayPal", note:"Common one-time option." };
       if(isConfigured(r.crypto?.btc) || isConfigured(r.crypto?.eth)) return { label:"Crypto", note:"Use QR or copy address." };
       return { label:"Configure links", note:"Set URLs in config.json" };
     }
@@ -2580,10 +2603,15 @@
 
     const CURRENCY_RATES = { usd: 1, eur: 0.92, gbp: 0.79 };
     const CURRENCY_SYMBOL = { usd: "$", eur: "€", gbp: "£" };
+    // const FEE_TABLE = {
+    //   usd: { pct: 0.029, fixed: 0.30 }, // Stripe/PayPal US ballpark
+    //   eur: { pct: 0.014, fixed: 0.25 }, // lower EU card fees
+    //   gbp: { pct: 0.014, fixed: 0.20 }  // UK card fees
+    // };
     const FEE_TABLE = {
-      usd: { pct: 0.029, fixed: 0.30 }, // Stripe/PayPal US ballpark
-      eur: { pct: 0.014, fixed: 0.25 }, // lower EU card fees
-      gbp: { pct: 0.014, fixed: 0.20 }  // UK card fees
+      usd: { pct: 0, fixed: 0 }, // Crypto: show face value (no card fee estimate)
+      eur: { pct: 0, fixed: 0 },
+      gbp: { pct: 0, fixed: 0 }
     };
 
     function formatCurrency(amount, cur){
@@ -2773,22 +2801,24 @@
     function actionUrl(r, action){
       const a = (action || "").toLowerCase();
       switch(a){
-        case "sponsors": return r.sponsors;
-        case "card": return r.card;
-        case "paypal": return PAYPAL_DISABLED ? "" : r.paypal;
-        case "opencollective": return r.openCollective;
-        case "kofi": return r.koFi;
-        case "buymeacoffee": return r.buyMeACoffee;
-        case "patreon": return r.patreon;
-        case "liberapay": return r.liberapay;
-        case "polar": return r.polar;
-        case "thanksdev": return r.thanksDev;
-        case "issuehunt": return r.issueHunt;
-        case "tidelift": return r.tidelift;
-        case "communitybridge": return r.communityBridge;
-        case "wise": return r.wise;
-        case "revolut": return r.revolut;
-        case "bank": return r.bankTransfer;
+        // case "sponsors": return r.sponsors;
+        // case "card": return r.card;
+        // case "paypal": return PAYPAL_DISABLED ? "" : r.paypal;
+        // case "opencollective": return r.openCollective;
+        // case "kofi": return r.koFi;
+        // case "buymeacoffee": return r.buyMeACoffee;
+        // case "patreon": return r.patreon;
+        // case "liberapay": return r.liberapay;
+        // case "polar": return r.polar;
+        // case "thanksdev": return r.thanksDev;
+        // case "issuehunt": return r.issueHunt;
+        // case "tidelift": return r.tidelift;
+        // case "communitybridge": return r.communityBridge;
+        // case "wise": return r.wise;
+        // case "revolut": return r.revolut;
+        // case "bank": return r.bankTransfer;
+        case "btc": return r.crypto?.btc ? `bitcoin:${r.crypto.btc}` : "";
+        case "eth": return r.crypto?.eth ? `ethereum:${r.crypto.eth}` : "";
         default: return "";
       }
     }
@@ -2796,22 +2826,24 @@
     function actionLabel(action){
       const a = (action || "").toLowerCase();
       switch(a){
-        case "sponsors": return "Sponsors";
-        case "card": return "Card";
-        case "paypal": return PAYPAL_DISABLED ? "PayPal (paused)" : "PayPal";
-        case "opencollective": return "OpenCollective";
-        case "kofi": return "Ko-fi";
-        case "buymeacoffee": return "BMC";
-        case "patreon": return "Patreon";
-        case "liberapay": return "Liberapay";
-        case "polar": return "Polar";
-        case "thanksdev": return "thanks.dev";
-        case "issuehunt": return "IssueHunt";
-        case "tidelift": return "Tidelift";
-        case "communitybridge": return "LFX";
-        case "wise": return "Wise";
-        case "revolut": return "Revolut";
-        case "bank": return "Bank";
+        // case "sponsors": return "Sponsors";
+        // case "card": return "Card";
+        // case "paypal": return PAYPAL_DISABLED ? "PayPal (paused)" : "PayPal";
+        // case "opencollective": return "OpenCollective";
+        // case "kofi": return "Ko-fi";
+        // case "buymeacoffee": return "BMC";
+        // case "patreon": return "Patreon";
+        // case "liberapay": return "Liberapay";
+        // case "polar": return "Polar";
+        // case "thanksdev": return "thanks.dev";
+        // case "issuehunt": return "IssueHunt";
+        // case "tidelift": return "Tidelift";
+        // case "communitybridge": return "LFX";
+        // case "wise": return "Wise";
+        // case "revolut": return "Revolut";
+        // case "bank": return "Bank";
+        case "btc": return "BTC";
+        case "eth": return "ETH";
         default: return action;
       }
     }
@@ -2868,7 +2900,7 @@
           <div>
             <h3>${o.name}</h3>
             <div class="desc">${o.note}</div>
-            <div class="fineprint" style="margin-top:8px;">≈ ${main} <span class="pMuted">(nets about ${netText} after local fees; other: ${other})</span></div>
+            <div class="fineprint" style="margin-top:8px;">≈ ${main} <span class="pMuted">(on-chain equivalent; fee-less; other: ${other})</span></div>
           </div>
           <div class="price">${main}</div>
         `;
@@ -2903,24 +2935,19 @@
        ========================= */
     function buildMethods(r){
       return [
-        { label:"GitHub Sponsors", brand:"sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; configure tiers in Sponsors.", url:r.sponsors },
-
-        { label:"Card (Stripe)", brand:"stripe", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
-        PAYPAL_DISABLED ? null : { label:"PayPal", brand:"paypal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
-
-        { label:"thanks.dev", brand:"thanksdev", type:"Recurring", githubMenu:"Via custom URL", note:"Recurring support via thanks.dev (GitHub-linked).", url:r.thanksDev },
-
-        { label:"Open Collective", brand:"opencollective", type:"One-time", githubMenu:"Yes", note:"Transparent OSS funding (if you use it).", url:r.openCollective },
-        { label:"Ko-fi", brand:"kofi", type:"One-time", githubMenu:"Yes", note:"One-time + optional memberships.", url:r.koFi },
-        { label:"Buy Me a Coffee", brand:"bmc", type:"One-time", githubMenu:"Yes", note:"Fast donor flow; common option.", url:r.buyMeACoffee },
-
-        { label:"Patreon", brand:"patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style support (optional).", url:r.patreon },
-        { label:"Liberapay", brand:"liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (optional).", url:r.liberapay },
-        { label:"Polar", brand:"polar", type:"Recurring", githubMenu:"Yes", note:"Polar memberships/donations (optional).", url:r.polar },
-
-        { label:"Wise", brand:"wise", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.wise },
-        { label:"Revolut", brand:"revolut", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.revolut },
-        { label:"Bank transfer", brand:"bank", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
+        // { label:"GitHub Sponsors", brand:"sponsors", type:"Recurring", githubMenu:"Yes", note:"Best for ongoing support; configure tiers in Sponsors.", url:r.sponsors },
+        // { label:"Card (Stripe)", brand:"stripe", type:"One-time", githubMenu:"Via custom URL", note:"Recommended for Visa/Mastercard; use a Stripe Payment Link.", url:r.card },
+        // PAYPAL_DISABLED ? null : { label:"PayPal", brand:"paypal", type:"One-time", githubMenu:"Via custom URL", note:"PayPal.Me or a PayPal donate link.", url:r.paypal },
+        // { label:"thanks.dev", brand:"thanksdev", type:"Recurring", githubMenu:"Via custom URL", note:"Recurring support via thanks.dev (GitHub-linked).", url:r.thanksDev },
+        // { label:"Open Collective", brand:"opencollective", type:"One-time", githubMenu:"Yes", note:"Transparent OSS funding (if you use it).", url:r.openCollective },
+        // { label:"Ko-fi", brand:"kofi", type:"One-time", githubMenu:"Yes", note:"One-time + optional memberships.", url:r.koFi },
+        // { label:"Buy Me a Coffee", brand:"bmc", type:"One-time", githubMenu:"Yes", note:"Fast donor flow; common option.", url:r.buyMeACoffee },
+        // { label:"Patreon", brand:"patreon", type:"Recurring", githubMenu:"Yes", note:"Membership-style support (optional).", url:r.patreon },
+        // { label:"Liberapay", brand:"liberapay", type:"Recurring", githubMenu:"Yes", note:"Recurring donations (optional).", url:r.liberapay },
+        // { label:"Polar", brand:"polar", type:"Recurring", githubMenu:"Yes", note:"Polar memberships/donations (optional).", url:r.polar },
+        // { label:"Wise", brand:"wise", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.wise },
+        // { label:"Revolut", brand:"revolut", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.revolut },
+        // { label:"Bank transfer", brand:"bank", type:"One-time", githubMenu:"Via custom URL", note:"Hub-only method (not GitHub-native).", url:r.bankTransfer },
 
         { label:"Crypto (BTC)", brand:"btc", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (BTC only).", crypto:"btc" },
         { label:"Crypto (ETH)", brand:"eth", type:"One-time", githubMenu:"Via custom URL", note:"Wallet transfer (ETH only).", crypto:"eth" },
@@ -3341,20 +3368,22 @@
 
       document.getElementById("selHandle").textContent = r.label;
       document.getElementById("heroTitle").textContent = `Support ${r.label}`;
-      const heroCopy = PAYPAL_DISABLED
-        ? `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Choose Sponsors/Card/Crypto; PayPal is paused. Arch Corner included.`
-        : `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Choose Sponsors/Card/PayPal/Crypto; Arch Corner included.`;
+      const heroCopy = `Unified donation hub for @0xElectron (DEV) and @0xLEANux (ORG). Current selection: ${r.label} (${r.kind}). Crypto-only rails are active (BTC/ETH).`;
       document.getElementById("heroCopy").textContent = heroCopy;
 
       setLink(document.getElementById("btnProfile"), r.profile);
-      setLink(document.getElementById("btnSponsor"), r.sponsors);
+      const btnSponsor = document.getElementById("btnSponsor");
+      if(btnSponsor) setLink(btnSponsor, r.sponsors);
 
-      setLink(document.getElementById("ctaSponsors"), r.sponsors);
-      setLink(document.getElementById("ctaCard"), r.card);
-      setLink(document.getElementById("ctaThanks"), r.thanksDev);
+      const ctaSponsors = document.getElementById("ctaSponsors");
+      const ctaCard = document.getElementById("ctaCard");
+      const ctaThanks = document.getElementById("ctaThanks");
+      if(ctaSponsors) setLink(ctaSponsors, r.sponsors);
+      if(ctaCard) setLink(ctaCard, r.card);
+      if(ctaThanks) setLink(ctaThanks, r.thanksDev);
       const payPalBtn = document.getElementById("ctaPayPal");
-      setLink(payPalBtn, PAYPAL_DISABLED ? "" : r.paypal);
       if(payPalBtn){
+        setLink(payPalBtn, PAYPAL_DISABLED ? "" : r.paypal);
         payPalBtn.textContent = PAYPAL_DISABLED ? "PayPal (disabled)" : "Donate via PayPal";
         payPalBtn.classList.toggle("btnStrike", PAYPAL_DISABLED);
         payPalBtn.title = PAYPAL_DISABLED ? PAYPAL_DISABLED_NOTE : "";
