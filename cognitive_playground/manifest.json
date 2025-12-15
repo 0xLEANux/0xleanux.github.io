@@ -1,7 +1,7 @@
 {
     "name": "cognitive_playground",
     "short_name": "cognitive_playground",
-    "start_url": ".",
+    "start_url": "/cognitive_playground/",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",

@@ -16,9 +16,9 @@ const RESOURCES = {"canvaskit/chromium/canvaskit.js": "a80c765aaa8af8645c9fb1aae
 "canvaskit/skwasm.js.symbols": "3a4aadf4e8141f284bd524976b1d6bdc",
 "canvaskit/skwasm.wasm": "7e5f3afdd3b0747a1fd4517cea239898",
 "flutter.js": "24bc71911b75b5f8135c949e27a2984e",
-"flutter_bootstrap.js": "acb2e4860402ae9623ba22ebe417e026",
-"index.html": "5a5947b936f7a3ec7be75a8a56e1aae1",
-"/": "5a5947b936f7a3ec7be75a8a56e1aae1",
+"flutter_bootstrap.js": "b326aafd7b06d7fd84aca5825fdec487",
+"index.html": "bf8eb1b976259046b6d6741e53e040ae",
+"/": "bf8eb1b976259046b6d6741e53e040ae",
 "main.dart.js": "718eb519b6870cddc81954607c8b8014",
 "version.json": "841497550c541ad819eb5eff0f866821",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "33b7d9392238c04c131b6ce224e13711",
@@ -34,7 +34,30 @@ const RESOURCES = {"canvaskit/chromium/canvaskit.js": "a80c765aaa8af8645c9fb1aae
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"manifest.json": "808910c534e1a47a0d8ece60d29cae35"};
+"manifest.json": "f698e0672da23fbccf518d903e1f7a0d"};
+
+const ORIGIN = self.location.origin;
+const BASE_PATH = new URL('./', self.location).pathname;
+
+function normalizeResourceKey(requestUrl) {
+  // Normalize resource lookups so the service worker works from a sub-path.
+  if (requestUrl === ORIGIN || requestUrl.startsWith(ORIGIN + '/#')) {
+    return '/';
+  }
+  let key = requestUrl.substring(ORIGIN.length);
+  if (key.indexOf('?v=') !== -1) {
+    key = key.split('?v=')[0];
+  }
+  if (key.startsWith(BASE_PATH)) {
+    key = key.substring(BASE_PATH.length);
+  } else if (key.startsWith('/')) {
+    key = key.substring(1);
+  }
+  if (key === '' || key === '/') {
+    return '/';
+  }
+  return key;
+}
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
@@ -79,12 +102,8 @@ self.addEventListener("activate", function(event) {
         return;
       }
       var oldManifest = await manifest.json();
-      var origin = self.location.origin;
       for (var request of await contentCache.keys()) {
-        var key = request.url.substring(origin.length + 1);
-        if (key == "") {
-          key = "/";
-        }
+        var key = normalizeResourceKey(request.url);
         // If a resource from the old manifest is not in the new cache, or if
         // the MD5 sum has changed, delete it. Otherwise the resource is left
         // in the cache and can be reused by the new service worker.
@@ -119,15 +138,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== 'GET') {
     return;
   }
-  var origin = self.location.origin;
-  var key = event.request.url.substring(origin.length + 1);
-  // Redirect URLs to the index.html
-  if (key.indexOf('?v=') != -1) {
-    key = key.split('?v=')[0];
-  }
-  if (event.request.url == origin || event.request.url.startsWith(origin + '/#') || key == '') {
-    key = '/';
-  }
+  var key = normalizeResourceKey(event.request.url);
   // If the URL is not the RESOURCE list then return to signal that the
   // browser should take over.
   if (!RESOURCES[key]) {
@@ -171,10 +182,7 @@ async function downloadOffline() {
   var contentCache = await caches.open(CACHE_NAME);
   var currentContent = {};
   for (var request of await contentCache.keys()) {
-    var key = request.url.substring(origin.length + 1);
-    if (key == "") {
-      key = "/";
-    }
+    var key = normalizeResourceKey(request.url);
     currentContent[key] = true;
   }
   for (var resourceKey of Object.keys(RESOURCES)) {
