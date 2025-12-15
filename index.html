@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -8,5 +8,107 @@
 </head>
 <body>
   <p>Redirecting to <a href="/donate/?to=org">/donate/</a>…</p>
+</body>
+</html> -->
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting…</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: linear-gradient(180deg, rgba(1, 12, 41, 1) 0%, rgba(60, 0, 40, 1) 25%, rgba(0, 2, 29, 1) 100%);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            animation: background-animation 10s infinite alternate;
+        }
+
+        @keyframes background-animation {
+            0% { background-color: rgba(1, 12, 41, 1); }
+            100% { background-color: rgba(60, 0, 40, 1); }
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 0 35px rgba(255, 0, 255, 0.6);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            opacity: 0.9;
+        }
+
+        h1, p {
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 1);
+        }
+
+        .icon {
+            cursor: pointer;
+            background-size: contain;
+            width: 100px;
+            height: 100px;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .fade {
+            opacity: 0;
+            animation: fade-in 1s forwards;
+            animation-delay: 4s;
+        }
+
+        @keyframes fade-in {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Cognitive Playground</h1>
+        <p>You will be redirected in <span id="counter" class="countdown">5</span> seconds...</p>
+        <div class="icon fade" id="redirectIcon"></div>
+        <p class="fade">Click the icon to go now!</p>
+    </div>
+
+    <script>
+        let countdown = 5;
+        const counterDisplay = document.getElementById('counter');
+        const redirectIcon = document.getElementById('redirectIcon');
+
+        const interval = setInterval(() => {
+            countdown--;
+            counterDisplay.textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(interval);
+                window.location.href = "/donate/?to=org"; // final redirect
+            }
+        }, 1000);
+
+        redirectIcon.addEventListener('click', () => {
+            clearInterval(interval);
+            window.location.href = "/cognitive_playground"; // immediate redirect
+        });
+    </script>
 </body>
 </html>
