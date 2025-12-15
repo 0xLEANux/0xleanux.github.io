@@ -38,6 +38,12 @@ _flutter.buildConfig = {"engineRevision":"b5990e5ccc5e325fd24f0746e7d6689bbebc7c
 
 _flutter.loader.load({
   serviceWorkerSettings: {
-    serviceWorkerVersion: "20250206"
+    serviceWorkerVersion: "20250207",
+    serviceWorkerUrl: "/cognitive_playground/flutter_service_worker.js?v=20250207"
+  },
+  config: {
+    // Force local CanvasKit to avoid remote gstatic fetch and speed up first paint.
+    useLocalCanvasKit: true,
+    canvasKitBaseUrl: "/cognitive_playground/canvaskit"
   }
 });
