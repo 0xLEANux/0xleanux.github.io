@@ -19,96 +19,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Redirecting…</title>
     <style>
+        :root {
+            --bg-1: #050a1f;
+            --bg-2: #0d1230;
+            --bg-3: #0f203a;
+            --accent: #2de2e6;
+            --accent-2: #ff6ac1;
+            --muted: #9fb3c8;
+        }
+        * { box-sizing: border-box; }
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            background: linear-gradient(180deg, rgba(1, 12, 41, 1) 0%, rgba(60, 0, 40, 1) 25%, rgba(0, 2, 29, 1) 100%);
-            color: white;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
-            animation: background-animation 10s infinite alternate;
+            padding: 24px;
+            background: radial-gradient(circle at 20% 20%, rgba(45,226,230,0.12), transparent 42%),
+                        radial-gradient(circle at 80% 30%, rgba(255,106,193,0.12), transparent 42%),
+                        linear-gradient(145deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+            color: #e6eef8;
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
         }
-
-        @keyframes background-animation {
-            0% { background-color: rgba(1, 12, 41, 1); }
-            100% { background-color: rgba(60, 0, 40, 1); }
+        .panel {
+            width: min(900px, 96vw);
+            background: rgba(17, 23, 45, 0.86);
+            border: 1px solid rgba(45, 226, 230, 0.25);
+            border-radius: 18px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35), 0 0 30px rgba(45, 226, 230, 0.2);
+            padding: 22px 22px 18px;
+            display: grid;
+            gap: 16px;
         }
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 0 35px rgba(255, 0, 255, 0.6);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            opacity: 0.9;
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-
-        h1, p {
-            margin: 0 0 20px 0;
-            font-weight: 300;
+        h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            letter-spacing: 0.2px;
         }
-
+        .meta {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
         .countdown {
-            font-size: 2rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255, 0, 255, 1);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(45, 226, 230, 0.35);
+            background: rgba(45, 226, 230, 0.08);
+            color: #e6eef8;
         }
-
-        .icon {
+        .grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid rgba(45, 226, 230, 0.18);
+            background: rgba(10, 14, 32, 0.85);
             cursor: pointer;
-            background: url('design.png') no-repeat center center;
-            background-size: contain;
-            width: 100px;
-            height: 100px;
-            transition: transform 0.3s;
+            padding: 12px;
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            display: grid;
+            gap: 10px;
+            align-content: start;
         }
-
-        .icon:hover {
-            transform: scale(1.1) rotate(15deg);
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 106, 193, 0.45);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.35), 0 0 18px rgba(255,106,193,0.2);
         }
-
-        .fade {
-            opacity: 0;
-            animation: fade-in 1s forwards;
-            animation-delay: 4s;
+        .thumb {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 10px;
+            object-fit: cover;
+            background: rgba(45,226,230,0.12);
         }
-
-        @keyframes fade-in {
-            to { opacity: 1; }
+        .card h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            letter-spacing: 0.1px;
+        }
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.3;
+        }
+        .notice {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+            text-align: right;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Cognitive Playground</h1>
-        <p>You will be redirected in <span id="counter" class="countdown">5</span> seconds...</p>
-        <div class="icon fade" id="redirectIcon"></div>
-        <p class="fade">Click the icon to go now!</p>
+    <div class="panel">
+        <div class="header-row">
+            <div>
+                <h1>Pick a playground (fast!)</h1>
+                <p class="meta">Choose a game below. If you skip, we will send you to the org donate page.</p>
+            </div>
+            <div class="countdown">Redirecting in <span id="counter">5</span>s</div>
+        </div>
+
+        <div class="grid">
+            <a class="card" href="/cognitive_playground/">
+                <img class="thumb" src="cognitive_playground.png" alt="Cognitive Playground preview">
+                <h2>Cognitive Playground</h2>
+                <p>Interactive puzzles and visual experiments.</p>
+            </a>
+            <a class="card" href="/2048/">
+                <img class="thumb" src="2048.png" alt="2048 game preview">
+                <h2>2048</h2>
+                <p>Swipe and merge tiles to reach the elusive 2048.</p>
+            </a>
+            <a class="card" href="/mindgrid/">
+                <img class="thumb" src="mindgrid.png" alt="Mindgrid game preview">
+                <h2>Mindgrid</h2>
+                <p>Strategic grid challenges in the same neon theme.</p>
+            </a>
+        </div>
+
+        <p class="notice" id="notice">Auto-redirecting to donate/org if you don't pick in time.</p>
     </div>
 
     <script>
-        let countdown = 5;
         const counterDisplay = document.getElementById('counter');
-        const redirectIcon = document.getElementById('redirectIcon');
-
+        const notice = document.getElementById('notice');
+        const redirectUrl = "/donate/?to=org";
+        let countdown = 5;
         const interval = setInterval(() => {
             countdown--;
             counterDisplay.textContent = countdown;
-
             if (countdown <= 0) {
                 clearInterval(interval);
-                window.location.href = "/donate/?to=org"; // final redirect
+                notice.textContent = "Redirecting to donate/org…";
+                setTimeout(() => window.location.href = redirectUrl, 1000);
             }
         }, 1000);
 
-        redirectIcon.addEventListener('click', () => {
-            clearInterval(interval);
-            window.location.href = "/cognitive_playground"; // immediate redirect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', () => clearInterval(interval));
         });
     </script>
 </body>
