@@ -215,7 +215,8 @@
         const counterDisplay = document.getElementById('counter');
         const notice = document.getElementById('notice');
         const redirectUrl = "/donate/?to=org";
-        let countdown = 5;
+        let countdown = 330;
+        countdown = countdown + 3;
         const interval = setInterval(() => {
             countdown--;
             counterDisplay.textContent = countdown;
