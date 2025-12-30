@@ -1,15 +1,29 @@
-# Donate Hub (GitHub Pages) — **0xElectron** + **0xLEANux**
+# 🛠️ Donate Hub (GitHub Pages) — **0xElectron** + **0xLEANux**
 
-Unified donation landing page for:
+🌐 Unified donation landing page for:
 
-- Developer: **@0xElectron** — https://github.com/0xElectron
-- Organization: **@0xLEANux** — https://github.com/0xLEANux
+- Developer: **[@0xElectron](https://github.com/0xElectron)** 
+- Organization: **[@0xLEANux](https://github.com/0xLEANux)** 
 
-**Live (recommended):**
-- DEV tab: `https://0xLEANux.github.io/donate/?to=dev`
-- ORG tab: `https://0xLEANux.github.io/donate/?to=org`
+**💻 Live (recommended):**
+- 🌟 [DEV tab](https://0xLEANux.github.io/donate/?to=dev)
+- 🏢 [ORG tab](https://0xLEANux.github.io/donate/?to=org)
 
-This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred rail (GitHub Sponsors, Card/Stripe, thanks.dev, PayPal — currently paused, BTC/ETH, etc.) with minimal friction.
+---
+
+This hub is designed to be referenced from GitHub’s **Sponsor button** (`FUNDING.yml`) so supporters can choose their preferred channel (GitHub Sponsors, Card/Stripe, thanks.dev, PayPal — currently paused, BTC/ETH, etc.) with minimal friction.
+
+---
+
+**👉 Visit Our Main Page:** [https://0xLEANux.github.io](https://0xLEANux.github.io)
+
+---
+
+### Animations and Icons
+For a seamless animated experience:
+- Add hover effects on buttons.
+- Integrate subtle fade-in animations for the entire page.
+- Use loader animations when navigating between links.
 
 > [!TIP]
 > If you want one canonical donor link everywhere, use the DEV deep link and keep ORG as option #2 in the page UI.
