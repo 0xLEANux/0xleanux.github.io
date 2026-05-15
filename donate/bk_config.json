@@ -1,0 +1,255 @@
+{
+  "pageTitle": "Donate • 0xElectron + 0xLEANux",
+  "hubCanonical": "https://0xLEANux.github.io/donate/",
+  "recipients": {
+    "dev": {
+      "id": "dev",
+      "label": "@0xElectron",
+      "kind": "Developer",
+      "profile": "https://github.com/0xElectron",
+      "sponsors": "https://github.com/sponsors/0xElectron",
+      "card": "YOUR_STRIPE_PAYMENT_LINK_DEV",
+      "paypal": "https://www.paypal.me/0xLEANux",
+      "openCollective": "",
+      "koFi": "https://ko-fi.com/0xLEANux",
+      "buyMeACoffee": "https://buymeacoffee.com/0xleanux",
+      "patreon": "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+      "liberapay": "https://liberapay.com/0xLEANux/",
+      "polar": "",
+      "thanksDev": "https://thanks.dev/e/gh/0xElectron/dependencies",
+      "issueHunt": "",
+      "tidelift": "",
+      "communityBridge": "",
+      "wise": "",
+      "revolut": "",
+      "bankTransfer": "",
+      "crypto": {
+        "btc": [
+          "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw",
+          "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
+        ],
+        "eth": [
+          "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
+          "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+        ]
+      },
+      "wallets": {
+        "metamask": {
+          "btc": [
+            "bc1qpwmeljfrg4ppduvgz0n6zxv79yhenvk2pk4jgl"
+          ],
+          "eth": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "sol": [
+            "97Pr4ara5YfMf3LR2jtBb4iZVGgFrznvNHDfc5WtUyzb"
+          ],
+          "arbitrum": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "base": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "linea": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "polygon": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "op": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "bnb": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "sei": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ]
+        },
+        "atomicwallet": {
+          "btc": [
+            "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
+          ],
+          "eth": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "glmr": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "dogs": [
+            "EQCZVekB76g95rFV8N3LPOjILaXlkmiVnsg_dnuqIXo0qpiJ"
+          ],
+          "justachilguy": [
+            "7nqVZTN9HJvZN62rLKq2MFmMtsbm8hkZC7gNpZjtSViV"
+          ],
+          "btt": [
+            "TSxuVNDxVzqqXD9JJH2WarCsCae7mrKPwF"
+          ],
+          "ada": [
+            "addr1qx6mchlc67ne8fxgk6cf3wzu2x4gfkejt8ecx76av5l280ywvk7m55pl6229rlf2m43g48d0afxt7yuwycg3zrzm24esnlzun7"
+          ],
+          "shibarium": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "shib": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "zec": [
+            "t1cNCRgYniMwtwbg1tzD4XV3XD6A7ZgRpnM"
+          ],
+          "hex": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "nexo": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "chz": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "arbitrum": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "chaingpt": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "xaut": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "eth_arb": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "eth_linea": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ]
+        }
+      }
+    },
+    "org": {
+      "id": "org",
+      "label": "@0xLEANux",
+      "kind": "Organization",
+      "profile": "https://github.com/0xLEANux",
+      "sponsors": "https://github.com/sponsors/0xLEANux",
+      "card": "YOUR_STRIPE_PAYMENT_LINK_ORG",
+      "paypal": "https://www.paypal.me/0xLEANux",
+      "openCollective": "",
+      "koFi": "https://ko-fi.com/0xLEANux",
+      "buyMeACoffee": "https://buymeacoffee.com/0xleanux",
+      "patreon": "https://www.patreon.com/c/0xLEANux?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+      "liberapay": "https://liberapay.com/0xLEANux/",
+      "polar": "",
+      "thanksDev": "https://thanks.dev/e/gh/0xLEANux/dependencies",
+      "issueHunt": "",
+      "tidelift": "",
+      "communityBridge": "",
+      "wise": "",
+      "revolut": "",
+      "bankTransfer": "",
+      "crypto": {
+        "btc": [
+          "bc1q4g9hm03m59djg6m8hx3f75ts5d7x7vn2vncfa2qy6lwu4mhfkhds5ardsw",
+          "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
+        ],
+        "eth": [
+          "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116",
+          "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+        ]
+      },
+      "wallets": {
+        "metamask": {
+          "btc": [
+            "bc1qpwmeljfrg4ppduvgz0n6zxv79yhenvk2pk4jgl"
+          ],
+          "eth": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "sol": [
+            "97Pr4ara5YfMf3LR2jtBb4iZVGgFrznvNHDfc5WtUyzb"
+          ],
+          "arbitrum": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "base": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "linea": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "polygon": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "op": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "bnb": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ],
+          "sei": [
+            "0x40844ac77ebdbf7fe7d945b700155be612e462f0"
+          ]
+        },
+        "atomicwallet": {
+          "btc": [
+            "12UemEK1HUiaTN99bVzPw9tp3HUnBmkFic"
+          ],
+          "eth": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "glmr": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "dogs": [
+            "EQCZVekB76g95rFV8N3LPOjILaXlkmiVnsg_dnuqIXo0qpiJ"
+          ],
+          "justachilguy": [
+            "7nqVZTN9HJvZN62rLKq2MFmMtsbm8hkZC7gNpZjtSViV"
+          ],
+          "btt": [
+            "TSxuVNDxVzqqXD9JJH2WarCsCae7mrKPwF"
+          ],
+          "ada": [
+            "addr1qx6mchlc67ne8fxgk6cf3wzu2x4gfkejt8ecx76av5l280ywvk7m55pl6229rlf2m43g48d0afxt7yuwycg3zrzm24esnlzun7"
+          ],
+          "shibarium": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "shib": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "zec": [
+            "t1cNCRgYniMwtwbg1tzD4XV3XD6A7ZgRpnM"
+          ],
+          "hex": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "nexo": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "chz": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "arbitrum": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "chaingpt": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "xaut": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "eth_arb": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ],
+          "eth_linea": [
+            "0x99b47Bc24C4fe5035cd6f60E07D104A0c4D22116"
+          ]
+        }
+      }
+    }
+  },
+  "offerings": [
+    { "name": "Coffee", "price": "$5", "note": "Quick thank-you for a useful project", "actions": ["card", "paypal", "sponsors", "koFi"] },
+    { "name": "Supporter", "price": "$15", "note": "Helps with maintenance, docs, packaging, CI", "actions": ["card", "paypal", "sponsors", "buyMeACoffee"] },
+    { "name": "Sponsor", "price": "$50", "note": "Back roadmap features, refactors, and long-term support work.", "actions": ["sponsors", "card", "paypal"] }
+  ]
+}
