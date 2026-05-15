@@ -6,7 +6,7 @@
       "id": "dev",
       "label": "@0xElectron",
       "kind": "Developer",
-      "profile": "https://github.com/0xElectron",
+      "profile": "https://github.com/0xElectron", 
       "sponsors": "",
       "card": "YOUR_STRIPE_PAYMENT_LINK_DEV",
       "paypal": "",
